@@ -16,7 +16,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: #e5e7eb;
+  border-color: currentColor;
   /* 2 */
 }
 
@@ -763,6 +763,10 @@ select {
   margin-right: auto;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
@@ -779,9 +783,9 @@ select {
   justify-content: center;
 }
 
-.bg-gray-50 {
+.bg-backgroundPrimary {
   --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+  background-color: rgb(27 36 48 / var(--tw-bg-opacity));
 }
 
 .font-serif {
@@ -799,4 +803,9 @@ select {
 
 .tracking-normal {
   letter-spacing: 0em;
+}
+
+.text-textPrimary {
+  --tw-text-opacity: 1;
+  color: rgb(214 213 168 / var(--tw-text-opacity));
 }

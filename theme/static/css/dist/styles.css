@@ -763,6 +763,10 @@ select {
   margin-right: auto;
 }
 
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
 .block {
   display: block;
 }
@@ -771,16 +775,28 @@ select {
   display: flex;
 }
 
-.h-screen {
-  height: 100vh;
+.w-24 {
+  width: 6rem;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+
+.flex-col {
+  flex-direction: column;
 }
 
 .items-center {
   align-items: center;
 }
 
-.justify-center {
-  justify-content: center;
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
 }
 
 .bg-backgroundPrimary {
@@ -788,13 +804,27 @@ select {
   background-color: rgb(27 36 48 / var(--tw-bg-opacity));
 }
 
-.font-serif {
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.font-oswald {
+  font-family: "Oswald",  sans-serif;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.italic {
+  font-style: italic;
 }
 
 .leading-normal {
@@ -808,4 +838,32 @@ select {
 .text-textPrimary {
   --tw-text-opacity: 1;
   color: rgb(214 213 168 / var(--tw-text-opacity));
+}
+
+.logo img {
+  border-radius: 50%;
+}
+
+@media (min-width: 640px) {
+  .sm\:w-32 {
+    width: 8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:w-44 {
+    width: 11rem;
+  }
+
+  .md\:px-32 {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:px-64 {
+    padding-left: 16rem;
+    padding-right: 16rem;
+  }
 }

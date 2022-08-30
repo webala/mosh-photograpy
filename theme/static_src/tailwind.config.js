@@ -42,7 +42,11 @@ module.exports = {
         // '../../**/*.py'
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                'oswald': ['"Oswald"', ' sans-serif']
+            }
+        },
         colors: {
             backgroundPrimary: '#1B2430',
             backgroundSecondary: '#51557E',

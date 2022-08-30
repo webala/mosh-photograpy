@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block content %}
 
 <div>
-    <h1 class="">Home</h1>
+    <header class="text-textPrimary flex justify-between items-center py-16 px-10 md:px-32 xl:px-64">
+        <div class="logo flex flex-col items-center italic">
+            <img class="w-24 sm:w-32 md:w-44" src="{% static 'images/logo/logo.jpg' %}" alt="logo">
+            <h1>Mosh Photography</h1>
+        </div>
+
+        <div class="nav-items w-1/2">
+            <ul class="flex justify-evenly">
+                <li class="text-xl ml-2">Home</li>
+                <li class="text-xl ml-2">Packages</li>
+                <li class="text-xl ml-2">Gallery</li>
+                <li class="text-xl ml-2">About</li>
+                <li class="text-xl ml-2">Contact</li>
+            </ul>
+        </div>
+    </header>
 </div>
 
 {% endblock %}

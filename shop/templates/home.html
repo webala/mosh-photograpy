@@ -8,8 +8,8 @@
 
     <section class="mini-gallery px-10 md:px-28 xl:px-32 mt-10 md:mt-20">
 
-        <div class="flex justify-center my-10">
-            <h1 class="uppercase md:text-2xl">We do photo shoots, edits, video shoots and so much more. </h1>
+        <div class="flex justify-center mt-56 mb-20">
+            <h1 class="uppercase md:text-2xl">photo shoots, edits, video shoots and so much more. </h1>
         </div>
         <div class="flex flex-col items-center md:flex-row md:justify-between w-full">
             <div id="carouselExampleSlidesOnly1" class="carousel slide w-full md:w-1/2 " data-bs-ride="carousel">
@@ -94,7 +94,7 @@
     </section>
 
     <section class="packages my-64">
-        <h1 class="text-2xl font-semibold my-5">Packages</h1>
+        <h1 class="text-2xl font-semibold my-5 relative md:left-32 xl:lext-44 text-textSecondary">Packages</h1>
 
         <div class="grid grid-cols-3 gap-y-10 gap-x-3 md:flex justify-evenly">
             <div class=" group">
@@ -136,10 +136,38 @@
         </div>
     </section>
 
-    <section class="about">
-        <h1>About me</h1>
-        <div>
-            <img src="" alt="">
+    <section class="about px-10 xl:px-32">
+        <h1 class="font-semibold text-2xl my-5 text-textSecondary">About me</h1>
+        <div class="text-xl">
+            <img class="rounded-lg float-right w-56 md:w-72 mx-3 mb-3" src="{% static 'images/mosh/mosh.jpeg' %}" alt="mosh">
+            <p class="my-2"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex consequuntur quis dolorum error, doloremque neque nam aspernatur odio et, temporibus vel libero eius sequi pariatur ullam. Unde, temporibus ea. Dolore sed, esse asperiores aspernatur, obcaecati quos ut possimus cupiditate doloribus porro rem minima inventore totam, dolor ipsam! Repudiandae, quas dolorum?</p>
+            <p class="my-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et consectetur dolore vero aut velit architecto, harum, fugit saepe temporibus sed dignissimos officia. Dolores corporis aut quis quisquam veniam quod in officiis, assumenda omnis cumque beatae optio voluptates explicabo voluptas, nostrum accusantium iusto placeat. Quia voluptatem dolor amet debitis minus officia.</p>
+        </div>
+    </section>
+
+    <section class="contact px-10 xl:px-32">
+        <h1 class="font-semibold text-2xl my-5 text-textSecondary">Contact</h1>
+        <div class="flex flex-col items-center">
+            <form action="#">
+                <div class="flex flex-col items-start my-2">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="rounded-lg  text-backgroundPrimary">
+                </div>
+                <div class="flex flex-col items-start my-2">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="" cols="30" rows="10" class="rounded-lg text-backgroundPrimary"></textarea>
+                </div>
+                <button type="submit" class="bg-backgroundSecondary my-4 py-2 px-4 rounded-lg hover:scale-110 transition duration-300 ease-in">Send</button>
+            </form>
+            <div class="flex justify-evenly w-full py-10">
+                <a href="#"><i class="fa-brands fa-instagram text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
+                <a href="#"><i class="fa-brands fa-discord text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
+            </div>
+            <div>
+                <p>Call or WhatsApp</p>
+                <p class="text-textSecondary">+254747389344</p>
+            </div>
         </div>
     </section>
 </div>

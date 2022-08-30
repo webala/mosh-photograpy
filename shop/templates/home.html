@@ -4,98 +4,142 @@
 {% block content %}
 
 <div>
-    <header class="text-textPrimary flex justify-between items-center py-16 px-10 md:px-32 xl:px-64">
-        <div class="logo flex flex-col items-center italic">
-            <img class="w-24 sm:w-32 md:w-44" src="{% static 'images/logo/logo.jpg' %}" alt="logo">
-            <h1>Mosh Photography</h1>
-        </div>
 
-        <div class="nav-items w-1/2">
-            <ul class="flex justify-evenly">
-                <li class="text-xl ml-2 hover:text-textSecondary transition duration-300 ease-in cursor-pointer">Home
-                </li>
-                <li class="text-xl ml-2 hover:text-textSecondary transition duration-300 ease-in cursor-pointer">
-                    Packages</li>
-                <li class="text-xl ml-2 hover:text-textSecondary transition duration-300 ease-in cursor-pointer">Gallery
-                </li>
-                <li class="text-xl ml-2 hover:text-textSecondary transition duration-300 ease-in cursor-pointer">About
-                </li>
-                <li class="text-xl ml-2 hover:text-textSecondary transition duration-300 ease-in cursor-pointer">Contact
-                </li>
-            </ul>
-        </div>
-    </header>
 
-    <section class="mini-gallery px-10 md:px-28 xl:px-32">
-        
-        <div class="flex flex-col items-center md:flex-row md:justify-evenly w-full"> 
+    <section class="mini-gallery px-10 md:px-28 xl:px-32 mt-10 md:mt-20">
+
+        <div class="flex justify-center my-10">
+            <h1 class="uppercase md:text-2xl">We do photo shoots, edits, video shoots and so much more. </h1>
+        </div>
+        <div class="flex flex-col items-center md:flex-row md:justify-between w-full">
             <div id="carouselExampleSlidesOnly1" class="carousel slide w-full md:w-1/2 " data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="{% static 'images/sliders/cool-cat.jpg' %}"
+                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat.jpg' %}"
                             alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="{% static 'images/sliders/cool-cat-3.jpeg' %}"
+                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat-3.jpeg' %}"
                             alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="{% static 'images/sliders/cool-cat2.jpg' %}"
+                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat2.jpg' %}"
                             alt="Third slide">
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col items-center mt-10">
+            <div class="flex flex-col items-center mt-10 qualities md:relative xl:right-24">
                 <p>Excelent camera work</p>
                 <p>Perfect editing</p>
             </div>
-        </div> 
+        </div>
 
-        <div class=" flex flex-col items-center md:flex-row md:justify-evenly w-full">
-            <div class=" flex flex-col items-center my-5">
+        <div class=" flex flex-col items-center md:flex-row md:justify-between w-full">
+            <div class=" flex flex-col items-center my-5 qualities  md:relative xl:left-24">
                 <p>Afordable rates</p>
                 <p>Timely work</p>
             </div>
             <div id="carouselExampleSlidesOnly2" class="carousel slide w-full  md:w-1/2" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="{% static 'images/sliders/cool-cat-3.jpeg' %}"
+                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat-3.jpeg' %}"
                             alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="{% static 'images/sliders/cool-cat.jpg' %}"
+                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat.jpg' %}"
                             alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="{% static 'images/sliders/cool-cat2.jpg' %}"
+                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat2.jpg' %}"
                             alt="Third slide">
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
-        <div class=" flex flex-col items-center mt-10 md:mt-0 md:flex-row md:justify-evenly w-full">
+        <div class=" flex flex-col items-center mt-10 md:mt-0 md:flex-row md:justify-between w-full">
             <div id="carouselExampleSlidesOnly3" class="carousel slide w-full md:w-1/2" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="{% static 'images/sliders/cool-cat.jpg' %}"
+                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat.jpg' %}"
                             alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="{% static 'images/sliders/cool-cat2.jpg' %}"
+                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat2.jpg' %}"
                             alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="{% static 'images/sliders/cool-cat-3.jpeg' %}"
+                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat-3.jpeg' %}"
                             alt="Third slide">
                     </div>
                 </div>
             </div>
-            <div class=" flex flex-col items-center mt-10">
+            <div class=" flex flex-col items-center mt-10 qualities md:relative xl:right-24">
                 <p>Always striving to deliver</p>
-                <p>Book a shoot now</p>
+                <a href="#"
+                    class="flex items-center justify-evenly group hover:text-textSecondary transition duration-300 ease-in">
+                    <p class="animate-pulse">View Gallery</p>
+                    <i
+                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+                </a>
+                <a href="#"
+                    class="flex items-center justify-evenly group hover:text-textSecondary transition duration-300 ease-in">
+                    <p class="animate-pulse">Book a shoot now</p>
+                    <i
+                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+                </a>
             </div>
+        </div>
+    </section>
+
+    <section class="packages my-64">
+        <h1 class="text-2xl font-semibold my-5">Packages</h1>
+
+        <div class="grid grid-cols-3 gap-y-10 gap-x-3 md:flex justify-evenly">
+            <div class=" group">
+                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
+                    <i class="fa-solid fa-graduation-cap text-5xl group-hover:animate-bounce my-10"></i>
+                    <p>Graduation</p>
+                </a>
+            </div>
+            <div class=" group">
+                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
+                    <i class="fa-solid fa-cake-candles text-5xl group-hover:animate-bounce my-10"></i>
+                    <p>Birthday</p>
+                </a>
+            </div>
+            <div class=" group">
+                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
+                    <i class="fa-solid fa-dove text-5xl group-hover:animate-bounce my-10"></i>
+                    <p>Wedding</p>
+                </a>
+            </div>
+            <div class=" group">
+                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
+                    <i class="fa-solid fa-people-roof text-5xl group-hover:animate-bounce my-10"></i>
+                    <p>Family</p>
+                </a>
+            </div>
+            <div class=" group">
+                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
+                    <i class="fa-solid fa-user text-5xl group-hover:animate-bounce my-10"></i>
+                    <p>Solo</p>
+                </a>
+            </div>
+            <div class=" group">
+                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
+                    <i class="fa-solid fa-people-group text-5xl group-hover:animate-bounce my-10"></i>
+                    <p>Group</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <h1>About me</h1>
+        <div>
+            <img src="" alt="">
         </div>
     </section>
 </div>

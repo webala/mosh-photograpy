@@ -48,10 +48,10 @@ module.exports = {
             }
         },
         colors: {
-            backgroundPrimary: '#1B2430',
-            backgroundSecondary: '#51557E',
-            textPrimary: '#D6D5A8',
-            textSecondary: '#816797'
+            backgroundPrimary: '#112B3C',
+            backgroundSecondary: '#205375',
+            textPrimary: '#EFEFEF',
+            textSecondary: '#F66B0E'
         }
     },
     plugins: [

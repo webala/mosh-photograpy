@@ -6,3 +6,9 @@
 .logo img {
     border-radius: 50%;
 }
+
+.mini-gallery .qualities p{
+    font-size: larger;
+    font-weight: 600;
+    margin: 10px 0;
+}

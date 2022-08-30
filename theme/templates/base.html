@@ -18,23 +18,33 @@
 	</head>
 
 	<body class="bg-backgroundPrimary text-textPrimary font-oswald leading-normal tracking-normal">
-		<header class="text-textPrimary flex justify-between items-center py-4 px-10 md:px-32 xl:px-64 bg-backgroundSecondary">
+		<header
+			class="text-textPrimary flex justify-between items-center py-4 px-10 md:px-32 xl:px-64 bg-backgroundSecondary">
 			<div class="logo flex flex-col items-center italic">
 				<img class="w-16 md:w-28" src="{% static 'images/logo/logo.jpg' %}" alt="logo">
 				<h1>byMosh</h1>
 			</div>
-		
+
 			<div class="nav-items w-1/2">
 				<ul class="flex justify-evenly">
-					<li class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">Home
+					<li
+						class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+						Home
 					</li>
-					<li class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+					<li
+						class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
 						Packages</li>
-					<li class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">Gallery
+					<li
+						class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+						Gallery
 					</li>
-					<li class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">About
+					<li
+						class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+						About
 					</li>
-					<li class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">Contact
+					<li
+						class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+						Contact
 					</li>
 				</ul>
 			</div>
@@ -45,11 +55,50 @@
 
 			{% endblock %}
 		</div>
-		<footer class="absolute bottom-0 bg-backgroundSecondary">
-			
+		<footer class=" bg-backgroundSecondary py-5 px-2 flex flex-col items-center mt-20">
+			<div class="site-map flex justify-evenly items-start w-full">
+				<div class="flex flex-col xl:flex-row">
+					<a class="md:mr-4 hover:text-textSecondary hover:scale-100 transition duration-300 ease-in"
+						href="#">Home</a>
+					<a class="md:mr-4 hover:text-textSecondary hover:scale-100 transition duration-300 ease-in"
+						href="#">Packages</a>
+					<a class="md:mr-4 hover:text-textSecondary hover:scale-100 transition duration-300 ease-in"
+						href="#">About</a>
+					<a class="md:mr-4 hover:text-textSecondary hover:scale-100 transition duration-300 ease-in"
+						href="#">Packages</a>
+				</div>
+				<div class="flex flex-col md:flex-row">
+					<a class="md:mr-4 hover:text-textSecondary hover:scale-100 transition duration-300 ease-in"
+						href="#">Book a shoot</a>
+					<a class="md:mr-4 hover:text-textSecondary hover:scale-100 transition duration-300 ease-in"
+						href="#">Privacy policy</a>
+					<a class="md:mr-4 hover:text-textSecondary hover:scale-100 transition duration-300 ease-in"
+						href="#">Terms of service</a>
+				</div>
+			</div>
+
+			<form action="#" class="mt-10">
+				<p class="italic mb-2">Subscribe to get latest deals</p>
+				<div class="flex flex-col">
+					<label for="email">Email</label>
+					<input type="email" name="email" class="rounded-lg  text-backgroundPrimary">
+				</div>
+				<button class="bg-backgroundPrimary my-4 py-2 px-4 rounded-lg hover:scale-110 transition duration-300 ease-in">Subscribe</button>
+			</form>
+
+
+			<div class="flex justify-evenly w-full py-10">
+				<a href="#"><i
+						class="fa-brands fa-instagram text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
+				<a href="#"><i
+						class="fa-brands fa-twitter text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
+				<a href="#"><i
+						class="fa-brands fa-discord text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
+			</div>
 		</footer>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-			crossorigin="anonymous" defer></script>
+			integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"
+			defer></script>
 	</body>
+
 </html>

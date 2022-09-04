@@ -836,6 +836,11 @@ select {
   margin-bottom: 13rem;
 }
 
+.my-44 {
+  margin-top: 11rem;
+  margin-bottom: 11rem;
+}
+
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -878,6 +883,10 @@ select {
 
 .grid {
   display: grid;
+}
+
+.h-56 {
+  height: 14rem;
 }
 
 .w-16 {

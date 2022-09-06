@@ -98,7 +98,18 @@
 
         <div>
             {% for package in packages %}
-                
+                <div>
+                    <h1>{{package}}</h1>
+                    <div>
+                        {% for category in package_categories %}
+                            {% if category.package == package %}
+                                <div>
+                                    
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
             {% endfor %}
         </div>
         <div class="mt-20 flex justify-center">

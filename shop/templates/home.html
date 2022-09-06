@@ -96,43 +96,10 @@
     <section class="packages my-64">
         <h1 class="text-2xl font-semibold my-5 relative md:left-32 xl:lext-44 text-textSecondary">Packages</h1>
 
-        <div class="grid grid-cols-3 gap-y-10 gap-x-3 md:flex justify-evenly">
-            <div class=" group">
-                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
-                    <i class="fa-solid fa-graduation-cap text-5xl group-hover:animate-bounce my-10"></i>
-                    <p>Graduation</p>
-                </a>
-            </div>
-            <div class=" group">
-                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
-                    <i class="fa-solid fa-cake-candles text-5xl group-hover:animate-bounce my-10"></i>
-                    <p>Birthday</p>
-                </a>
-            </div>
-            <div class=" group">
-                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
-                    <i class="fa-solid fa-dove text-5xl group-hover:animate-bounce my-10"></i>
-                    <p>Wedding</p>
-                </a>
-            </div>
-            <div class=" group">
-                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
-                    <i class="fa-solid fa-people-roof text-5xl group-hover:animate-bounce my-10"></i>
-                    <p>Family</p>
-                </a>
-            </div>
-            <div class=" group">
-                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
-                    <i class="fa-solid fa-user text-5xl group-hover:animate-bounce my-10"></i>
-                    <p>Solo</p>
-                </a>
-            </div>
-            <div class=" group">
-                <a href="#" class="hover:text-textSecondary transition duration-300 ease-in flex flex-col items-center">
-                    <i class="fa-solid fa-people-group text-5xl group-hover:animate-bounce my-10"></i>
-                    <p>Group</p>
-                </a>
-            </div>
+        <div>
+            {% for package in packages %}
+                
+            {% endfor %}
         </div>
         <div class="mt-20 flex justify-center">
             <a href="#" class="flex items-center hover:text-textSecondary group">
@@ -146,8 +113,11 @@
         <h1 class="font-semibold text-2xl my-5 text-textSecondary">About me</h1>
         <div class="text-xl">
             <img class="rounded-lg float-right w-56 md:w-72 mx-3 mb-3" src="{% static 'images/mosh/mosh.jpeg' %}" alt="mosh">
-            <p class="my-2"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex consequuntur quis dolorum error, doloremque neque nam aspernatur odio et, temporibus vel libero eius sequi pariatur ullam. Unde, temporibus ea. Dolore sed, esse asperiores aspernatur, obcaecati quos ut possimus cupiditate doloribus porro rem minima inventore totam, dolor ipsam! Repudiandae, quas dolorum?</p>
-            <p class="my-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et consectetur dolore vero aut velit architecto, harum, fugit saepe temporibus sed dignissimos officia. Dolores corporis aut quis quisquam veniam quod in officiis, assumenda omnis cumque beatae optio voluptates explicabo voluptas, nostrum accusantium iusto placeat. Quia voluptatem dolor amet debitis minus officia.</p>
+            <p class="my-2">Who i'm i?</p>
+            <p class="my-2">Meet Brendan, the CEO and founder of Glitch Cloud Photography.</p>
+            <p class="my-2">I am a photographer based in Nairobi Kenya from a small surbubian town called Ruiru. I am self taught with sincere passion for all things photography, beautiful light, good music, sincere people and inspiring spaces.</p>
+            <p class="my-2">I believe everyone should have the oportunity to feel beautiful in a photograph so i'll guide you through your photography sessions and ease all your 'i'm awkward' fears.</p>
+            <p class="my-2">Wheather you are comfortable or shy in from of a camera, my sessions are relaxed with a no pressure atmosphere that brings out the best in you.</p>
         </div>
     </section>
 

@@ -1,6 +1,13 @@
+from .models import PackageCateagory
 from django.shortcuts import render
 
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+    packages = PackageCateagory.objects.all()
+
+    context = {
+       'packages': packages 
+    }
+    
+    return render(request, 'home.html', context)

@@ -1,14 +1,5 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 
-.logo img {
-    border-radius: 50%;
-}
 
-.mini-gallery .qualities p{
-    font-size: larger;
-    font-weight: 600;
-    margin: 10px 0;
-}

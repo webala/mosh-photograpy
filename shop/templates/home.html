@@ -6,7 +6,7 @@
 <div>
 
 
-    <section class="mini-gallery px-10 md:px-28 xl:px-32 mt-10 md:mt-20">
+    <section class="mini-gallery px-10 xl:px-32 mt-10 md:mt-20">
 
         <div class="flex justify-center mt-56 mb-20">
             <h1 class="uppercase md:text-2xl">photo shoots, edits, video shoots and so much more. </h1>
@@ -100,18 +100,60 @@
             {% for package in packages %}
                 <div>
                     <h1>{{package}}</h1>
-                    <div>
+                    <div class="tabs flex">
+                        {% for category in package_categories %}                        
+                            {% if category.package == package %}
+                            <div class="">
+                                <span class="cursor-pointer tab" data-tab="tab_{{category.id}}" >{{category.name}}</span>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="">
                         {% for category in package_categories %}
                             {% if category.package == package %}
-                                <div>
-                                    
-                                </div>
+                            <div class="tab-info {{category.name}} " id="tab_{{category.id}}" data-tab-info>
+                                <p class="">{{category.category_description}}</p>
+                            </div>
                             {% endif %}
                         {% endfor %}
                     </div>
                 </div>
             {% endfor %}
         </div>
+        <style>
+            .tab-info {
+                display: none;
+            }
+            .active.tab-info {
+                display: block;
+            }
+        </style>
+        <script defer>
+            const goldTab = Array.from(document.getElementsByClassName('Gold'))
+            goldTab.forEach(element => {
+                element.classList.add('active')
+            });
+
+            const tabs = Array.from(document.getElementsByClassName('tab'))
+            const tabInfos = document.querySelectorAll('[data-tab-info]')
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    console.log('dataset: ', tab.dataset)
+                    const target = document.getElementById(tab.dataset.tab)
+                    console.log('target: ', target)
+                    console.log('target: ',target)
+                    tabInfos.forEach(tabInfo => {
+                        tabInfo.classList.remove('active')
+                    })
+
+                    target.classList.add('active')
+                })
+            })
+
+        </script>
         <div class="mt-20 flex justify-center">
             <a href="#" class="flex items-center hover:text-textSecondary group">
                 <p>View all</p>

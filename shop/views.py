@@ -1,6 +1,5 @@
-from this import d
-
 from shop.forms import ImageUploadForm
+from shop.utils import upload_image
 from .models import GalleryImage, Package, PackageCateagory
 from django.shortcuts import render
 from django.views.generic import CreateView

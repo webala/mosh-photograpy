@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 django-tailwind = "*"
+pyrebase4 = "*"
+pillow = "*"
 
 [dev-packages]
 

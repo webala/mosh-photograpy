@@ -1,4 +1,4 @@
-import pyrebase4
+import pyrebase
 import secrets, os
 
 firebase_config = {
@@ -14,17 +14,33 @@ firebase_config = {
 
   'appId': "1:743008571288:web:5a1ba6ffa447c6c78225ed",
 
-  'measurementId': "G-H1TRK2PB0K"
+  'measurementId': "G-H1TRK2PB0K",
+  'databaseURL': ''
 
 }
-firebase = pyrebase4.initialize_app(firebase_config)
+
+firebase = pyrebase.initialize_app(firebase_config)
 storege = firebase.storage()
 
+def sign_in():
+    auth = firebase.auth()
+    user = auth.sign_in_with_email_and_password('webala1001@gmail.com', 'beast#5897')
+    return user
+
 def upload_image(directory, file):
+    print('image upload called')
     random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(file.filename)
+    _, f_ext = os.path.splitext(file.name)
     filename = random_hex + f_ext
-    file.filename = filename
+    file.name = filename
+    directory = directory + '/' + filename
+    print('filename: ', file.name)
     storege.child(directory).put(file)
     return filename
+
+def get_image_url(directory, filename):
+    user = sign_in()
+    path = directory + '/' + filename
+    url = storege.child(path).get_url(user['idToken'])
+    return url
     

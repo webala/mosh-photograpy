@@ -25,7 +25,7 @@ class PackageCateagory(models.Model):
     
         
 class GalleryImage(models.Model):
-    flename = models.CharField(max_length=100)
+    filename = models.CharField(max_length=100)
     display = models.BooleanField(default=False)
 
 class Shoot(models.Model):

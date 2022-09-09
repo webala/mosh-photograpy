@@ -41,8 +41,10 @@ def image_upload_view(request):
       image = data.get('image')
       print('image: ', image)
       filename = upload_image('gallery', image)
-      GalleryImage.objects.create(filename=filename)
+      image = GalleryImage.objects.create(filename=filename)
       image_url = get_image_url('gallery', filename)
+      image.download_url = image_url
+      image.save()
       print('image url: ', image_url)
       form = ImageUploadForm()
       context['form'] = form

@@ -24,7 +24,9 @@ storege = firebase.storage()
 
 def sign_in():
     auth = firebase.auth()
-    user = auth.sign_in_with_email_and_password('webala1001@gmail.com', 'beast#5897')
+    email = os.getenv('FIREBASE_EMAIL')
+    password = os.getenv('FIREBASE_PASSWORD')
+    user = auth.sign_in_with_email_and_password(email, password)
     return user
 
 def upload_image(directory, file):

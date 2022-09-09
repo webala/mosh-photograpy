@@ -27,6 +27,7 @@ class PackageCateagory(models.Model):
 class GalleryImage(models.Model):
     filename = models.CharField(max_length=100)
     display = models.BooleanField(default=False)
+    download_url = models.CharField(max_length=1000)
 
 class Shoot(models.Model):
     pass

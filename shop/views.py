@@ -1,3 +1,4 @@
+from this import d
 from .models import Package, PackageCateagory
 from django.shortcuts import render
 
@@ -13,3 +14,7 @@ def home(request):
     }
 
     return render(request, 'home.html', context)
+
+
+def gallery(request):
+   return render(request, 'gallery.html')

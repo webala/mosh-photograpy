@@ -44,15 +44,16 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                'oswald': ['"Oswald"', ' sans-serif']
+                'oswald': ['"Oswald"', 'sans-serif'], 
+                'quicksand': ['"Quicksand"', 'sans-serif']
+            },
+            colors: {
+                backgroundPrimary: '#112B3C',
+                backgroundSecondary: '#205375',
+                textPrimary: '#EFEFEF',
+                textSecondary: '#F66B0E',
             }
-        },
-        colors: {
-            backgroundPrimary: '#112B3C',
-            backgroundSecondary: '#205375',
-            textPrimary: '#EFEFEF',
-            textSecondary: '#F66B0E'
-        }
+        }, 
     },
     plugins: [
         /**

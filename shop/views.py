@@ -1,4 +1,6 @@
 from this import d
+
+from shop.forms import ImageUploadForm
 from .models import GalleryImage, Package, PackageCateagory
 from django.shortcuts import render
 from django.views.generic import CreateView
@@ -20,7 +22,18 @@ def home(request):
 def gallery(request):
    return render(request, 'gallery.html')
 
-class GalleryImageCreate(CreateView):
-   model = GalleryImage
-   template_name: str = 'image-upload.html'
+def image_upload_view(request):
+   form = ImageUploadForm(request.POST or None)
+
+   context = {
+      'form': form
+   }
+
+   if form.is_valid():
+      filename = upload_image()
+      GalleryImage.objects.create(filename=filename)
+      form = ImageUploadForm()
+      context['form'] = form
+      return render(request, 'image-upload.html', context)
    
+   return render(request, 'image-upload.html', context)

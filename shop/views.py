@@ -1,6 +1,7 @@
 from this import d
-from .models import Package, PackageCateagory
+from .models import GalleryImage, Package, PackageCateagory
 from django.shortcuts import render
+from django.views.generic import CreateView
 
 # Create your views here.
 
@@ -18,3 +19,8 @@ def home(request):
 
 def gallery(request):
    return render(request, 'gallery.html')
+
+class GalleryImageCreate(CreateView):
+   model = GalleryImage
+   template_name: str = 'image-upload.html'
+   

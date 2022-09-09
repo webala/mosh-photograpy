@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Package(models.Model):
     name = models.CharField(max_length=100)
@@ -23,7 +24,9 @@ class PackageCateagory(models.Model):
 
     
         
-
+class GalleryImage(models.Model):
+    flename = models.CharField(max_length=100)
+    display = models.BooleanField(default=False)
 
 class Shoot(models.Model):
     pass

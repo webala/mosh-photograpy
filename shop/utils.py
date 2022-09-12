@@ -1,5 +1,8 @@
 import pyrebase
 import secrets, os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 firebase_config = {
     'apiKey': "AIzaSyDONrFp2bNY1vw5Lm9mCvTc4NVRyjlgdv4",
@@ -22,12 +25,12 @@ firebase_config = {
 firebase = pyrebase.initialize_app(firebase_config)
 storege = firebase.storage()
 
-def sign_in():
-    auth = firebase.auth()
-    email = os.getenv('FIREBASE_EMAIL')
-    password = os.getenv('FIREBASE_PASSWORD')
-    user = auth.sign_in_with_email_and_password(email, password)
-    return user
+
+auth = firebase.auth()
+email = os.getenv('FIREBASE_EMAIL')
+password = os.getenv('FIREBASE_PASSWORD')
+
+
 
 def upload_image(directory, file):
     print('image upload called')
@@ -40,8 +43,7 @@ def upload_image(directory, file):
     storege.child(directory).put(file)
     return filename
 
-def get_image_url(directory, filename):
-    user = sign_in()
+def get_image_url(directory, filename, user):
     path = directory + '/' + filename
     url = storege.child(path).get_url(user['idToken'])
     return url

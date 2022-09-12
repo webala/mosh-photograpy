@@ -1,9 +1,10 @@
 from shop.forms import ImageUploadForm
-from shop.utils import get_image_url, upload_image
+from shop.utils import get_image_url, upload_image, auth, email, password
 from .models import GalleryImage, Package, PackageCateagory
 from django.shortcuts import render
 from django.views.generic import CreateView
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -22,8 +23,23 @@ def home(request):
 def gallery(request):
    photos = GalleryImage.objects.all()
 
+   #query photos 10 at a time
+   paginator = Paginator(photos, 10)
+   page_number = request.GET.get('page') #get page number from GET request
+   page_obj = paginator.get_page(page_number)
+   
+
+   user = auth.sign_in_with_email_and_password(email, password)
+   download_urls = []
+   # for obj in page_obj:
+   #    #Get download urls from firebase
+   #    url = get_image_url('gallery', obj.filename, user)
+   #    download_urls.append(url)
+   
+   
    context = {
-      'photos': photos
+      'download_urls': download_urls,
+      'page_obj': page_obj
    }
 
    return render(request, 'gallery.html', context)
@@ -36,16 +52,18 @@ def image_upload_view(request):
    }
 
    if form.is_valid():
-      print('form is valid')
+      
       data = form.cleaned_data
       image = data.get('image')
-      print('image: ', image)
+      
+      
+      #Upload image to firebase
       filename = upload_image('gallery', image)
       image = GalleryImage.objects.create(filename=filename)
       image_url = get_image_url('gallery', filename)
       image.download_url = image_url
       image.save()
-      print('image url: ', image_url)
+      
       form = ImageUploadForm()
       context['form'] = form
       return render(request, 'image-upload.html', context)

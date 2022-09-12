@@ -35,3 +35,4 @@ class Shoot(models.Model):
 class Client(models.Model):
     pass
 
+

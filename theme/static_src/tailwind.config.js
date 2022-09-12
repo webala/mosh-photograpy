@@ -45,7 +45,8 @@ module.exports = {
         extend: {
             fontFamily: {
                 'oswald': ['"Oswald"', 'sans-serif'], 
-                'quicksand': ['"Quicksand"', 'sans-serif']
+                'quicksand': ['"Quicksand"', 'sans-serif'],
+                'combo': ['"Combo"', 'cursive'], 
             },
             colors: {
                 backgroundPrimary: '#112B3C',

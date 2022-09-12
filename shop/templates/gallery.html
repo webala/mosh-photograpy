@@ -3,29 +3,29 @@
 
 {% block content %}
 <section class="gallery flex flex-col items-center">
-    <div class="flex justify-start w-full  my-10">
-        <h1 class="text-2xl text-textSecondary">Gallery</h1>
+    <div class="flex justify-start w-full my-10">
+        <h1 class="text-2xl text-textSecondary font-combo">Gallery</h1>
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:flex flex-wrap gap-4 items-center justify-between place-items-center">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:flex flex-wrap gap-4 items-center justify-center">
         {% for photo in page_obj %}
-        <div class="hover:scale-130 transition duration-300 ease-in">
+        <div class="hover:scale-110 transition duration-300 ease-in">
             <img class="w-56 rounded-lg" src='{{photo.download_url}}'  alt="bikini shot">
         </div>
         {% endfor %}
     </div>
-    <div class="pagination flex justify-between">
+    <div class="pagination flex justify-between items-center my-10">
         <span class="step-links">
             {% if page_obj.has_previous %}
-                <a href="?page=1">1</a>
-                <a href="?page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-chevron-left"></i></a>
+                <a class="mx-2" href="?page=1">1</a>
+                <a class="mx-2" href="?page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-chevron-left"></i></a>
             {% endif %}
     
-            <span class="current">
+            <span class="current mx-2">
                 {{ page_obj.number }} 
             </span>
     
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-chevron-right"></i></a>
+                <a class="mx-2" href="?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-chevron-right"></i></a>
                 <!-- <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a> -->
             {% endif %}
         </span>

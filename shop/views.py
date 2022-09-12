@@ -22,23 +22,12 @@ def home(request):
 
 def gallery(request):
    photos = GalleryImage.objects.all()
-
    #query photos 10 at a time
    paginator = Paginator(photos, 10)
    page_number = request.GET.get('page') #get page number from GET request
    page_obj = paginator.get_page(page_number)
    
-
-   user = auth.sign_in_with_email_and_password(email, password)
-   download_urls = []
-   # for obj in page_obj:
-   #    #Get download urls from firebase
-   #    url = get_image_url('gallery', obj.filename, user)
-   #    download_urls.append(url)
-   
-   
    context = {
-      'download_urls': download_urls,
       'page_obj': page_obj
    }
 
@@ -63,7 +52,7 @@ def image_upload_view(request):
       image_url = get_image_url('gallery', filename)
       image.download_url = image_url
       image.save()
-      
+      messages.success('Image uploaded successfully.')
       form = ImageUploadForm()
       context['form'] = form
       return render(request, 'image-upload.html', context)

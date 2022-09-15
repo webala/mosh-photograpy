@@ -47,6 +47,7 @@ module.exports = {
                 'oswald': ['"Oswald"', 'sans-serif'], 
                 'quicksand': ['"Quicksand"', 'sans-serif'],
                 'combo': ['"Combo"', 'cursive'], 
+                'dancingScript': ['"Dancing Script"', 'cursive'], 
             },
             colors: {
                 backgroundPrimary: '#16213E',

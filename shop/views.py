@@ -1,6 +1,6 @@
 from shop.forms import ImageUploadForm
 from shop.utils import get_image_url, upload_image, auth, email, password
-from .models import GalleryImage
+from .models import GalleryImage, Package
 from django.shortcuts import render
 from django.views.generic import CreateView
 from django.contrib import messages
@@ -52,3 +52,12 @@ def image_upload_view(request):
       return render(request, 'image-upload.html', context)
    
    return render(request, 'image-upload.html', context)
+
+def package(request):
+   packages = Package.objects.all()
+
+   context = {
+      'packages': packages
+   }
+   
+   return render(request, 'packages.html', context)

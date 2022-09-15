@@ -50,10 +50,10 @@ module.exports = {
                 'dancingScript': ['"Dancing Script"', 'cursive'], 
             },
             colors: {
-                backgroundPrimary: '#16213E',
-                backgroundSecondary: '#0F3460',
-                textPrimary: '#E94560',
-                textSecondary: '#533483',
+                backgroundPrimary: '#293462',
+                backgroundSecondary: '#1CD6CE',
+                textPrimary: '#D61C4E',
+                textSecondary: '#FEDB39',
             }
         }, 
     },

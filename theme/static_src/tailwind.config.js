@@ -49,10 +49,10 @@ module.exports = {
                 'combo': ['"Combo"', 'cursive'], 
             },
             colors: {
-                backgroundPrimary: '#112B3C',
-                backgroundSecondary: '#205375',
-                textPrimary: '#EFEFEF',
-                textSecondary: '#F66B0E',
+                backgroundPrimary: '#16213E',
+                backgroundSecondary: '#0F3460',
+                textPrimary: '#E94560',
+                textSecondary: '#533483',
             }
         }, 
     },

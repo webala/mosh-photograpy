@@ -1,6 +1,6 @@
 from shop.forms import ImageUploadForm
 from shop.utils import get_image_url, upload_image, auth, email, password
-from .models import GalleryImage, Package, PackageCateagory
+from .models import GalleryImage
 from django.shortcuts import render
 from django.views.generic import CreateView
 from django.contrib import messages
@@ -9,15 +9,9 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def home(request):
-    package_categories = PackageCateagory.objects.all()
-    packages = Package.objects.all()
-
-    context = {
-       'packages': packages,
-       'package_categories': package_categories
-    }
-
-    return render(request, 'home.html', context)
+    
+   context = {}
+   return render(request, 'home.html', context)
 
 
 def gallery(request):

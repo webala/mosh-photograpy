@@ -1,3 +1,4 @@
+from http import client
 from django.db import models
 
 
@@ -35,10 +36,20 @@ class GalleryImage(models.Model):
     display = models.BooleanField(default=False)
     download_url = models.CharField(max_length=1000)
 
-class Shoot(models.Model):
-    pass
-
 class Client(models.Model):
-    pass
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    phone = models.CharField(max_length=12)
+    email = models.EmailField()
+
+class Shoot(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
+    date = models.DateField()
+    location = models.CharField(max_length=25)
+    
+
+
+
 
 

@@ -833,10 +833,6 @@ select {
   margin-bottom: 0.5rem;
 }
 
-.mt-56 {
-  margin-top: 14rem;
-}
-
 .mb-20 {
   margin-bottom: 5rem;
 }
@@ -1006,16 +1002,6 @@ select {
 .py-10 {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
-}
-
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
 }
 
 .px-5 {
@@ -1218,10 +1204,6 @@ select {
     justify-content: space-between;
   }
 
-  .md\:border {
-    border-width: 1px;
-  }
-
   .md\:border-r {
     border-right-width: 1px;
   }
@@ -1239,21 +1221,6 @@ select {
   .md\:px-28 {
     padding-left: 7rem;
     padding-right: 7rem;
-  }
-
-  .md\:px-3 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-
-  .md\:px-2 {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  .md\:px-1 {
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
   }
 
   .md\:text-2xl {

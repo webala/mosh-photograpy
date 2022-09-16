@@ -1,4 +1,4 @@
-from shop.forms import ImageUploadForm
+from shop.forms import ClientForm, ImageUploadForm, ShootForm
 from shop.utils import get_image_url, upload_image, auth, email, password
 from .models import GalleryImage, Package
 from django.shortcuts import render
@@ -61,3 +61,14 @@ def package(request):
    }
    
    return render(request, 'packages.html', context)
+
+def book_wedding_shoot(request):
+   client_form = ClientForm()
+   shoot_form = ShootForm()
+
+   contex = {
+      'client_form': client_form,
+      'shoot_form': shoot_form
+   }
+
+   return render(request, 'book_wedding.html', contex)

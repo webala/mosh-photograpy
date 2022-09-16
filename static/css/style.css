@@ -9,3 +9,7 @@
     font-weight: 600;
     margin: 10px 0;
 }
+
+.field input {
+    border-radius: 8px;
+}

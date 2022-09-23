@@ -772,6 +772,16 @@ select {
   margin-bottom: 1rem;
 }
 
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .my-10 {
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
@@ -780,11 +790,6 @@ select {
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-}
-
-.my-5 {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
 }
 
 .my-64 {
@@ -805,11 +810,6 @@ select {
 .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
-}
-
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
 }
 
 .my-52 {
@@ -833,6 +833,14 @@ select {
   margin-bottom: 0.5rem;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
 .mb-20 {
   margin-bottom: 5rem;
 }
@@ -843,14 +851,6 @@ select {
 
 .mb-3 {
   margin-bottom: 0.75rem;
-}
-
-.mt-5 {
-  margin-top: 1.25rem;
-}
-
-.ml-3 {
-  margin-left: 0.75rem;
 }
 
 .block {
@@ -954,18 +954,6 @@ select {
   border-radius: 0.5rem;
 }
 
-.rounded {
-  border-radius: 0.25rem;
-}
-
-.border {
-  border-width: 1px;
-}
-
-.border-2 {
-  border-width: 2px;
-}
-
 .bg-backgroundPrimary {
   --tw-bg-opacity: 1;
   background-color: rgb(41 52 98 / var(--tw-bg-opacity));
@@ -976,14 +964,14 @@ select {
   background-color: rgb(28 214 206 / var(--tw-bg-opacity));
 }
 
-.bg-textSecondary {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 219 57 / var(--tw-bg-opacity));
-}
-
 .bg-textPrimary {
   --tw-bg-opacity: 1;
   background-color: rgb(214 28 78 / var(--tw-bg-opacity));
+}
+
+.bg-textSecondary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 219 57 / var(--tw-bg-opacity));
 }
 
 .p-2 {
@@ -1034,12 +1022,12 @@ select {
   font-family: "Quicksand", sans-serif;
 }
 
-.font-combo {
-  font-family: "Combo", cursive;
-}
-
 .font-dancingScript {
   font-family: "Dancing Script", cursive;
+}
+
+.font-combo {
+  font-family: "Combo", cursive;
 }
 
 .text-xl {
@@ -1057,12 +1045,12 @@ select {
   line-height: 2rem;
 }
 
-.font-semibold {
-  font-weight: 600;
-}
-
 .font-bold {
   font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .uppercase {
@@ -1243,14 +1231,14 @@ select {
     padding-right: 8rem;
   }
 
-  .md\:px-28 {
-    padding-left: 7rem;
-    padding-right: 7rem;
-  }
-
   .md\:px-2 {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+  }
+
+  .md\:px-28 {
+    padding-left: 7rem;
+    padding-right: 7rem;
   }
 
   .md\:text-2xl {

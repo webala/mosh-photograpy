@@ -13,3 +13,7 @@
 .field input {
     border-radius: 8px;
 }
+
+.hide {
+    visibility: hidden;
+}

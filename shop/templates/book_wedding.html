@@ -29,6 +29,50 @@
             </div>
             {% endfor %}
         </div>
+        <div class="flex">
+            <div>
+                <!-- Photography section -->
+                <div>
+                    <input id="photography" type="checkbox" name="photography" value="photography">
+                    <label for="photography">Photography</label>
+                </div>
+                <div id="photography_options" class="hide">
+                    <div>                       
+                        <input type="radio" name="photography_category" value="BRONZE">
+                        <label for="bronze">Bronze</label>
+                    </div>
+                    <div>                    
+                        <input type="radio" name="photography_category" value="SILVER">
+                        <label for="silver">Silver</label>
+                    </div>
+                    <div>                        
+                        <input type="radio" name="photography_category" value="GOLD">
+                        <label for="gold">Gold</label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <!-- Videography section -->
+                <div>                   
+                    <input id="videography" type="checkbox" name="videography" value="videography">
+                    <label for="videography">Videography</label>
+                </div>
+                <div id="videography_options" class="hide">
+                    <div>                      
+                        <input type="radio" name="videography_category" value="BRONZE">
+                        <label for="bronze">Bronze</label>
+                    </div>
+                    <div>                       
+                        <input type="radio" name="videography_category" value="SILVER">
+                        <label for="silver">Silver</label>
+                    </div>
+                    <div>                      
+                        <input type="radio" name="videography_category" value="GOLD">
+                        <label for="gold">Gold</label>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="flex mt-5">
             <button class="py-2 px-4 bg-textPrimary text-backgroundPrimary rounded-lg hover:scale-110 transition duration-300 ease-out"
@@ -40,6 +84,29 @@
     </form>
 
 </section>
+<script>
+    const photographyInput = document.getElementById('photography')
+    const photographyOptions = document.getElementById('photography_options')
 
+    const videographyInput = document.getElementById('videography')
+    const videographyOptions = document.getElementById('videography_options')
+
+    photographyInput.addEventListener('click', () => {
+        if (photographyInput.checked) {
+            photographyOptions.classList.remove('hide')
+        } else {
+            photographyOptions.classList.add('hide')
+        }
+    })
+
+    videographyInput.addEventListener('click', () => {
+            if (videographyInput.checked) {
+                videographyOptions.classList.remove('hide')
+            } else {
+                videographyOptions.classList.add('hide')
+            }
+        })
+    
+</script>
 
 {% endblock %}

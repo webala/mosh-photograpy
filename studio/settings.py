@@ -28,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Daraja API configurations
+BUSINESS_SHORT_CODE=''
+LIPANAMPESA_PASSKEY=''
+API_RESOURCE_URL=''
+DARAJA_AUTH_URL='https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+
 
 # Application definition
 

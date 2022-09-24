@@ -6,5 +6,6 @@ urlpatterns = [
     path('gallery', gallery, name='gallery'),
     path('gallery/upload', image_upload_view, name='image-upload'),
     path('packages', package , name='packages'),
-    path('book/wedding', book_wedding_shoot, name='book-wedding')
+    path('book/wedding', book_wedding_shoot, name='book-wedding'),
+    path('shoot/pay/<int:shoot_id>', pay_shoot, name='pay-shoot')
 ]

@@ -1,6 +1,6 @@
 from shop.forms import ClientForm, ImageUploadForm, ShootForm
 from shop.utils import get_image_url, upload_image, auth, email, password
-from .models import GalleryImage, Package
+from .models import GalleryImage, Package, Shoot
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib import messages
@@ -66,7 +66,16 @@ def book_wedding_shoot(request):
    client_form = ClientForm(request.POST or None)
    shoot_form = ShootForm(request.POST or None)
 
+   contex = {
+      'client_form': client_form,
+      'shoot_form': shoot_form
+   }
+
    if request.method == 'POST':
+      if not request.POST.get('photography') and not request.POST.get('videography'):
+         messages.error(request, 'Please select a package')
+         return render(request, 'book_wedding.html', contex)
+
       if client_form.is_valid() and shoot_form.is_valid():
          client = client_form.save()
          shoot = shoot_form.save(commit=False)
@@ -108,11 +117,15 @@ def book_wedding_shoot(request):
          shoot.save()
          
          messages.success(request, 'Shoot booked successfully.')
-         return redirect('book-wedding')
-
-   contex = {
-      'client_form': client_form,
-      'shoot_form': shoot_form
-   }
+         return redirect('pay-shoot', shoot_id=shoot.id)
 
    return render(request, 'book_wedding.html', contex)
+
+def pay_shoot(request, shoot_id):
+   shoot = Shoot.objects.get(id=shoot_id)
+   packages = shoot.package.all()
+   context = {
+    'shoot': shoot,
+    'packages': packages  
+   }
+   return render(request, 'pay_shoot.html', context)

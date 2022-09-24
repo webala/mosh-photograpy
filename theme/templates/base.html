@@ -20,6 +20,15 @@
 	</head>
 
 	<body class="bg-backgroundPrimary text-textPrimary font-quicksand leading-normal tracking-normal">
+		{% if messages %}
+		<div class="bg-backgroundSecondary w-full h-fit flex justify-center">
+			<ul class="messages">
+				{% for message in messages %}
+					<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
 		<header
 			class="text-textPrimary flex justify-between items-center py-4 px-10 md:px-32 xl:px-64 ">
 			<div class="logo flex flex-col items-center italic">

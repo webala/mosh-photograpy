@@ -73,7 +73,7 @@ def book_wedding_shoot(request):
          shoot.client = client
          shoot.save()
 
-         if request.POST['photography']:
+         if request.POST.get('photography'):
             category = request.POST.get('photography_category')
             print(category)
             package = Package.objects.filter(
@@ -83,7 +83,7 @@ def book_wedding_shoot(request):
             ).first()
             shoot.package.add(package)
             
-         if request.POST['videography']:
+         if request.POST.get('videography'):
             category = request.POST.get('videography_category')
             print(category)
             package = Package.objects.filter(

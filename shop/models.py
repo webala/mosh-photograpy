@@ -43,10 +43,11 @@ class Client(models.Model):
     email = models.EmailField()
 
 class Shoot(models.Model):
-    package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True)
+    package = models.ManyToManyField(Package)
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
     date = models.DateField()
     location = models.CharField(max_length=25)
+    booked = models.BooleanField(default=False)
     
 
 

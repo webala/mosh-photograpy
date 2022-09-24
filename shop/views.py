@@ -1,7 +1,7 @@
 from shop.forms import ClientForm, ImageUploadForm, ShootForm
 from shop.utils import get_image_url, upload_image, auth, email, password
 from .models import GalleryImage, Package
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -63,8 +63,39 @@ def package(request):
    return render(request, 'packages.html', context)
 
 def book_wedding_shoot(request):
-   client_form = ClientForm()
-   shoot_form = ShootForm()
+   client_form = ClientForm(request.POST or None)
+   shoot_form = ShootForm(request.POST or None)
+
+   if request.method == 'POST':
+      if client_form.is_valid() and shoot_form.is_valid():
+         client = client_form.save()
+         shoot = shoot_form.save(commit=False)
+         shoot.client = client
+         shoot.save()
+
+         if request.POST['photography']:
+            category = request.POST.get('photography_category')
+            print(category)
+            package = Package.objects.filter(
+               nature='PHOTOGRAHY',
+               category=category,
+               type='WEDDING'
+            ).first()
+            shoot.package.add(package)
+            
+         if request.POST['videography']:
+            category = request.POST.get('videography_category')
+            print(category)
+            package = Package.objects.filter(
+               nature='VIDEOGRAPHY',
+               category=category,
+               type='WEDDING'
+            ).first()
+            shoot.package.add(package)
+      
+         
+         messages.success(request, 'Shoot booked successfully.')
+         return redirect('book-wedding')
 
    contex = {
       'client_form': client_form,

@@ -29,16 +29,16 @@
             </div>
             {% endfor %}
         </div>
-        <div class="flex">
+        <div class="flex justify-evenly w-full py-10">
             <div>
                 <!-- Photography section -->
                 <div>
-                    <input id="photography" type="checkbox" name="photography" value="photography">
+                    <input id="photography" type="checkbox" name="photography" value="photography" required>
                     <label for="photography">Photography</label>
                 </div>
-                <div id="photography_options" class="hide">
+                <div id="photography_options" class="hide mt-4">
                     <div>                       
-                        <input type="radio" name="photography_category" value="BRONZE">
+                        <input type="radio" name="photography_category" value="BRONZE" required checked>
                         <label for="bronze">Bronze</label>
                     </div>
                     <div>                    
@@ -57,9 +57,9 @@
                     <input id="videography" type="checkbox" name="videography" value="videography">
                     <label for="videography">Videography</label>
                 </div>
-                <div id="videography_options" class="hide">
+                <div id="videography_options" class="hide mt-4">
                     <div>                      
-                        <input type="radio" name="videography_category" value="BRONZE">
+                        <input type="radio" name="videography_category" value="BRONZE" required checked>
                         <label for="bronze">Bronze</label>
                     </div>
                     <div>                       

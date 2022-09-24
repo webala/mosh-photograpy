@@ -48,7 +48,7 @@ class Shoot(models.Model):
     date = models.DateField()
     location = models.CharField(max_length=25)
     booked = models.BooleanField(default=False)
-    
+    cost = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
 
 
 

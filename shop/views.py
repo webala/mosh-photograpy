@@ -82,7 +82,13 @@ def book_wedding_shoot(request):
                type='WEDDING'
             ).first()
             shoot.package.add(package)
-            
+            if category == 'BRONZE':
+               shoot.cost += 25000
+            elif category == 'SILVER':
+               shoot.cost += 33000
+            elif category == 'GOLD':
+               shoot.cost += 51000
+
          if request.POST.get('videography'):
             category = request.POST.get('videography_category')
             print(category)
@@ -92,7 +98,14 @@ def book_wedding_shoot(request):
                type='WEDDING'
             ).first()
             shoot.package.add(package)
-      
+            if category == 'BRONZE':
+               shoot.cost += 20000
+            elif category == 'SILVER':
+               shoot.cost += 30000
+            elif category == 'GOLD':
+               shoot.cost += 50000
+         
+         shoot.save()
          
          messages.success(request, 'Shoot booked successfully.')
          return redirect('book-wedding')

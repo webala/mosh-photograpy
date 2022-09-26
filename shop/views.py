@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+import json
 from shop.forms import ClientForm, ImageUploadForm, ShootForm
 from shop.utils import get_image_url, initiate_stk_push, upload_image, auth, email, password
 from .models import GalleryImage, Package, Shoot, Transaction
@@ -137,7 +139,40 @@ def pay_shoot(request, shoot_id):
       transaction = Transaction.objects.create(
          shoot=shoot,
          request_id=request_id,
-         amount=deposit_amount
       )
       return redirect('await-confirmation', request_id=request_id)
    return render(request, 'pay_shoot.html', context)
+
+
+def mpesa_callback(request):
+   if request.method == "POST":
+        request_data = json.loads(request.body)
+        body = request_data.get("Body")
+        result_code = body.get("stkCallback").get("ResultCode")
+
+        if result_code == 0:
+            print("Payment successful")
+            request_id = body.get("stkCallback").get("CheckoutRequestID")
+            metadata = body.get("stkCallback").get("CallbackMetadata").get("Item")
+
+            for data in metadata:
+                if data.get("Name") == "MpesaReceiptNumber":
+                    receipt_number = data.get("Value")
+                elif data.get("Name") == "Amount":
+                    amount = data.get("Value")
+                elif data.get("Name") == "PhoneNumber":
+                    phone_number = data.get("Value")
+            print("receipt:", receipt_number)
+            print("amouont: ", amount)
+            print("request_id: ", request_id)
+            transaction = Transaction.objects.get(request_id=request_id)
+            transaction.receipt_number = receipt_number
+            transaction.amount = amount
+            transaction.phone_number = str(phone_number)
+            transaction.complete = True
+            transaction.save()
+
+            # context = {
+            #     'transaction': transaction
+            # }
+            return HttpResponse('Ok')

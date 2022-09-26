@@ -50,7 +50,13 @@ class Shoot(models.Model):
     booked = models.BooleanField(default=False)
     cost = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
 
-
+class Transaction(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    shoot = models.ForeignKey(Shoot, on_delete=models.SET_NULL, null=True)
+    request_id = models.CharField(max_length=50)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
+    complete = models.BooleanField(default=False)
 
 
 

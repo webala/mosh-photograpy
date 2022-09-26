@@ -117,7 +117,7 @@ def initiate_stk_push(phone, amount):
                 'chechout_request_id' :string_object['CheckoutRequestID'],
                 'response_code' :string_object['ResponseCode'],
                 'response_description' :string_object['ResponseDescription'],
-                'customer_meaasge' :string_object['CustomerMessage'],
+                'customer_message' :string_object['CustomerMessage'],
             }
     return data
     

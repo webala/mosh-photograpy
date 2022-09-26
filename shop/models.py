@@ -56,8 +56,8 @@ class Transaction(models.Model):
     request_id = models.CharField(max_length=50, unique=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     complete = models.BooleanField(default=False)
-    phone_number = models.CharField(max_length=15)
-    receipt_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15, null=True)
+    receipt_number = models.CharField(max_length=15, null=True)
 
 
 

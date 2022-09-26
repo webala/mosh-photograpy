@@ -96,8 +96,8 @@ def initiate_stk_push(phone, amount):
             "PartyA":phone,    
             "PartyB":"174379",    
             "PhoneNumber":phone,    
-            "CallBackURL":"https://c696-105-163-1-221.in.ngrok.io/shop/callback",    
-            "AccountReference":"ECOM CLASSIC",    
+            "CallBackURL":"https://92d3-41-90-36-160.in.ngrok.io/stk_callback",    
+            "AccountReference":"GLITCH CLOUD PHOTOGRAPHY",    
             "TransactionDesc":"Make Payment"
         }
 

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex justify-center min-h-screen">
+
+    {% if transaction and transaction.complete %}
+
+    <div class="flex flex-col">
+        <p>Transaction complete</p>
+        <p>Amount: {{transaction.amount}} </p>
+        <p>Receipt No. {{transaction.receipt_number}} </p>
+    </div>
+    {% else %}
+
+    <div class="flex justify-center">
+        <i class="uil uil-spinner animate-spin text-xl"></i>
+        <p>Listening for your transaction</p>
+    </div>
+
+    {% endif %}
+
+</div>
+<script>
+    const transactionComplete = '{{transaction.complete}}' == 'False' ? false : true
+
+    if (!transactionComplete) {
+        setTimeout(() => {
+            location.reload()
+        }, 10000);
+    }
+</script>
+{% endblock %}

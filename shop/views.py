@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 import json
 from shop.forms import ClientForm, ImageUploadForm, ShootForm
 from shop.utils import get_image_url, initiate_stk_push, upload_image, auth, email, password
@@ -134,7 +135,7 @@ def pay_shoot(request, shoot_id):
    if request.method == 'POST':
       phone = request.POST.get('phone')
       deposit_amount = 1000
-      transaction_data = initiate_stk_push(phone, 1000)
+      transaction_data = initiate_stk_push(phone, deposit_amount)
       request_id = transaction_data.get('chechout_request_id')
       transaction = Transaction.objects.create(
          shoot=shoot,
@@ -144,6 +145,14 @@ def pay_shoot(request, shoot_id):
    return render(request, 'pay_shoot.html', context)
 
 
+def await_confirmation(request, request_id):
+   transaction = Transaction.objects.get(request_id=request_id)
+   context = {
+     'transaction': transaction 
+   }
+   return render(request, 'await_confirmation.html', context)
+
+@csrf_exempt
 def mpesa_callback(request):
    if request.method == "POST":
         request_data = json.loads(request.body)
@@ -172,7 +181,4 @@ def mpesa_callback(request):
             transaction.complete = True
             transaction.save()
 
-            # context = {
-            #     'transaction': transaction
-            # }
             return HttpResponse('Ok')

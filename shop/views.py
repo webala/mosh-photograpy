@@ -1,6 +1,6 @@
 from shop.forms import ClientForm, ImageUploadForm, ShootForm
-from shop.utils import get_image_url, upload_image, auth, email, password
-from .models import GalleryImage, Package, Shoot
+from shop.utils import get_image_url, initiate_stk_push, upload_image, auth, email, password
+from .models import GalleryImage, Package, Shoot, Transaction
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib import messages
@@ -128,4 +128,16 @@ def pay_shoot(request, shoot_id):
     'shoot': shoot,
     'packages': packages  
    }
+
+   if request.method == 'POST':
+      phone = request.POST.get('phone')
+      deposit_amount = 1000
+      transaction_data = initiate_stk_push(phone, 1000)
+      request_id = transaction_data.get('chechout_request_id')
+      transaction = Transaction.objects.create(
+         shoot=shoot,
+         request_id=request_id,
+         amount=deposit_amount
+      )
+      return redirect('await-confirmation', request_id=request_id)
    return render(request, 'pay_shoot.html', context)

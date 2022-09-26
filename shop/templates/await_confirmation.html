@@ -7,9 +7,25 @@
 
     <div class="flex flex-col">
         <p>Transaction complete</p>
-        <p>Amount: {{transaction.amount}} </p>
-        <p>Receipt No. {{transaction.receipt_number}} </p>
+        <div>
+            <h1 class="text-textSecondary font-semibold text-xl my-1">Transaction Details</h1>
+            <p>Deposit payment for shoot</p>
+            <p>Amount: {{transaction.amount}} </p>
+            <p>Receipt No. {{transaction.receipt_number}} </p>
+            <p>Phone: {{transaction.phone_number}}</p>
+        </div>
+        <div>
+            <h1 class="text-textSecondary font-semibold text-xl my-1">Client Details</h1>
+            <p>{{transaction.shoot.client.first_name}} {{transaction.shoot.client.last_name}}</p>
+            <p>{{transaction.shoot.client.email}}</p>
+            <p>Phone: {{transaction.shoot.client.phone}}</p>
+        </div>
+        <div class="mt-10">
+            <p>Thank you for doing business with us.</p>
+            <a class="flex mt-1 items-center" href="/receipt/{{transaction.id}}"><p>Download receipt</p><i class="ml-2 fa-solid fa-file-arrow-down"></i></a>
+        </div>
     </div>
+
     {% else %}
 
     <div class="flex justify-center">

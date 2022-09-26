@@ -1,6 +1,6 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
+import json, io
 from shop.forms import ClientForm, ImageUploadForm, ShootForm
 from shop.utils import get_image_url, initiate_stk_push, upload_image, auth, email, password
 from .models import GalleryImage, Package, Shoot, Transaction
@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib import messages
 from django.core.paginator import Paginator
+from reportlab.pdfgen import canvas
 
 # Create your views here.
 
@@ -182,3 +183,24 @@ def mpesa_callback(request):
             transaction.save()
 
             return HttpResponse('Ok')
+
+def download_receipt(request, transaction_id):
+   transaction = Transaction.objects.get(id=transaction_id)
+   buffer = io.BytesIO()
+   p = canvas.Canvas(buffer)
+
+   receipt = 'GLITCH CLOUD PHOTOGRAPHY \n\nPayment for shoot. \nReceipt No: {} \nDate: {} \nClient: {} {} \n Phone: {} \n\nThank you for doing business with us.'.format(
+      transaction.receipt_number,
+      transaction.date,
+      transaction.shoot.client.first_name,
+      transaction.shoot.client.last_name,
+      transaction.phone_number
+   )
+
+   p.drawString(100, 0, receipt)
+   p.showPage()
+   p.save()
+
+   buffer.seek(0)
+   return FileResponse(buffer, as_attachment=True, filename='Receipt.pdf')
+   

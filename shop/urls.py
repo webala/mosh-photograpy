@@ -9,5 +9,6 @@ urlpatterns = [
     path('book/wedding', book_wedding_shoot, name='book-wedding'),
     path('shoot/pay/<int:shoot_id>', pay_shoot, name='pay-shoot'),
     path('stk_callback', mpesa_callback, name='mpesa-callback'),
-    path('transaction/<request_id>', await_confirmation, name='await-confirmation')
+    path('transaction/<request_id>', await_confirmation, name='await-confirmation'),
+    path('receipt/<transaction_id>', download_receipt, name='download-receipt')
 ]

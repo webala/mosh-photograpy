@@ -189,15 +189,13 @@ def download_receipt(request, transaction_id):
    buffer = io.BytesIO()
    p = canvas.Canvas(buffer)
 
-   receipt = 'GLITCH CLOUD PHOTOGRAPHY \n\nPayment for shoot. \nReceipt No: {} \nDate: {} \nClient: {} {} \n Phone: {} \n\nThank you for doing business with us.'.format(
-      transaction.receipt_number,
-      transaction.date,
-      transaction.shoot.client.first_name,
-      transaction.shoot.client.last_name,
-      transaction.phone_number
-   )
-
-   p.drawString(100, 0, receipt)
+   p.drawString(0, 720, 'GLITCH CLOUD PHOTOGRAPHY')
+   p.drawString(10, 690, 'Payment for shoot')
+   p.drawString(10, 675, 'Receipt No: {}'.format(transaction.receipt_number))
+   p.drawString(10, 660, 'Date: {}'.format(transaction.date))
+   p.drawString(10, 645, 'Client: {} {}'.format(transaction.shoot.client.first_name, transaction.shoot.client.last_name))
+   p.drawString(10, 630, 'Phone {}'.format(transaction.phone_number))
+   p.drawString(10, 615, 'Thank you for doing business with us.')
    p.showPage()
    p.save()
 

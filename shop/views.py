@@ -95,13 +95,8 @@ def book_wedding_shoot(request):
                type='WEDDING'
             ).first()
             shoot.package.add(package)
-            if category == 'BRONZE':
-               shoot.cost += 25000
-            elif category == 'SILVER':
-               shoot.cost += 33000
-            elif category == 'GOLD':
-               shoot.cost += 51000
-
+            shoot.cost += int(package.price
+)
          if request.POST.get('videography'):
             category = request.POST.get('videography_category')
             print(category)
@@ -111,12 +106,7 @@ def book_wedding_shoot(request):
                type='WEDDING'
             ).first()
             shoot.package.add(package)
-            if category == 'BRONZE':
-               shoot.cost += 20000
-            elif category == 'SILVER':
-               shoot.cost += 30000
-            elif category == 'GOLD':
-               shoot.cost += 50000
+            shoot.cost += int(package.price)
          
          shoot.save()
          
@@ -134,6 +124,30 @@ def book_portrait_shoot(request):
       'shoot_form': shoot_form
    }
 
+   if request.method == 'POST':
+      if not request.POST.get('portrait_category'):
+         messages.error(request, 'Please select a package')
+         return render(request, 'book_portrait.html', contex)
+
+      if client_form.is_valid() and shoot_form.is_valid():
+         client = client_form.save()
+         shoot = shoot_form.save(commit=False)
+         shoot.client = client
+         shoot.save()
+
+         category = request.POST.get('portrait_category')
+         package = Package.objects.filter(
+            category=category,
+            type='PORTRAIT',
+            nature='PHOTOGRAHY'
+         ).first()
+
+         shoot.package.add(package)
+         shoot.cost += int(package.price)
+         shoot.save()
+
+         messages.success(request, 'Shoot booked successfully.')
+         return redirect('pay-shoot', shoot_id=shoot.id)
    return render(request, 'book_portrait.html', contex)
 
 

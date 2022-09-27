@@ -125,6 +125,20 @@ def book_wedding_shoot(request):
 
    return render(request, 'book_wedding.html', contex)
 
+def book_portrait_shoot(request):
+   client_form = ClientForm(request.POST or None)
+   shoot_form = ShootForm(request.POST or None)
+
+   contex = {
+      'client_form': client_form,
+      'shoot_form': shoot_form
+   }
+
+   return render(request, 'book_portrait.html', contex)
+
+
+
+
 def pay_shoot(request, shoot_id):
    shoot = Shoot.objects.get(id=shoot_id)
    packages = shoot.package.all()

@@ -5,30 +5,7 @@
 <section class="book-wedding">
     {% include 'wedding_package.html' %}
     <form action="#" method="post" class="flex flex-col items-center md:px-2 w-full md:w-1/2">{% csrf_token %}
-        <div class="w-full">
-            <h1 class="text-textSecondary font-semibold text-xl">Client Details</h1>
-            {% for field in client_form %}
-            <div class="field flex flex-col text-textPrimary text-xl my-2">
-                {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
-                {% if field.help_text %}
-                <p class="help">{{ field.help_text|safe }}</p>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-        <div class="mt-5 w-full">
-            <h1 class="text-textSecondary font-semibold text-xl">Shoot Details</h1>
-            {% for field in shoot_form %}
-            <div class="field flex flex-col text-textPrimary text-xl my-2">
-                {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
-                {% if field.help_text %}
-                <p class="help">{{ field.help_text|safe }}</p>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
+        {% include 'client_and_shoot_form.html' %}
         <div class="flex justify-evenly w-full py-10">
             <div>
                 <!-- Photography section -->

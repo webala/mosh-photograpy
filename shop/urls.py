@@ -8,6 +8,7 @@ urlpatterns = [
     path('packages', package , name='packages'),
     path('book/wedding', book_wedding_shoot, name='book-wedding'),
     path('book/portrait', book_portrait_shoot, name='book-portrait'),
+    path('book/ruracio', book_ruracio_shoot, name='book-ruracio'),
     path('shoot/pay/<int:shoot_id>', pay_shoot, name='pay-shoot'),
     path('stk_callback', mpesa_callback, name='mpesa-callback'),
     path('transaction/<request_id>', await_confirmation, name='await-confirmation'),

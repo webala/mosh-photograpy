@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<section class="book-portrait">
+    {% include 'ruracio_package.html' %}
+
+    <form action="#" method="post" class="flex flex-col items-start md:px-2 w-full md:w-1/2">{% csrf_token %}
+        {% include 'client_and_shoot_form.html' %}
+
+        <div class="w-full md:w-1/2 mt-5">
+            <h1 class="text-textSecondary font-semibold text-xl">Package</h1>
+            <div class="mt-4 flex justify-evenly">
+                <div>
+                    <input type="checkbox" name="photography" value="PHOTOGRAPHY" required checked>
+                    <label for="bronze">Photography</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="videography" value="VIDEOGRAPHY">
+                    <label for="silver">Videography</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex mt-5">
+            <button
+                class="py-2 px-4 bg-textPrimary text-backgroundPrimary rounded-lg hover:scale-110 transition duration-300 ease-out">Back
+                to packages</button>
+
+            <button
+                class="py-2 px-4 bg-backgroundSecondary ml-3 rounded-lg hover:scale-110 transition duration-300 ease-out"
+                type="submit">Proceed to payment</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

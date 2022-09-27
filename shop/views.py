@@ -150,7 +150,52 @@ def book_portrait_shoot(request):
          return redirect('pay-shoot', shoot_id=shoot.id)
    return render(request, 'book_portrait.html', contex)
 
+def book_ruracio_shoot(request):
+   client_form = ClientForm(request.POST or None)
+   shoot_form = ShootForm(request.POST or None)
 
+   contex = {
+      'client_form': client_form,
+      'shoot_form': shoot_form
+   }
+
+   if request.method == 'POST':
+      if not request.POST.get('photography') and not request.POST.get('videography'):
+         messages.error(request, 'Please select a package')
+         return render(request, 'book_ruracio.html', contex)
+
+      if client_form.is_valid() and shoot_form.is_valid():
+         client = client_form.save()
+         shoot = shoot_form.save(commit=False)
+         shoot.client = client
+         shoot.save()
+
+         if request.POST.get('photography'):
+            nature = request.POST.get('photography')
+            package = Package.objects.filter(
+               nature=nature,
+               type='RURACIO'
+            ).first()
+
+            shoot.package.add(package)
+            shoot.cost += int(package.price)
+
+         if request.POST.get('videography'):
+            nature = request.POST.get('videography')
+            package = Package.objects.filter(
+               nature=nature,
+               type='RURACIO'
+            ).first()
+
+            shoot.package.add(package)
+            shoot.cost += int(package.price)
+         
+         shoot.save()
+
+         messages.success(request, 'Shoot booked successfully.')
+         return redirect('pay-shoot', shoot_id=shoot.id)
+
+   return render(request, 'book_ruracio.html', contex)
 
 
 def pay_shoot(request, shoot_id):

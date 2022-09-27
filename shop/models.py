@@ -28,7 +28,10 @@ class Package(models.Model):
 
 
     def __str__(self) -> str:
-        return self.type + ' ' + self.nature + ' ' +  self.category
+        if self.type == 'RURACIO':
+            return self.type + ' ' + self.nature
+        else:
+            return self.type + ' ' + self.nature + ' ' +  self.category
     
         
 class GalleryImage(models.Model):

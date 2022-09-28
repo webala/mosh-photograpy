@@ -221,6 +221,7 @@ def pay_shoot(request, shoot_id):
 
 def await_confirmation(request, request_id):
    transaction = Transaction.objects.get(request_id=request_id)
+   
    context = {
      'transaction': transaction 
    }
@@ -255,6 +256,10 @@ def mpesa_callback(request):
             transaction.complete = True
             transaction.save()
 
+            shoot = transaction.shoot
+            shoot.booked = True
+            shoot.save()
+            
             return HttpResponse('Ok')
 
 def download_receipt(request, transaction_id):

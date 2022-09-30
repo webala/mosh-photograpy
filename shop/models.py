@@ -63,6 +63,14 @@ class Transaction(models.Model):
     complete = models.BooleanField(default=False)
     phone_number = models.CharField(max_length=15, null=True)
     receipt_number = models.CharField(max_length=15, null=True)
+    viewed = models.BooleanField(default=False)
+
+class Message(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=20)
+    message = models.CharField(max_length=300)
+    date = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
 
 
 

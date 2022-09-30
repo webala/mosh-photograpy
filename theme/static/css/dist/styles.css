@@ -962,6 +962,10 @@ select {
   width: fit-content;
 }
 
+.w-44 {
+  width: 11rem;
+}
+
 @-webkit-keyframes pulse {
   50% {
     opacity: .5;
@@ -1188,6 +1192,11 @@ select {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.underline {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
 .opacity-30 {
   opacity: 0.3;
 }
@@ -1267,6 +1276,11 @@ select {
   color: rgb(165 201 202 / var(--tw-text-opacity));
 }
 
+.hover\:underline:hover {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
 .group:hover .group-hover\:translate-x-10 {
   --tw-translate-x: 2.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1301,6 +1315,10 @@ select {
 
   .md\:w-72 {
     width: 18rem;
+  }
+
+  .md\:w-44 {
+    width: 11rem;
   }
 
   .md\:flex-row {

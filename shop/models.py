@@ -1,3 +1,4 @@
+from email.policy import default
 from http import client
 from django.db import models
 
@@ -52,6 +53,7 @@ class Shoot(models.Model):
     location = models.CharField(max_length=25)
     booked = models.BooleanField(default=False)
     cost = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
+    complete = models.BooleanField(default=False)
 
 class Transaction(models.Model):
     date = models.DateTimeField(auto_now_add=True)

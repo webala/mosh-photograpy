@@ -4,12 +4,12 @@
 {% block content %}
 <section class="gallery flex flex-col items-center min-h-screen">
     <div class="flex justify-start w-full my-10 px-10 xl:px-32">
-        <h1 class="text-2xl text-textSecondary font-combo">Gallery</h1>
+        <h1 class="text-2xl text-textSecondary">Gallery</h1>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 md:flex flex-wrap gap-4 items-center justify-center">
         {% for photo in page_obj %}
         <div class="hover:scale-110 transition duration-300 ease-in">
-            <img class="w-56 rounded-lg" src='{{photo.download_url}}'  alt="bikini shot">
+            <img class="md:h-96" src='{{photo.download_url}}'  alt="bikini shot">
         </div>
         {% endfor %}
     </div>

@@ -17,3 +17,14 @@
 .hide {
     visibility: hidden;
 }
+.header-background {
+    z-index: -10;
+}
+
+.nav {
+    z-index: 10;
+}
+
+.curtain {
+    z-index:-9;
+}

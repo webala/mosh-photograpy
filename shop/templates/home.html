@@ -5,241 +5,117 @@
 
 <div>
     <section class="mini-gallery px-10 xl:px-32">
-        <div class="flex justify-center mb-20">
-            <h1 class="uppercase md:text-2xl">photo shoots, edits, video shoots and so much more. </h1>
+        <div class="my-20">
+            <h1 class="uppercase text-xl md:text-2xl font-semibold">photo shoots, edits, video shoots and so much more.
+            </h1>
         </div>
-        <div class="flex flex-col items-center md:flex-row md:justify-between w-full">
-            <div id="carouselExampleSlidesOnly1" class="carousel slide w-full md:w-56" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/BIL_1070.jpg' %}"
-                            alt="First slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/ShotByGlitchCloud-Lydia-2.jpg' %}"
-                            alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/DORCAS_0087.jpg' %}"
-                            alt="Third slide">
-                    </div>
-                </div>
-            </div>
-            <div class="flex flex-col items-center mt-10 qualities md:relative xl:right-24">
-                <p>Excelent camera work</p>
-                <p>Perfect editing</p>
-            </div>
-        </div>
-
-        <div class=" flex flex-col items-center md:flex-row md:justify-between w-full">
-            <div class=" flex flex-col items-center my-5 qualities  md:relative xl:left-24">
-                <p>Afordable rates</p>
-                <p>Timely work</p>
-            </div>
-            <div id="carouselExampleSlidesOnly2" class="carousel slide w-full md:w-1/2" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item ">
-                        <img class="d-block w-full md:w-1/2 rounded-lg" src="{% static 'images/sliders/DORCAS_0052.jpg' %}"
-                            alt="First slide">
-                    </div>
-                    <div class="carousel-item active">
-                        <img class="d-block w-full md:w-1/2 rounded-lg" src="{% static 'images/sliders/BIL_1047.jpg' %}"
-                            alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-full md:w-1/2 rounded-lg" src="{% static 'images/sliders/IYKE_0071.jpg' %}"
-                            alt="Third slide">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="flex flex-col items-center w-full mt-20">
-            <div class="qualities">
-                <p>Capture your best moments</p>
-            </div>
-            <div class="w-full mt-3 md:w-1/2">
-                <img class="rounded-lg" src="{% static 'images/sliders/GLI_0517.jpg' %}" loading="lazy" alt="">
-            </div>
-            <div class=" flex flex-col items-center mt-10 qualities">
-                <p>Always striving to deliver</p>
-                <a href="/gallery"
-                    class="flex items-center justify-evenly group hover:text-textSecondary transition duration-300 ease-in">
-                    <p class="animate-pulse hover:animate-none">View Gallery</p>
-                    <i
-                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
-                </a>
-                <a href="/packages"
-                    class="flex items-center justify-evenly group hover:text-textSecondary transition duration-300 ease-in">
-                    <p class="animate-pulse hover:animate-none">Book a shoot now</p>
-                    <i
-                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- <div class=" flex flex-col items-center mt-10 md:mt-0 md:flex-row md:justify-between w-full">
-            <div id="carouselExampleSlidesOnly3" class="carousel slide w-full md:w-1/2" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat.jpg' %}"
-                            alt="First slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat2.jpg' %}"
-                            alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100 rounded-lg" src="{% static 'images/sliders/cool-cat-3.jpeg' %}"
-                            alt="Third slide">
-                    </div>
-                </div>
-            </div>
-            <div class=" flex flex-col items-center mt-10 qualities md:relative xl:right-24">
-                <p>Always striving to deliver</p>
-                <a href="#"
-                    class="flex items-center justify-evenly group hover:text-textSecondary transition duration-300 ease-in">
-                    <p class="animate-pulse">View Gallery</p>
-                    <i
-                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
-                </a>
-                <a href="#"
-                    class="flex items-center justify-evenly group hover:text-textSecondary transition duration-300 ease-in">
-                    <p class="animate-pulse">Book a shoot now</p>
-                    <i
-                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
-                </a>
-            </div>
-        </div> -->
-    </section>
-
-    <!-- <section class="packages my-64 px-10 xl:px-32">
-        <h1 class="text-2xl font-semibold my-5 text-textSecondary">Packages</h1>
-
-        <div class="md:px-28 xl:px-44 w-full">
-            {% for package in packages %}
-                <div class="flex flex-col items-center my-10 xl:w-1/2">
-                    <h1>{{package}}</h1>
-                    <div class="tabs flex my-4">
-                        {% for category in package_categories %}                        
-                            {% if category.package == package %}
-                            <div class="mx-4 flex flex-col items-center">
-                                <p
-                                    {% if category.name == 'Gold' %}
-                                       class="text-3xl text-yellow-600"
-                                    {% elif category.name == 'Silver' %}
-                                       class="text-3xl silver"
-                                    {% else %}
-                                       class="text-3xl bronze"
-                                    {% endif %}
-                                >
-                            <i class="fa-solid fa-medal"></i>
-                            </p>
-                                <span class="cursor-pointer tab {{category.name}} {{package.package_class}}" data-tab="tab_{{category.id}}" data-class="{{package.package_class}}">{{category.name}}</span>
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-
-                    <div class="">
-                        {% for category in package_categories %}
-                            {% if category.package == package %}
-                            <div class="tab-info {{category.name}} {{package.package_class}} flex justify-between" id="tab_{{category.id}}" data-tab-info>
-                                <p class="text-2xl">{{category.category_description}}</p>
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <style>
-            
-            .tab-info {
-                display: none;
-            }
-            .active.tab-info {
-                display: block;
-            }
-
-            .tab.active {
-                text-decoration: underline;
-                color: #F66B0E;
-            }
-            .silver {
-                color: '#a8a8a7';
-            }
-
-            .gold {
-                color: '#c99a0c';
-            }
-            
-            .bronze {
-                color: '#403001';
-            }
-        </style>
-        <script defer>
-            const goldTab = Array.from(document.getElementsByClassName('Gold'))
-            goldTab.forEach(element => {
-                element.classList.add('active')
-            });
-
-            const tabs = Array.from(document.getElementsByClassName('tab'))
-            
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    
-                    const target = document.getElementById(tab.dataset.tab)
-                    const tabInfoClass = tab.dataset.class
-                    const tabInfos = Array.from(document.getElementsByClassName(tabInfoClass))
-                    
-                    tabInfos.forEach(tabInfo => {
-                        tabInfo.classList.remove('active')
-                    })
-
-                    tab.classList.add('active')
-                    target.classList.add('active')
-                })
-            })
-
-        </script>
-        
-    </section> -->
-
-    <section class="events px-10 xl:px-32">
         <div>
-            <h1 class="text-2xl font-semibold my-5 text-textSecondary">Shoots</h1>
-        </div>
-        <div class="flex flex-col md:flex-row flex-wrap items-center justify-center w-full">
-            <div>
-                <div class="event w-56 my-5 mx-2 hover:scale-110 transition duration-300 ease-in">
-                    <img class="rounded-lg" src="{% static 'images/sliders/shoot-package1.jpg' %}" alt="shoot-package1">
+            <div class="flex items-center h-72 md:h-96 justify-start flex-wrap">
+                <div class="h-full mr-2">
+                    <img class='h-72 md:h-96' src="{% static 'images/sliders/ShotByGlitchCloud-Lydia-2.jpg' %}" alt="">
                 </div>
-                <div class="event w-56 my-5 mx-2 hover:scale-110 transition duration-300 ease-in">
-                    <img class="rounded-lg" src="{% static 'images/sliders/shoot-package2.jpg' %}" alt="shoot-package2">
+                <div class="h-full mr-2">
+                    <img class='h-72 md:h-96' src="{% static 'images/sliders/DORCAS_0087.jpg' %}" alt="">
                 </div>
-            </div>
-            <div>
-                <div class="event w-56 my-5 mx-2 hover:scale-110 transition duration-300 ease-in">
-                    <img class="rounded-lg" src="{% static 'images/sliders/shoot-package3.jpg' %}" alt="shoot-package3">
+                <div class="h-full mr-2">
+                    <img class='h-72 md:h-96' src="{% static 'images/sliders/BIL_1047.jpg' %}" alt="">
                 </div>
             </div>
-            
+            <div class="my-20 flex">
+                <h1 class="uppercase text-xl md:text-2xl font-semibold">affordable Rates . expert edits</h1>
+                <div class="ml-5 group">
+                    <a href="/packages"
+                        class="font-bold text-2xl animate-pulse hover:text-textSecondary hover:animate-none">Book a
+                        shoot</a>
+                    <i
+                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+                </div>
+            </div>
+            <div id="carouselExampleSlidesOnly1" class="carousel slide h-full flex items-start" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block  h-72 md:h-96" src="{% static 'images/sliders/GLI_0482.jpg' %}"
+                            alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block  h-72 md:h-96" src="{% static 'images/sliders/GLI_0517.jpg' %}"
+                            alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block  h-72 md:h-96" src="{% static 'images/sliders/DSC_0756.jpg' %}"
+                            alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block  h-72 md:h-96" src="{% static 'images/sliders/GLI_0331-48.jpg' %}"
+                            alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block  h-72 md:h-96" src="{% static 'images/sliders/DSC_0763.jpg' %}"
+                            alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block  h-72 md:h-96" src="{% static 'images/sliders/GLI_0663.jpg' %}"
+                            alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block  h-72 md:h-96"
+                            src="{% static 'images/sliders/GLITCH CLOUD PHOTOGRAPHY- FAITH 4.jpg' %}"
+                            alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block  h-72 md:h-96" src="{% static 'images/sliders/JUDY 17.jpg' %}"
+                            alt="Second slide">
+                    </div>
+                </div>
+            </div>
+            <div class="flex  hover:text-textSecondary justify-end mt-5">
+                <div class="relative right-1/4 group">
+                    <a href="/packages"
+                        class="font-bold text-2xl animate-pulse hover:text-textSecondary hover:animate-none">Take a look
+                        at our packages</a>
+                    <i
+                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+                </div>
+            </div>
+            <div class="my-20">
+                <h1 class="uppercase text-xl md:text-2xl font-semibold">We do events too</h1>
+            </div>
+            <div class="flex flex-wrap items-center justify-start  h-72 md:h-96">
+
+                <div class="event  h-72 md:h-96  mx-2 hover:scale-110 transition duration-300 ease-in">
+                    <img class="rounded-lg  h-72 md:h-96" src="{% static 'images/sliders/shoot-package1.jpg' %}"
+                        alt="shoot-package1">
+                </div>
+                <div class="event  h-72 md:h-96  mx-2 hover:scale-110 transition duration-300 ease-in">
+                    <img class="rounded-lg  h-72 md:h-96" src="{% static 'images/sliders/shoot-package2.jpg' %}"
+                        alt="shoot-package2">
+                </div>
+                <div class="event  h-72 md:h-96  mx-2 hover:scale-110 transition duration-300 ease-in">
+                    <img class="rounded-lg  h-72 md:h-96" src="{% static 'images/sliders/shoot-package3.jpg' %}"
+                        alt="shoot-package3">
+                </div>
+
+            </div>
         </div>
-        
     </section>
+
+
+
 
     <section class="about px-10 xl:px-32 my-44">
         <h1 class="font-semibold text-2xl my-5 text-textSecondary">About me</h1>
         <div class="text-xl">
-            <img class="rounded-lg float-right w-56 md:w-72 mx-3 mb-3" src="{% static 'images/mosh/mosh.jpeg' %}" alt="mosh">
+            <img class="rounded-lg float-right w-56 md:w-72 mx-3 mb-3" src="{% static 'images/mosh/mosh.jpeg' %}"
+                alt="mosh">
             <p class="my-2">Who i'm i?</p>
             <p class="my-2">Meet Brendan, the CEO and founder of Glitch Cloud Photography.</p>
-            <p class="my-2">I am a photographer based in Nairobi Kenya from a small surbubian town called Ruiru. I am self taught with sincere passion for all things photography, beautiful light, good music, sincere people and inspiring spaces.</p>
-            <p class="my-2">I believe everyone should have the oportunity to feel beautiful in a photograph so i'll guide you through your photography sessions and ease all your 'i'm awkward' fears.</p>
-            <p class="my-2">Wheather you are comfortable or shy in from of a camera, my sessions are relaxed with a no pressure atmosphere that brings out the best in you.</p>
+            <p class="my-2">I am a photographer based in Nairobi Kenya from a small surbubian town called Ruiru. I am
+                self taught with sincere passion for all things photography, beautiful light, good music, sincere people
+                and inspiring spaces.</p>
+            <p class="my-2">I believe everyone should have the oportunity to feel beautiful in a photograph so i'll
+                guide you through your photography sessions and ease all your 'i'm awkward' fears.</p>
+            <p class="my-2">Wheather you are comfortable or shy in from of a camera, my sessions are relaxed with a no
+                pressure atmosphere that brings out the best in you.</p>
         </div>
     </section>
 
@@ -253,14 +129,19 @@
                 </div>
                 <div class="flex flex-col items-start my-2">
                     <label for="message">Message</label>
-                    <textarea name="message" id="" cols="30" rows="10" class="rounded-lg text-backgroundPrimary"></textarea>
+                    <textarea name="message" id="" cols="30" rows="10"
+                        class="rounded-lg text-backgroundPrimary"></textarea>
                 </div>
-                <button type="submit" class="bg-backgroundSecondary my-4 py-2 px-4 rounded-lg hover:scale-110 transition duration-300 ease-in">Send</button>
+                <button type="submit"
+                    class="bg-backgroundSecondary my-4 py-2 px-4 rounded-lg hover:scale-110 transition duration-300 ease-in">Send</button>
             </form>
             <div class="flex justify-evenly w-full py-10">
-                <a href="#"><i class="fa-brands fa-instagram text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
-                <a href="#"><i class="fa-brands fa-twitter text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
-                <a href="#"><i class="fa-brands fa-discord text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
+                <a href="#"><i
+                        class="fa-brands fa-instagram text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
+                <a href="#"><i
+                        class="fa-brands fa-twitter text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
+                <a href="#"><i
+                        class="fa-brands fa-discord text-3xl hover:animate-bounce hover:text-textSecondary hover:scale-110 transition duration-300 ease-in"></i></a>
             </div>
             <div>
                 <p>Call or WhatsApp</p>

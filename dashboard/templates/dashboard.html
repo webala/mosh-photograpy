@@ -30,12 +30,127 @@
 
     <div>
         {% if shoots %}
-        <div class="shoots">
-            {% for shoot in shoots %}
-                <div>
-                    
+        <div class="shoots text-xl flex flex-col items-center mt-10">
+            <div class="flex justify-start">
+                <h1 class="font-bold text-2xl">Shoots</h1>
+            </div>
+            <table class="table-auto">
+                <thead class="uppercase text-left">
+                    <tr>
+                        <th class="py-3 px-2 md:px-10">Client</th>
+                        <th class="py-3 px-2 md:px-10">Date</th>
+                        <th class="py-3 px-2 md:px-10">Location</th>
+                        <th class="py-3 px-2 md:px-10">Cost</th>
+
+                        <th class="py-3 px-2 md:px-10">Complete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for shoot in shoots %}
+                    <tr
+                        class="border-2 border-backgroundPrimary {% if shoot.booked %} text-green-700 {% else %} text-textPrimary {% endif %}">
+                        <td class="py-4 px-2 md:px-10 ">
+                            {{shoot.client}}
+                        </td>
+                        <td class="py-4 px-2 md:px-10 ">
+                            {{shoot.date}}
+                        </td>
+                        <td class="py-4 px-2 md:px-10 ">
+                            {{shoot.location}}
+                        </td>
+                        <td class="py-4 px-2 md:px-10 ">
+                            {{shoot.cost}}
+                        </td>
+
+                        <td class="py-4 px-2 md:px-10 text-center">
+                            {% if shoot.complete %}
+                            <i class="fa-solid fa-thumbs-up text-xl text-green-500"></i>
+                            {% else %}
+                            {% if shoot.booked %}
+                            <i class="fa-solid fa-spinner text-xl animate-spin"></i>
+                            {% else %}
+                            <i class="fa-solid fa-circle-exclamation text-xl text-yellow-400"></i>
+                            {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="group flex items-center text-2xl font-bold">
+                <a href="#" class="hover:text-textSecondary">All shoots</a>
+                <i
+                    class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="messages text-xl flex flex-col items-center mt-10">
+        {% if client_messages %}
+        <div class="flex flex-col items-center mt-10">
+            <div class="flex justify-start">
+                <h1 class="font-bold text-2xl">Messages</h1>
+            </div>
+            <div>
+                {% for message in client_messages %}
+                <div class="flex flex-col text-xl {% if not message.read %} text-textSecondary {% else %} text-textPrimary {% endif %}">
+                    <div class="flex justify-between">
+                        <p>@{{message.name}}</p>
+                        <p>{{message.date}}</p>
+                    </div>
+                    <div>
+                        <p>{{message.message}}</p>
+                    </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="group flex items-center text-2xl font-bold">
+                <a href="/dashboard/messages" class="hover:text-textSecondary">All messages</a>
+                <i
+                    class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="transactions text-xl">
+        {% if transactions %}
+        <div class="flex flex-col items-center mt-10">
+            <div class="flex justify-start">
+                <h1 class="font-bold text-2xl">Transactions</h1>
+            </div>
+            <table class="table-auto">
+                <thead class="uppercase text-left">
+                    <tr>
+                        <th class="py-3 px-2 md:px-10">Shoot</th>
+                        <th class="py-3 px-2 md:px-10">Amount</th>
+                        <th class="py-3 px-2 md:px-10">Phone</th>
+                        <th class="py-3 px-2 md:px-10">Receipt No.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr class=" border-2 border-backgroundPrimary {% if transaction.complete %} text-green-700 {% else %} text-textPrimary {% endif %}">
+                        <td class="py-4 px-2 md:px-10 ">
+                            {{transaction.shoot}}
+                        </td>
+                        <td class="py-4 px-2 md:px-10 ">
+                            {{transaction.amount}}
+                        </td>
+                        <td class="py-4 px-2 md:px-10 ">
+                            {{transaction.phone}}
+                        </td>
+                        <td class="py-4 px-2 md:px-10 ">
+                            {{transaction.receipt_number}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="group flex items-center text-2xl font-bold">
+                <a href="/dashboard/transactions" class="hover:text-textSecondary">All transactions</a>
+                <i
+                    class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+            </div>
         </div>
         {% endif %}
     </div>

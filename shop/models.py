@@ -46,6 +46,9 @@ class Client(models.Model):
     phone = models.CharField(max_length=12)
     email = models.EmailField()
 
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
+
 class Shoot(models.Model):
     package = models.ManyToManyField(Package)
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
@@ -54,6 +57,9 @@ class Shoot(models.Model):
     booked = models.BooleanField(default=False)
     cost = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
     complete = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.location + ' ' + str(self.date)
 
 class Transaction(models.Model):
     date = models.DateTimeField(auto_now_add=True)

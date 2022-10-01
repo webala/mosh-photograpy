@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="transactions min-h-screen">
+    <div class="flex flex-col items-center mt-10 text-xl">
+        <div class="flex justify-start">
+            <h1 class="font-bold text-2xl">Transactions</h1>
+        </div>
+        {% if not transactions %}
+            <p>No transactions</p>
+        {% else %}
+
+        <table class="table-auto">
+            <thead class="uppercase text-left">
+                <tr>
+                    <th class="py-3 px-2 md:px-10">Shoot</th>
+                    <th class="py-3 px-2 md:px-10">Amount</th>
+                    <th class="py-3 px-2 md:px-10">Phone</th>
+                    <th class="py-3 px-2 md:px-10">Receipt No.</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr
+                    class=" border-2 border-backgroundPrimary {% if transaction.complete %} text-green-700 {% else %} text-textPrimary {% endif %}">
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{transaction.shoot}}
+                    </td>
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{transaction.amount}}
+                    </td>
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{transaction.phone}}
+                    </td>
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{transaction.receipt_number}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

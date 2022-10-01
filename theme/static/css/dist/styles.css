@@ -881,12 +881,24 @@ select {
   margin-bottom: 0.25rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
 .block {
   display: block;
 }
 
 .flex {
   display: flex;
+}
+
+.table {
+  display: table;
 }
 
 .grid {
@@ -943,6 +955,10 @@ select {
 
 .w-56 {
   width: 14rem;
+}
+
+.table-auto {
+  table-layout: auto;
 }
 
 @-webkit-keyframes pulse {
@@ -1035,6 +1051,28 @@ select {
   border-radius: 0.75rem;
 }
 
+.rounded-sm {
+  border-radius: 0.125rem;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
+.border-backgroundPrimary {
+  --tw-border-opacity: 1;
+  border-color: rgb(44 51 51 / var(--tw-border-opacity));
+}
+
 .bg-backgroundPrimary {
   --tw-bg-opacity: 1;
   background-color: rgb(44 51 51 / var(--tw-bg-opacity));
@@ -1109,6 +1147,24 @@ select {
   padding-right: 0.75rem;
 }
 
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .font-quicksand {
   font-family: "Quicksand", sans-serif;
 }
@@ -1174,6 +1230,31 @@ select {
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.text-green-500 {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+
+.text-red-700 {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
+}
+
+.text-green-700 {
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity));
+}
+
+.text-yellow-400 {
+  --tw-text-opacity: 1;
+  color: rgb(250 204 21 / var(--tw-text-opacity));
 }
 
 .opacity-30 {
@@ -1255,6 +1336,11 @@ select {
   color: rgb(165 201 202 / var(--tw-text-opacity));
 }
 
+.hover\:text-textPrimary:hover {
+  --tw-text-opacity: 1;
+  color: rgb(231 246 242 / var(--tw-text-opacity));
+}
+
 .group:hover .group-hover\:translate-x-10 {
   --tw-translate-x: 2.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1316,6 +1402,11 @@ select {
   .md\:px-2 {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+  }
+
+  .md\:px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
   .md\:text-2xl {

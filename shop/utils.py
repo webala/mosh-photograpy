@@ -36,11 +36,11 @@ auth = firebase.auth()
 email = os.getenv('FIREBASE_EMAIL')
 password = os.getenv('FIREBASE_PASSWORD')
 
-def compress(image, f_ext, img_name):
+def compress(image, f_ext):
     im = Image.open(image)
     im_io = BytesIO()
-    im.save(im_io, f_ext, quality=60)
-    new_image = File(im_io, name=img_name)
+    im.save(im_io, 'JPEG', quality=60)
+    new_image = File(im_io, name=image.name)
     return new_image
 
 def upload_image(directory, file):
@@ -48,7 +48,9 @@ def upload_image(directory, file):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(file.name)
     filename = random_hex + f_ext
-    image = compress(file, f_ext, filename)
+    file.name = filename
+    image = compress(file, f_ext[1:])
+    print('image:', image)
     directory = directory + '/' + filename
     print('filename: ', image.name)
     storege.child(directory).put(image)

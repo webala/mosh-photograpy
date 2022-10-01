@@ -52,10 +52,11 @@ def image_upload_view(request):
         # Upload image to firebase
         filename = upload_image("gallery", image)
         image = GalleryImage.objects.create(filename=filename)
-        image_url = get_image_url("gallery", filename)
+        user = auth.sign_in_with_email_and_password(email, password)
+        image_url = get_image_url("gallery", filename, user)
         image.download_url = image_url
         image.save()
-        messages.success("Image uploaded successfully.")
+        messages.success(request, "Image uploaded successfully.")
         form = ImageUploadForm()
         context["form"] = form
         return render(request, "image-upload.html", context)

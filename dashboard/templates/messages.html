@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="messages min-h-screen">
+    <div class="flex flex-col items-center mt-10 text-xl">
+        <div class="flex justify-start">
+            <h1 class="font-bold text-2xl">Messages</h1>
+        </div>
+        {% if not client_messages %}
+        <p>No messages.</p>
+        {% else %}
+        <div>
+            {% for message in client_messages %}
+            <div
+                class="flex flex-col text-xl {% if not message.read %} text-textSecondary {% else %} text-textPrimary {% endif %}">
+                <div class="flex justify-between">
+                    <p>@{{message.name}}</p>
+                    <p>{{message.date}}</p>
+                </div>
+                <div>
+                    <p>{{message.message}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

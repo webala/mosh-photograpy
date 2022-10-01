@@ -13,23 +13,7 @@
         </div>
         {% endfor %}
     </div>
-    <div class="pagination flex justify-between items-center my-10">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a class="mx-2" href="?page=1">1</a>
-                <a class="mx-2" href="?page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-chevron-left"></i></a>
-            {% endif %}
-    
-            <span class="current mx-2">
-                {{ page_obj.number }} 
-            </span>
-    
-            {% if page_obj.has_next %}
-                <a class="mx-2" href="?page={{ page_obj.next_page_number }}"><i class="fa-solid fa-chevron-right"></i></a>
-                <!-- <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a> -->
-            {% endif %}
-        </span>
-    </div>
+    {% include 'paginator.html' %}
 </section>
 <script>
 

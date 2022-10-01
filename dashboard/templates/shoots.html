@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="shoots min-h-screen">
+    <div class="shoots text-xl flex flex-col items-center mt-10">
+        <div class="flex justify-start">
+            <h1 class="font-bold text-2xl">Shoots</h1>
+        </div>
+        <table class="table-auto">
+            <thead class="uppercase text-left">
+                <tr>
+                    <th class="py-3 px-2 md:px-10">Client</th>
+                    <th class="py-3 px-2 md:px-10">Date</th>
+                    <th class="py-3 px-2 md:px-10">Location</th>
+                    <th class="py-3 px-2 md:px-10">Cost</th>
+    
+                    <th class="py-3 px-2 md:px-10">Complete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for shoot in shoots %}
+                <tr
+                    class="border-2 border-backgroundPrimary {% if shoot.booked %} text-green-700 {% else %} text-textPrimary {% endif %}">
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{shoot.client}}
+                    </td>
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{shoot.date}}
+                    </td>
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{shoot.location}}
+                    </td>
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{shoot.cost}}
+                    </td>
+    
+                    <td class="py-4 px-2 md:px-10 text-center">
+                        {% if shoot.complete %}
+                        <i class="fa-solid fa-thumbs-up text-xl text-green-500"></i>
+                        {% else %}
+                        {% if shoot.booked %}
+                        <i class="fa-solid fa-spinner text-xl animate-spin"></i>
+                        {% else %}
+                        <i class="fa-solid fa-circle-exclamation text-xl text-yellow-400"></i>
+                        {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="group flex items-center text-2xl font-bold">
+            <a href="#" class="hover:text-textSecondary">All shoots</a>
+            <i
+                class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

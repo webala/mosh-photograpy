@@ -4,6 +4,9 @@ from requests.auth import HTTPBasicAuth
 from django.conf import settings
 from datetime import datetime
 from dotenv import load_dotenv
+from io import BytesIO
+from PIL import Image
+from django.core.files import File
 
 load_dotenv()
 
@@ -33,17 +36,22 @@ auth = firebase.auth()
 email = os.getenv('FIREBASE_EMAIL')
 password = os.getenv('FIREBASE_PASSWORD')
 
-
+def compress(image, f_ext, img_name):
+    im = Image.open(image)
+    im_io = BytesIO()
+    im.save(im_io, f_ext, quality=60)
+    new_image = File(im_io, name=img_name)
+    return new_image
 
 def upload_image(directory, file):
     print('image upload called')
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(file.name)
     filename = random_hex + f_ext
-    file.name = filename
+    image = compress(file, f_ext, filename)
     directory = directory + '/' + filename
-    print('filename: ', file.name)
-    storege.child(directory).put(file)
+    print('filename: ', image.name)
+    storege.child(directory).put(image)
     return filename
 
 def get_image_url(directory, filename, user):

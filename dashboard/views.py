@@ -1,14 +1,14 @@
 
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from shop.models import Message, Shoot, Transaction
 
 # Create your views here.
 
 def dashboard(request):
-    shoots = Shoot.objects.all()[:5]
-    transactions = Transaction.objects.all()[:5]
-    client_messages = Message.objects.all()[:5]
+    shoots = Shoot.objects.filter(booked=True, complete=False)
+    transactions = Transaction.objects.filter(complete=True, viewed=False)
+    client_messages = Message.objects.filter(read=False)
     
     context = {
         'shoots': shoots,
@@ -35,3 +35,8 @@ class ShootsList(ListView):
     template_name: str = 'shoots.html'
     context_object_name: str = 'shoots'
     paginate_by: int = 10
+
+class ShootDetail(DetailView):
+    model = Shoot
+    template_name: str = 'shoot.html'
+    context_object_name: str = 'shoot'

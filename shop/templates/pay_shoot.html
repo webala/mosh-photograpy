@@ -4,30 +4,7 @@
 {% block content %}
 
 <section class="packages min-h-screen py-10 font-quicksand">
-    <div>
-        <h1 class="text-textSecondary font-semibold text-2xl my-3">Shoot Details</h1>
-        <div>
-            <div class="mb-2">
-                <p>Date: {{shoot.date}}</p>
-                <p>Location: {{shoot.location}}</p>
-                <p>Cost: ksh {{shoot.cost}}</p>
-            </div>
-            <div class="mb-4">
-                <h1 class="text-textSecondary font-semibold text-xl mb-1">Packages</h1>
-                <div>
-                    {% for package in packages %}
-                    <p>{{package}}</p>
-                    {% endfor %}
-                </div>   
-            </div>
-            <div>
-                <h1 class="text-textSecondary font-semibold text-xl my-1">Client Details</h1>
-                <p>{{shoot.client.first_name}} {{shoot.client.last_name}}</p>
-                <p>{{shoot.client.email}}</p>
-                <p>{{shoot.client.phone}}</p>
-            </div>
-        </div>
-    </div>
+    {% include 'shoot_detail.html' %}
     <div class="mt-10">
         <form action="#" method="POST">{% csrf_token %}
             <p>A deposit of ksh 1000 is required to book a shoot.</p>

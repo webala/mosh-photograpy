@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="shoot-detail min-h-screen md:flex md:justify-evenly mt-20">
-    <div class="flex justify-center">
-        {% include 'shoot_detail.html' %}
-    </div>
-    <div class="flex flex-col items-center justify-start">
+<section class="shoot-detail min-h-screen justify-evenly  mt-20">
+    <div class="flex items-center justify-center flex-wrap w-full">
+        {% if shoot.booked %}
+        <div class="flex items-center mr-2">
+            <p>This shoot has been booked</p><i class="fa-solid fa-thumbs-up text-xl text-green-500"></i>
+        </div>
+        {% else %}
+        <div class="flex items-center mr-2">
+            <p>This shoot has not been booked</p><i class="fa-solid fa-circle-exclamation text-xl text-yellow-400"></i>
+        </div>
+        {% endif %}
         <div class="flex items-center">
             {% csrf_token %}
             <label for="complete">Complete</label>
             <input id="complete" type="checkbox" value="complete" {% if shoot.complete %} checked {% endif %}>
         </div>
     </div>
+    <div class="flex justify-center">
+        {% include 'shoot_detail.html' %}
+    </div>
+
 </section>
 <script>
     const completeBtn = document.getElementById('complete')
@@ -19,26 +29,26 @@
     const completeEndpoint = '/dashboard/shoot/complete'
     const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
     console.log(csrf_token)
-    
+
     completeBtn.addEventListener('click', () => {
         const complete = completeBtn.checked
-        fetch(completeEndpoint,{
+        fetch(completeEndpoint, {
             method: 'post',
             credentials: "same-origin",
             headers: {
                 'Content-Type': 'application/json',
                 "Accept": "application/json",
                 'X-CSRFToken': csrf_token,
-                
+
             },
             body: JSON.stringify({
                 complete
             })
         }).then(res => res.json())
-        .then(data => console.log(data))
-        .catch(error => {
-            console.log(error)
-        })
+            .then(data => console.log(data))
+            .catch(error => {
+                console.log(error)
+            })
     })
 </script>
 {% endblock %}

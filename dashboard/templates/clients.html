@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="shoots min-h-screen">
+    <div class="shoots text-xl flex flex-col items-center mt-10">
+        <div class="flex justify-start">
+            <h1 class="font-bold text-2xl">Clients</h1>
+        </div>
+        <table class="table-auto">
+            <thead class="uppercase text-left">
+                <tr>
+                    <th class="py-3 px-2 md:px-10">Name</th>
+                    <th class="py-3 px-2 md:px-10">Phone</th>
+                    <th class="py-3 px-2 md:px-10">Email</th>
+                    <th class="py-3 px-2 md:px-10">#</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <tr
+                    class="border-2 border-backgroundPrimary {% if shoot.booked %} text-green-700 {% else %} text-textPrimary {% endif %}">
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{client.first_name}} {{client.last_name}}
+                    </td>
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{client.phone}}
+                    </td>
+                    <td class="py-4 px-2 md:px-10 ">
+                        {{client.email}}
+                    </td>
+                    <td class="py-4 px-2 md:px-10 text-center">
+                        <a href="/dashboard/client/{{client.id}}">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% include 'paginator.html' %}
+    </div>
+
+</section>
+
+{% endblock %}

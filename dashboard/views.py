@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from dashboard.serializers import SetShootCompleteSerializer
-from shop.models import Message, Package, Shoot, Transaction
+from shop.models import Client, Message, Package, Shoot, Transaction
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny 
 from rest_framework.decorators import api_view
@@ -61,7 +61,23 @@ class TransactionDetail(DetailView):
     template_name: str = 'transaction.html'
     context_object_name: str = 'transaction'
 
-    
+class ClientDetail(DetailView):
+    model = Client
+    template_name: str = 'client.html'
+    context_object_name: str = 'client'
+
+class ClientList(ListView):
+    model = Client
+    template_name: str = 'clients.html'
+    context_object_name: str = 'clients'
+    paginate_by: int = 15
+
+class MessageDetail(DetailView):
+    model = Message
+    template_name: str = "message.html"
+    context_object_name: str = "client_message"
+
+
 @api_view(['GET','POST'])
 def set_shoot_complete(request):
     serializer = SetShootCompleteSerializer(data=request.data)

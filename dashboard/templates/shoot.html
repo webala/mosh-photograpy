@@ -1,7 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="shoot-detail min-h-screen">
-    {% include 'shoot_detail.html' %}
+<section class="shoot-detail min-h-screen md:flex md:justify-evenly mt-20">
+    <div class="flex justify-center">
+        {% include 'shoot_detail.html' %}
+    </div>
+    <div class="flex flex-col items-center justify-start">
+        <div class="flex items-center">
+            {% csrf_token %}
+            <label for="complete">Complete</label>
+            <input id="complete" type="checkbox" value="complete" {% if shoot.complete %} checked {% endif %}>
+        </div>
+    </div>
 </section>
+<script>
+    const completeBtn = document.getElementById('complete')
+    console.log(completeBtn.checked)
+    const completeEndpoint = '/dashboard/shoot/complete'
+    const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    console.log(csrf_token)
+    
+    completeBtn.addEventListener('click', () => {
+        const complete = completeBtn.checked
+        fetch(completeEndpoint,{
+            method: 'post',
+            credentials: "same-origin",
+            headers: {
+                'Content-Type': 'application/json',
+                "Accept": "application/json",
+                'X-CSRFToken': csrf_token,
+                
+            },
+            body: JSON.stringify({
+                complete
+            })
+        }).then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => {
+            console.log(error)
+        })
+    })
+</script>
 {% endblock %}

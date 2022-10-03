@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'shop',
-    'dashboard'
+    'dashboard',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "studio.wsgi.application"
 
-
+# Django rest framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication'
+    ]
+}
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 

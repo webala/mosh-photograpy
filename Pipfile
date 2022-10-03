@@ -10,6 +10,7 @@ pyrebase4 = "*"
 pillow = "*"
 python-dotenv = "*"
 reportlab = "*"
+djangorestframework = "*"
 
 [dev-packages]
 

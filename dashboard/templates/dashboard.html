@@ -134,6 +134,7 @@
                             <th class="py-3 px-2 md:px-10">Amount</th>
                             <th class="py-3 px-2 md:px-10">Phone</th>
                             <th class="py-3 px-2 md:px-10">Receipt No.</th>
+                            <th class="py-3 px-2 md:px-10">#</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -152,6 +153,9 @@
                             </td>
                             <td class="py-4 px-2 md:px-10 ">
                                 {{transaction.receipt_number}}
+                            </td>
+                            <td class="py-4 px-2 md:px-10 ">
+                                <a href="/dashboard/transaction/{{transaction.id}}"><i class="fa-solid fa-circle-info"></i></a>
                             </td>
                         </tr>
                         {% endfor %}

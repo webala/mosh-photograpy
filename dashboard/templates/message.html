@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="shoot-detail min-h-screen justify-evenly  mt-20 w-full">
+    <div class="w-full flex justify-start">
+        <div
+            class="flex flex-col text-xl md:w-1/2 border my-3 p-2 hover:cursor-pointer border-backgroundSecondary rounded-lg {% if not message.read %} text-textSecondary {% else %} text-textPrimary {% endif %}">
+            <div class="flex justify-between">
+                <p>@{{client_message.name}}</p>
+                <p>{{client_message.date}}</p>
+            </div>
+            <div>
+                <p>{{client_message.message}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="w-full flex justify-end">
+
+    </div>
+    <form action="#" class="w-full flex flex-col items-center mt-44">
+        <div class="w-full flex justify-center">
+            <textarea type="text" class="w-full xl:w-1/2 rounded-lg text-black font-bold"></textarea>
+        </div>
+        <button type="submit" class="bg-backgroundSecondary p-2 mt-4 rounded-lg">Send Message</button>
+    </form>
+</section>
+
+{% endblock %}

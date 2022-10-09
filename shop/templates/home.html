@@ -174,18 +174,19 @@
     <section class="contact px-10 xl:px-32  mt-20">
         <h1 class="font-semibold text-2xl my-5 text-textSecondary">Contact</h1>
         <div class="flex flex-col items-start">
-            <form action="#">
-                <div class="flex flex-col items-start my-2">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" class="rounded-lg  text-backgroundPrimary">
+            <form action="/dashboard/message/create" method="post">{% csrf_token %}
+                {% for field in message_form %}
+                <div class="field flex flex-col font-bold text-xl my-2">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
                 </div>
-                <div class="flex flex-col items-start my-2">
-                    <label for="message">Message</label>
-                    <textarea name="message" id="" cols="30" rows="10"
-                        class="rounded-lg text-backgroundPrimary"></textarea>
-                </div>
-                <button type="submit"
-                    class="bg-backgroundSecondary my-4 py-2 px-4 rounded-lg hover:scale-110 transition duration-300 ease-in">Send</button>
+                {% endfor %}
+                <button
+                    class="bg-backgroundSecondary hover:scale-100 transition duration-300 ease-in-out p-2 my-5 rounded-lg"
+                    type="submit">Done</button>
             </form>
             <div>
                 <p>Call or WhatsApp</p>

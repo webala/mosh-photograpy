@@ -2,7 +2,7 @@ from builtins import print
 from django.http import HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 import json, io
-from shop.forms import ClientForm, ImageUploadForm, ShootForm
+from shop.forms import ClientForm, ImageUploadForm, MessageForm, ShootForm
 from shop.utils import (
     get_image_url,
     initiate_stk_push,
@@ -22,8 +22,12 @@ from reportlab.pdfgen import canvas
 
 
 def home(request):
+    message_form = MessageForm()
 
-    context = {}
+    context = {
+        'message_form': message_form
+    }
+    
     return render(request, "home.html", context)
 
 

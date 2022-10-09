@@ -5,9 +5,11 @@ urlpatterns = [
     path("", dashboard, name="dashboard"),
     path("transactions", TransactionsList.as_view(), name="transactions-list"),
     path("messages", MessagesList.as_view(), name="messages-list"),
+    path("message/<pk>", MessageDetail.as_view(), name="messages-detail"),
+    path("message/create", message_create, name="messages-create"),
     path("shoots", ShootsList.as_view(), name="shoots-list"),
     path("shoot/<pk>", ShootDetail.as_view(), name="shoot-detail"),
     path("shoot/complete", set_shoot_complete, name="set-shoot-complete"),
-    path('transaction/<pk>', TransactionDetail.as_view(), name='transaction-detail'),
-    path('clients', ClientList.as_view(), name='client-list'),
+    path("transaction/<pk>", TransactionDetail.as_view(), name="transaction-detail"),
+    path("clients", ClientList.as_view(), name="client-list"),
 ]

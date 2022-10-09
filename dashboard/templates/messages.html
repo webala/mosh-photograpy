@@ -9,18 +9,20 @@
         {% if not client_messages %}
         <p>No messages.</p>
         {% else %}
-        <div>
+        <div class="w-full md:w-1/2">
             {% for message in client_messages %}
-            <div
-                class="flex flex-col text-xl {% if not message.read %} text-textSecondary {% else %} text-textPrimary {% endif %}">
-                <div class="flex justify-between">
-                    <p>@{{message.name}}</p>
-                    <p>{{message.date}}</p>
+            <a href="/dashboard/message/{{message.id}}">
+                <div
+                    class="flex flex-col text-xl w-full border my-3 p-2 hover:cursor-pointer border-backgroundSecondary rounded-lg {% if not message.read %} text-textSecondary {% else %} text-textPrimary {% endif %}">
+                    <div class="flex justify-between">
+                        <p>@{{message.name}}</p>
+                        <p>{{message.date}}</p>
+                    </div>
+                    <div>
+                        <p>{{message.message}}</p>
+                    </div>
                 </div>
-                <div>
-                    <p>{{message.message}}</p>
-                </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
         {% include 'paginator.html' %}

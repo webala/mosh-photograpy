@@ -1,3 +1,4 @@
+from email import message
 from email.policy import default
 from http import client
 from django.db import models
@@ -77,6 +78,14 @@ class Message(models.Model):
     message = models.CharField(max_length=300)
     date = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+
+
+class MyMessage(models.Model):
+    replied_message = models.ForeignKey(Message, on_delete=models.CASCADE, null=True)
+    message = models.CharField(max_length=300)
+    date = models.DateTimeField(auto_now_add=True)
+    
+
 
 
 

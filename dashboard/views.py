@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
+from django.contrib import messages
 from dashboard.serializers import SetShootCompleteSerializer
+from shop.forms import MessageForm
 from shop.models import Client, Message, Package, Shoot, Transaction
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny 
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view
 
 # Create your views here.
@@ -21,6 +23,17 @@ def dashboard(request):
     }
 
     return render(request, "dashboard.html", context)
+
+
+def message_create(request):
+    form = MessageForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Message sent successfully")
+        return redirect("home")
+    else:
+        messages.error(request, "Message not sent. Please check your inputs.")
+        return redirect("home")
 
 
 class TransactionsList(ListView):
@@ -56,21 +69,25 @@ class ShootDetail(DetailView):
         context["packages"] = packages
         return context
 
+
 class TransactionDetail(DetailView):
     model = Transaction
-    template_name: str = 'transaction.html'
-    context_object_name: str = 'transaction'
+    template_name: str = "transaction.html"
+    context_object_name: str = "transaction"
+
 
 class ClientDetail(DetailView):
     model = Client
-    template_name: str = 'client.html'
-    context_object_name: str = 'client'
+    template_name: str = "client.html"
+    context_object_name: str = "client"
+
 
 class ClientList(ListView):
     model = Client
-    template_name: str = 'clients.html'
-    context_object_name: str = 'clients'
+    template_name: str = "clients.html"
+    context_object_name: str = "clients"
     paginate_by: int = 15
+
 
 class MessageDetail(DetailView):
     model = Message
@@ -78,7 +95,7 @@ class MessageDetail(DetailView):
     context_object_name: str = "client_message"
 
 
-@api_view(['GET','POST'])
+@api_view(["GET", "POST"])
 def set_shoot_complete(request):
     serializer = SetShootCompleteSerializer(data=request.data)
     if serializer.is_valid():

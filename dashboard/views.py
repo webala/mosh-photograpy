@@ -1,15 +1,29 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
-from dashboard.serializers import SetShootCompleteSerializer
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from dashboard.serializers import MyMessageSerializer, SetShootCompleteSerializer
 from shop.forms import MessageForm
 from shop.models import Client, Message, Package, Shoot, Transaction
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 
 # Create your views here.
 
+def register_user(request):
+    form = UserCreationForm(request.POST or None)
+    if form.is_valid():
+        user = form.save()
+        print('saved user: ', user)
+        return redirect('login')
+    
+    context = {
+        'form': form
+    }
+
+    return render(request, 'registration/register.html', context)
 
 def dashboard(request):
     shoots = Shoot.objects.filter(booked=True, complete=False)
@@ -99,4 +113,12 @@ class MessageDetail(DetailView):
 def set_shoot_complete(request):
     serializer = SetShootCompleteSerializer(data=request.data)
     if serializer.is_valid():
+        print(serializer.validated_data)
+
+
+@api_view(['POST']) 
+# @permission_classes([IsAuthenticated])
+def send_my_message(request):
+    serializer = MyMessageSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
         print(serializer.validated_data)

@@ -17,7 +17,7 @@
     <div class="w-full flex justify-end">
 
     </div>
-    <form action="#" class="w-full flex flex-col items-center mt-44">
+    <form action="/dashboard/message/reply" method="post" class="w-full flex flex-col items-center mt-44">{% csrf_token %}
         <div class="w-full flex justify-center">
             <textarea type="text" class="w-full xl:w-1/2 rounded-lg text-black font-bold"></textarea>
         </div>

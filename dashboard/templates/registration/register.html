@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col items-center">
+    {% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'register' %}" class="relative top-20">
+        {% csrf_token %}
+        <div>
+            <div class="field">
+                {% for error in form.username.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+                <div>{{ form.username.label_tag }}</div>
+                <div>{{ form.username }}</div>
+            </div>
+            <div class="field">
+                {% for error in form.password1.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+                <div>{{ form.password1.label_tag }}</div>
+                <div>{{ form.password1 }}</div>
+            </div>
+            <div class="field">
+                {% for error in form.password2.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+                <div>{{ form.password2.label_tag }}</div>
+                <div>{{ form.password2 }}</div>
+            </div>
+        </div>
+
+        <input class="bg-backgroundSecondary p-2 my-2 rounded" type="submit" value="Register">
+        <p><a href="{% url 'login' %}">Login instead.</a></p>
+    </form>
+</div>
+{% endblock %}

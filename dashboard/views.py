@@ -1,8 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import HttpResponse, render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
 from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.template.loader import render_to_string
+from django.core.mail import send_mail, BadHeaderError
 from dashboard.serializers import MyMessageSerializer, SetShootCompleteSerializer
 from shop.forms import MessageForm
 from shop.models import Client, Message, Package, Shoot, Transaction
@@ -12,18 +18,55 @@ from rest_framework.decorators import api_view, permission_classes
 
 # Create your views here.
 
+
 def register_user(request):
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
         user = form.save()
-        print('saved user: ', user)
-        return redirect('login')
-    
-    context = {
-        'form': form
-    }
+        print("saved user: ", user)
+        return redirect("login")
 
-    return render(request, 'registration/register.html', context)
+    context = {"form": form}
+
+    return render(request, "registration/register.html", context)
+
+
+def password_reset_request(request):
+    if request.method == "POST":
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get("email")
+            associated_user = User.objects.filter(email=email).first()
+            if associated_user:
+                subject = "Password Reset Requested"
+                email_template_name = "registration/password_reset_email.txt"
+                email_context = {
+                    "email": associated_user.email,
+                    "domain": "localhost:8000",
+                    "site_name": "Glitch Cloud",
+                    "uid": urlsafe_base64_encode(force_bytes(associated_user.pk)),
+                    "user": associated_user,
+                    "token": default_token_generator.make_token(associated_user),
+                    "protocol": "http",
+                }
+                email = render_to_string(email_template_name, email_context)
+                try:
+                    send_mail(
+                        subject,
+                        email,
+                        "webdspam@gmail.com",
+                        [associated_user.email],
+                        fail_silently=False,
+                    )
+                except BadHeaderError:
+                    return HttpResponse("Invalid header found.")
+
+                return redirect("password-reset-done")
+    form = PasswordResetForm()
+    return render(request, "registration/password_reset.html", context={"form": form})
+
+# class PasswordResetConfirm(PasswordResetConfirmView):
+#     success_url:str = '/dashboard/reset/done'
 
 def dashboard(request):
     shoots = Shoot.objects.filter(booked=True, complete=False)
@@ -116,7 +159,7 @@ def set_shoot_complete(request):
         print(serializer.validated_data)
 
 
-@api_view(['POST']) 
+@api_view(["POST"])
 # @permission_classes([IsAuthenticated])
 def send_my_message(request):
     serializer = MyMessageSerializer(data=request.data)

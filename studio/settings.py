@@ -86,6 +86,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "studio.wsgi.application"
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Django rest framework
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': [

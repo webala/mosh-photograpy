@@ -20,6 +20,7 @@
     </div>
     <div class="flex justify-center">
         {% include 'shoot_detail.html' %}
+        <input type="hidden" value="{{shoot.id}}" id="shoot_id">
     </div>
 
 </section>
@@ -32,22 +33,25 @@
 
     completeBtn.addEventListener('click', () => {
         const complete = completeBtn.checked
+        const shoot_id = parseInt(document.getElementById('shoot_id').value)
+        const data = {
+            complete,
+            shoot_id
+        }
         fetch(completeEndpoint, {
-            method: 'post',
-            credentials: "same-origin",
+            method: 'POST',
+            // credentials: "same-origin",
             headers: {
                 'Content-Type': 'application/json',
-                "Accept": "application/json",
+                // "Accept": "application/json",
                 'X-CSRFToken': csrf_token,
 
             },
-            body: JSON.stringify({
-                complete
-            })
+            body: JSON.stringify(data)
         }).then(res => res.json())
             .then(data => console.log(data))
             .catch(error => {
-                console.log(error)
+                console.log('Error: ', error)
             })
     })
 </script>

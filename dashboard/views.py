@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import HttpResponse, render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
@@ -15,6 +16,7 @@ from shop.models import Client, Message, Package, Shoot, Transaction
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -152,16 +154,36 @@ class MessageDetail(DetailView):
     context_object_name: str = "client_message"
 
 
-@api_view(["GET", "POST"])
-def set_shoot_complete(request):
-    serializer = SetShootCompleteSerializer(data=request.data)
-    if serializer.is_valid():
-        print(serializer.validated_data)
-
-
 @api_view(["POST"])
+def set_shoot_complete(request):   
+    serializer = SetShootCompleteSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        data = serializer.validated_data
+        shoot_id = data.get('shoot_id')
+        complete = data.get('complete')
+
+        query = Shoot.objects.filter(id=shoot_id)
+        if query.exists():
+            shoot = query.first()
+            shoot.complete = complete
+            shoot.save()
+            return Response({'message: ': 'Shoot complete status changed'})
+        else:
+            return Response({'message: ': 'Shoot does not exist'})
+        
+
+
+# def set_shoot_complete(request):
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         print('Data: ', data)
+
+
+# @api_view(["POST"])
 # @permission_classes([IsAuthenticated])
 def send_my_message(request):
-    serializer = MyMessageSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        print(serializer.validated_data)
+    # serializer = MyMessageSerializer(data=request.data)
+    # if serializer.is_valid(raise_exception=True):
+    #     print(serializer.validated_data)
+    data = json.loads(request.body)
+    print('Data: ', data)

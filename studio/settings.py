@@ -26,16 +26,15 @@ SECRET_KEY = "django-insecure-&hdd22v1)9ivn%adt89(b)glpydldsx2aer^5+@4$)vdf1g4l0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '92d3-41-90-36-160.in.ngrok.io'
-]
+ALLOWED_HOSTS = ["localhost", "92d3-41-90-36-160.in.ngrok.io"]
 
 # Daraja API configurations
-BUSINESS_SHORT_CODE=174379
-LIPANAMPESA_PASSKEY='bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
-API_RESOURCE_URL='https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
-DARAJA_AUTH_URL='https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+BUSINESS_SHORT_CODE = 174379
+LIPANAMPESA_PASSKEY = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
+API_RESOURCE_URL = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+DARAJA_AUTH_URL = (
+    "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+)
 
 
 # Application definition
@@ -47,12 +46,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django_browser_reload',
-    'tailwind',
-    'theme',
-    'shop',
-    'dashboard',
-    'rest_framework'
+    "django_browser_reload",
+    "tailwind",
+    "theme",
+    "shop",
+    "dashboard",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -71,7 +70,7 @@ ROOT_URLCONF = "studio.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -86,7 +85,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "studio.wsgi.application"
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Django rest framework
 # REST_FRAMEWORK = {
@@ -140,17 +139,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-TAILWIND_APP_NAME = 'theme'
+TAILWIND_APP_NAME = "theme"
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+INTERNAL_IPS = ["127.0.0.1", "localhost"]

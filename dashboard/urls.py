@@ -3,6 +3,7 @@ from django.urls import path, include, reverse
 from .views import *
 from django.contrib.auth import views as auth_views
 
+
 urlpatterns = [
     path("register", register_user, name="register"),
     path(
@@ -40,7 +41,7 @@ urlpatterns = [
     path("message/create", message_create, name="messages-create"),
     path("message/reply", send_my_message, name="send-message"),
     path("shoots", ShootsList.as_view(), name="shoots-list"),
-    path("shoot/<pk>", ShootDetail.as_view(), name="shoot-detail"),
+    path("shoot/<int:pk>", ShootDetail.as_view(), name="shoot-detail"),
     path("shoot/complete", set_shoot_complete, name="set-shoot-complete"),
     path("transaction/<pk>", TransactionDetail.as_view(), name="transaction-detail"),
     path("clients", ClientList.as_view(), name="client-list"),

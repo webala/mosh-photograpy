@@ -17,6 +17,8 @@ from django.views.generic import CreateView
 from django.contrib import messages
 from django.core.paginator import Paginator
 from reportlab.pdfgen import canvas
+from rest_framework.decorators import api_view
+from dashboard.serializers import SetShootCompleteSerializer
 
 # Create your views here.
 

@@ -1,5 +1,6 @@
 import json
-from django.shortcuts import HttpResponse, render, redirect
+from django.shortcuts import  render, redirect
+from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
@@ -11,8 +12,8 @@ from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, BadHeaderError
 from dashboard.serializers import MyMessageSerializer, SetShootCompleteSerializer
-from shop.forms import MessageForm
-from shop.models import Client, Message, Package, Shoot, Transaction
+from shop.forms import MessageForm, MyMessageForm
+from shop.models import Client, Message, MyMessage, Package, Shoot, Transaction
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
@@ -153,6 +154,15 @@ class MessageDetail(DetailView):
     template_name: str = "message.html"
     context_object_name: str = "client_message"
 
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        message = super().get_object()
+        replies = MyMessage.objects.filter(replied_message=message)
+        context['replies'] = replies
+        reply_form = MyMessageForm()
+        context['form'] = reply_form
+        return context
+
 
 @api_view(["POST"])
 def set_shoot_complete(request):   
@@ -172,18 +182,22 @@ def set_shoot_complete(request):
             return Response({'message: ': 'Shoot does not exist'})
         
 
-
-# def set_shoot_complete(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         print('Data: ', data)
-
-
-# @api_view(["POST"])
-# @permission_classes([IsAuthenticated])
+@api_view(['POST'])
 def send_my_message(request):
-    # serializer = MyMessageSerializer(data=request.data)
-    # if serializer.is_valid(raise_exception=True):
-    #     print(serializer.validated_data)
-    data = json.loads(request.body)
-    print('Data: ', data)
+    serializer = MyMessageSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        replied_message_id = serializer.validated_data.get('message_id')
+        message = serializer.validated_data.get('my_message')
+        query = Message.objects.filter(id=replied_message_id)
+        if query.exists():
+            replied_message = query.first()
+            reply = MyMessage.objects.create(
+                replied_message=replied_message,
+                message=message
+            )
+            return Response({'message': 'Reply sent.'})
+        else:
+            return Response({"message": "Message does not exist"})
+    
+
+

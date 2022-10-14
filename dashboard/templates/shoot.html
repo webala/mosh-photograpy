@@ -28,9 +28,6 @@
     const completeBtn = document.getElementById('complete')
     console.log(completeBtn.checked)
     const completeEndpoint = '/dashboard/shoot/complete'
-    const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    console.log(csrf_token)
-
     completeBtn.addEventListener('click', () => {
         const complete = completeBtn.checked
         const shoot_id = parseInt(document.getElementById('shoot_id').value)
@@ -38,21 +35,7 @@
             complete,
             shoot_id
         }
-        fetch(completeEndpoint, {
-            method: 'POST',
-            // credentials: "same-origin",
-            headers: {
-                'Content-Type': 'application/json',
-                // "Accept": "application/json",
-                'X-CSRFToken': csrf_token,
-
-            },
-            body: JSON.stringify(data)
-        }).then(res => res.json())
-            .then(data => console.log(data))
-            .catch(error => {
-                console.log('Error: ', error)
-            })
+        const response = postData(data, completeEndpoint)
     })
 </script>
 {% endblock %}

@@ -14,15 +14,45 @@
             </div>
         </div>
     </div>
-    <div class="w-full flex justify-end">
-
+    <div class="w-full flex flex-col items-end ">
+        {% for reply in replies %}
+            <div
+                class="flex flex-col text-xl md:w-1/2 border my-3 p-2 hover:cursor-pointer border-backgroundSecondary rounded-lg {% if not message.read %} text-textSecondary {% else %} text-textPrimary {% endif %}">
+                <div class="flex justify-between">
+                    <p>{{reply.date}}</p>
+                </div>
+                <div>
+                    <p>{{reply.message}}</p>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-    <form action="/dashboard/message/reply" method="post" class="w-full flex flex-col items-center mt-44">{% csrf_token %}
+    <form id="reply_message_form" action="/dashboard/message/reply" method="post" class="w-full flex flex-col items-center mt-44">{% csrf_token %}
+        <input type="hidden" value="{{client_message.id}}" name="message_id" id="message_id">
         <div class="w-full flex justify-center">
-            <textarea type="text" class="w-full xl:w-1/2 rounded-lg text-black font-bold"></textarea>
+            <textarea required name="my_message" id="my_message" type="text" class="w-full xl:w-1/2 rounded-lg text-black font-bold"></textarea>
         </div>
         <button type="submit" class="bg-backgroundSecondary p-2 mt-4 rounded-lg">Send Message</button>
     </form>
 </section>
+
+<script defer>
+    const handleMessageReply = (event) => {
+        event.preventDefault()
+        const replyEndpoint = '/dashboard/message/reply'
+        const my_message = document.getElementById('my_message').value
+        const message_id = parseInt(document.getElementById('message_id').value)
+        const data = {
+            my_message,
+            message_id
+        }
+        console.log('Data: ', data)
+        postData(data, replyEndpoint)
+        // location.reload()
+    }
+
+    const replyForm = document.getElementById('reply_message_form')
+    replyForm.addEventListener('submit', handleMessageReply)
+</script>
 
 {% endblock %}

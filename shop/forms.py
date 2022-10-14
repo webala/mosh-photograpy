@@ -1,6 +1,5 @@
-from builtins import print
 from django import forms
-from shop.models import Client, Message, Shoot
+from shop.models import Client, Message, MyMessage, Shoot
 from datetime import date
 from django.core.exceptions import ValidationError
 
@@ -56,3 +55,11 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ["email", "name", "message"]
+
+
+class MyMessageForm(forms.ModelForm):
+    replied_message_id = forms.IntegerField()
+
+    class Meta:
+        model = MyMessage
+        fields = ['message', 'replied_message_id']

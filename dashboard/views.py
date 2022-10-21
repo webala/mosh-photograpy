@@ -18,6 +18,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from .utils import message_data, shoot_data
 
 # Create your views here.
 
@@ -72,14 +73,15 @@ def password_reset_request(request):
 #     success_url:str = '/dashboard/reset/done'
 
 def dashboard(request):
-    shoots = Shoot.objects.filter(booked=True, complete=False)
-    transactions = Transaction.objects.filter(complete=True, viewed=False)
-    client_messages = Message.objects.filter(read=False)
-
+    shootData = shoot_data()
+    messageData = message_data()
+    clients = len(list(Client.objects.all()))
+    packages = len(list(Package.objects.all()))
     context = {
-        "shoots": shoots,
-        "transactions": transactions,
-        "client_messages": client_messages,
+        "shoot_data": shootData,
+        'message_data': messageData,
+        'clients': clients,
+        'packages': packages
     }
 
     return render(request, "dashboard.html", context)

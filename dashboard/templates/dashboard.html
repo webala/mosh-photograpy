@@ -4,190 +4,57 @@
 {% block content %}
 
 <section class="dashboard min-h-screen">
-    <div class="flex justify-center w-full mt-20 flex-wrap">
-        <a href="/dashboard/shoots" class="hover:text-textPrimary" >
+    <div class="flex flex-col items-center mt-20 ">
+        <a href="/dashboard/transactions" class="w-2/3">
             <div
-                class="bg-slate-600 hover:bg-backgroundSecondary hover:cursor-pointer  mx-2 my-2 rounded-lg h-16 w-44 py-2 px-4 flex items-center justify-start">
-                <h1 class="font-bold">Shoots</h1>
-                <small class="ml-3 bg-backgroundPrimary rounded-xl px-3">2</small>
+                class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg sales">
+                <h1 class="font-bold text-2xl">Shoots summary</h1>
+                <div class="flex mt-9">
+                    <div class="">
+                        <i class="text-2xl uil uil-money-bill"></i>
+                        <p><span class="font-bold text-2xl">{{shoot_data.week_shoots}}</span> shoots this week</p>
+                        <p class="font-semibold">Total: ksh <span
+                                class="font-bold text-2xl">{{week_sales.sales_amount}}</span></p>
+                    </div>
+                    <div class="ml-10 xl:ml-52">
+                        <i class="text-2xl uil uil-money-bill"></i>
+                        <p><span class="font-bold text-2xl">{{shoot_data.month_shoots}}</span> sales this month</p>
+                        <p class="font-semibold">Total: ksh <span
+                                class="font-bold text-2xl">{{week_sales.sales_amount}}</span></p>
+                    </div>
+                </div>
             </div>
         </a>
-        <a href="/dashboard/messages" class="hover:text-textPrimary">
-            <div
-                class="bg-slate-600 hover:bg-backgroundSecondary hover:cursor-pointer  mx-2 my-2 rounded-lg h-16 w-44 py-2 px-4 flex items-center justify-start">
-                <h1 class="font-bold">Messages</h1>
-                <small class="ml-3 bg-backgroundPrimary rounded-xl px-3">2</small>
-            </div>
-        </a>
-        <a href="/dashboard/transactions" class="hover:text-textPrimary">
-            <div
-                class="bg-slate-600 hover:bg-backgroundSecondary hover:cursor-pointer  mx-2 my-2 rounded-lg h-16 w-44 py-2 px-4 flex items-center justify-start">
-                <h1 class="font-bold">Transactions</h1>
-                <small class="ml-3 bg-backgroundPrimary rounded-xl px-3">2</small>
-            </div>
-        </a>
-        <a href="/dashboard/clients" class="hover:text-textPrimary">
-            <div
-                class="bg-slate-600 hover:bg-backgroundSecondary hover:cursor-pointer  mx-2 my-2 rounded-lg h-16 w-44 py-2 px-4 flex items-center justify-start">
-                <h1 class="font-bold">Clients</h1>
-            </div>
-        </a>
-        <a href="#" class="hover:text-textPrimary">
-            <div
-                class="bg-slate-600 hover:bg-backgroundSecondary hover:cursor-pointer  mx-2 my-2 rounded-lg h-16 w-44 py-2 px-4 flex items-center justify-start">
-                <h1 class="font-bold">Packages</h1>
-            </div>
-        </a>
-        <a href="/gallery" class="hover:text-textPrimary">
-            <div
-                class="bg-slate-600 hover:bg-backgroundSecondary hover:cursor-pointer  mx-2 my-2 rounded-lg h-16 w-44 py-2 px-4 flex items-center justify-start">
-                <h1 class="font-bold">Gallery</h1>
-            </div>
-        </a>
+        <div class="tabs flex flex-col sm:flex-row flex-wrap sm:items-center sm:justify-center">
+            <a href="/dashboard/messages">
+                <div
+                    class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center sm:w-64 sm:h-28 h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg messages">
+                    {% if message_data.unread_messages > 0 %}
+                    <i class="text-2xl uil uil-comment-alt-message animate-bounce"></i>
+                    {% else %}
+                    <i class="text-2xl uil uil-comment-alt-message"></i>
+                    {% endif %}
+                    <p><span class="font-bold text-2xl">{{message_data.unread_messages}}</span> new messages</p>
+                </div>
+            </a>
+            <a href="/dashboard/customers">
+                <div
+                    class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center sm:w-64 sm:h-28 h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg customers">
+                    <i class="text-2xl uil uil-user-arrows"></i>
+                    <p><span class="font-bold text-2xl">{{clients}}</span> clients</p>
+                </div>
+            </a>
+    
+            <a href="/dashboard/products">
+                <div
+                    class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center sm:w-64 sm:h-28 h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg">
+                    <p><span class="font-bold text-2xl">{{packages}}</span> packages</p>
+                </div>
+            </a>
+    
+        </div>
     </div>
 
-    <!-- <div class="xl:flex flex-wrap xl:justify-center">
-        <div>
-            {% if shoots %}
-            <div class="shoots text-xl flex flex-col items-center mt-10 px-2 border-r border-backgroundSecondary">
-                <div class="flex justify-start">
-                    <h1 class="font-bold text-2xl">New Shoots</h1>
-                </div>
-                <table class="table-auto">
-                    <thead class="uppercase text-left">
-                        <tr>
-                            <th class="py-3 px-2 md:px-10">Client</th>
-                            <th class="py-3 px-2 md:px-10">Date</th>
-                            <th class="py-3 px-2 md:px-10">Location</th>
-                            <th class="py-3 px-2 md:px-10">Cost</th>
-                            <th class="py-3 px-2 md:px-10">Complete</th>
-                            <th class="py-3 px-2 md:px-10">#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for shoot in shoots %}
-
-                        <tr
-                            class="border-2 border-backgroundPrimary {% if shoot.booked %} text-green-700 {% else %} text-textPrimary {% endif %}">
-                            <td class="py-4 px-2 md:px-10 ">
-                                {{shoot.client}}
-                            </td>
-                            <td class="py-4 px-2 md:px-10 ">
-                                {{shoot.date}}
-                            </td>
-                            <td class="py-4 px-2 md:px-10 ">
-                                {{shoot.location}}
-                            </td>
-                            <td class="py-4 px-2 md:px-10 ">
-                                {{shoot.cost}}
-                            </td>
-
-                            <td class="py-4 px-2 md:px-10 text-center">
-                                {% if shoot.complete %}
-                                <i class="fa-solid fa-thumbs-up text-xl text-green-500"></i>
-                                {% else %}
-                                {% if shoot.booked %}
-                                <i class="fa-solid fa-spinner text-xl animate-spin"></i>
-                                {% else %}
-                                <i class="fa-solid fa-circle-exclamation text-xl text-yellow-400"></i>
-                                {% endif %}
-                                {% endif %}
-                            </td>
-                            <td class="py-4 px-2 md:px-10 text-center">
-                                <a href="/dashboard/shoot/{{shoot.id}}">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                </a>
-                            </td>
-                        </tr>
-
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <div class="group flex items-center text-2xl font-bold">
-                    <a href="/dashboard/shoots" class="hover:text-textSecondary">All shoots</a>
-                    <i
-                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
-                </div>
-            </div>
-            {% endif %}
-        </div>
-        <div class="messages text-xl flex flex-col items-center mt-10">
-            {% if client_messages %}
-            <div class="flex flex-col items-center mt-10 px-2 border-r-2 border-backgroundSecondary">
-                <div class="flex justify-start">
-                    <h1 class="font-bold text-2xl">New Messages</h1>
-                </div>
-                <div>
-                    {% for message in client_messages %}
-                    <div
-                        class="flex flex-col text-xl {% if not message.read %} text-textSecondary {% else %} text-textPrimary {% endif %}">
-                        <div class="flex justify-between">
-                            <p>@{{message.name}}</p>
-                            <p>{{message.date}}</p>
-                        </div>
-                        <div>
-                            <p>{{message.message}}</p>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <div class="group flex items-center text-2xl font-bold">
-                    <a href="/dashboard/messages" class="hover:text-textSecondary">All messages</a>
-                    <i
-                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
-                </div>
-            </div>
-            {% endif %}
-        </div>
-        <div class="transactions text-xl">
-            {% if transactions %}
-            <div class="flex flex-col items-center px-2 mt-10">
-                <div class="flex justify-start">
-                    <h1 class="font-bold text-2xl">New Transactions</h1>
-                </div>
-                <table class="table-auto">
-                    <thead class="uppercase text-left">
-                        <tr>
-                            <th class="py-3 px-2 md:px-10">Shoot</th>
-                            <th class="py-3 px-2 md:px-10">Amount</th>
-                            <th class="py-3 px-2 md:px-10">Phone</th>
-                            <th class="py-3 px-2 md:px-10">Receipt No.</th>
-                            <th class="py-3 px-2 md:px-10">#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for transaction in transactions %}
-
-                        <tr
-                            class=" border-2 border-backgroundPrimary {% if transaction.complete %} text-green-700 {% else %} text-textPrimary {% endif %}">
-                            <td class="py-4 px-2 md:px-10 ">
-                                {{transaction.shoot}}
-                            </td>
-                            <td class="py-4 px-2 md:px-10 ">
-                                {{transaction.amount}}
-                            </td>
-                            <td class="py-4 px-2 md:px-10 ">
-                                {{transaction.phone}}
-                            </td>
-                            <td class="py-4 px-2 md:px-10 ">
-                                {{transaction.receipt_number}}
-                            </td>
-                            <td class="py-4 px-2 md:px-10 ">
-                                <a href="/dashboard/transaction/{{transaction.id}}"><i class="fa-solid fa-circle-info"></i></a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <div class="group flex items-center text-2xl font-bold">
-                    <a href="/dashboard/transactions" class="hover:text-textSecondary">All transactions</a>
-                    <i
-                        class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
-                </div>
-            </div>
-            {% endif %}
-        </div>
-    </div> -->
 </section>
 
 {% endblock %}

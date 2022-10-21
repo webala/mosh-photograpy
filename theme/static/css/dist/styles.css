@@ -897,6 +897,18 @@ select {
   margin-top: 0.75rem;
 }
 
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
+.mt-9 {
+  margin-top: 2.25rem;
+}
+
+.ml-10 {
+  margin-left: 2.5rem;
+}
+
 .block {
   display: block;
 }
@@ -971,6 +983,10 @@ select {
 
 .w-56 {
   width: 14rem;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
 }
 
 .table-auto {
@@ -1159,6 +1175,11 @@ select {
   background-color: rgb(165 201 202 / var(--tw-bg-opacity));
 }
 
+.bg-slate-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+}
+
 .p-2 {
   padding: 0.5rem;
 }
@@ -1322,6 +1343,11 @@ select {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .opacity-30 {
   opacity: 0.3;
 }
@@ -1395,6 +1421,11 @@ select {
   background-color: rgb(57 91 100 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-slate-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
 .hover\:text-textSecondary:hover {
   --tw-text-opacity: 1;
   color: rgb(165 201 202 / var(--tw-text-opacity));
@@ -1411,8 +1442,28 @@ select {
 }
 
 @media (min-width: 640px) {
+  .sm\:h-28 {
+    height: 7rem;
+  }
+
+  .sm\:w-64 {
+    width: 16rem;
+  }
+
   .sm\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+
+  .sm\:items-center {
+    align-items: center;
+  }
+
+  .sm\:justify-center {
+    justify-content: center;
   }
 }
 
@@ -1488,6 +1539,10 @@ select {
 }
 
 @media (min-width: 1280px) {
+  .xl\:ml-52 {
+    margin-left: 13rem;
+  }
+
   .xl\:flex {
     display: flex;
   }

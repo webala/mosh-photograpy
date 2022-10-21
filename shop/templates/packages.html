@@ -6,31 +6,75 @@
 <section class="packages min-h-screen py-10 font-quicksand">
     <div>
         {% include 'wedding_package.html' %}
-        <div class="flex group hover:text-textSecondary justify-center">
-            <a href="/book/wedding"
-                class="font-bold text-2xl animate-pulse hover:text-textSecondary hover:animate-none">Book a
-                wedding shoot</a>
-            <i
-                class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+        <!-- Button trigger modal -->
+        <button type="button" class="bg-textPrimary text-backgroundPrimary rounded-lg px-3 py-2 hover:scale-110 transition duration-300 ease-in-out" data-bs-toggle="modal" data-bs-target="#weddingShootModal">
+            Book Wedding shoot
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="weddingShootModal" tabindex="-1" aria-labelledby="weddingShootModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content bg-backgroundPrimary">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-2xl font-bold" id="weddingShootModalLabel">Book Shoot</h5>
+                        <button type="button" class="text-textPrimary" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% include 'book_wedding.html' %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="mt-20">
         {% include 'portrait_package.html' %}
-        <div class="flex group hover:text-textSecondary justify-center">
-            <a href="/book/portrait"
-                class="font-bold text-2xl animate-pulse hover:text-textSecondary hover:animate-none">Book a
-                portrait shoot</a>
-            <i
-                class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+        <button type="button"
+            class="bg-textPrimary text-backgroundPrimary rounded-lg px-3 py-2 hover:scale-110 transition duration-300 ease-in-out"
+            data-bs-toggle="modal" data-bs-target="#portraitShootModal">
+            Book Portrait shoot
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="portraitShootModal" tabindex="-1" aria-labelledby="portraitShootModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content bg-backgroundPrimary">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-2xl font-bold" id="portraitShootModalLabel">Book Shoot</h5>
+                        <button type="button" class="text-textPrimary" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% include 'book_portrait.html' %}
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
     <div class="mt-20">
         {% include 'ruracio_package.html' %}
-        <div class="flex group hover:text-textSecondary justify-center">
-            <a href="/book/ruracio" class="font-bold text-2xl animate-pulse hover:text-textSecondary hover:animate-none">Book a
-                ruracio shoot</a>
-            <i class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
+        <button type="button"
+            class="bg-textPrimary text-backgroundPrimary rounded-lg px-3 py-2 hover:scale-110 transition duration-300 ease-in-out"
+            data-bs-toggle="modal" data-bs-target="#ruracioShootModal">
+            Book Ruracio shoot
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="ruracioShootModal" tabindex="-1" aria-labelledby="ruracioShootModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content bg-backgroundPrimary">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-2xl font-bold" id="ruracioShootModalLabel">Book Shoot</h5>
+                        <button type="button" class="text-textPrimary" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% include 'book_ruracio.html' %}
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
 </section>
 

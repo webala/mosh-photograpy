@@ -21,10 +21,17 @@
 
 	<body class="bg-backgroundPrimary text-textPrimary font-quicksand leading-normal tracking-normal relative">
 		{% if messages %}
-		<div class="bg-backgroundSecondary w-full h-fit flex justify-center">
+		<div class="bg-backgroundPrimary w-full h-fit flex justify-center">
 			<ul class="messages">
 				{% for message in messages %}
-				<li>{{ message }}</li>
+				<li class="text-xl 
+				{% if message.tags %}
+				{% if message.level_tag == 'error' %}
+					text-red-500
+				{% elif message.level_tag == 'success'}
+					text-green-500
+				{% endif %}
+				{% endif %}">{{ message }}</li>
 				{% endfor %}
 			</ul>
 		</div>

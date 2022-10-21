@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from shop.models import Client, Message, MyMessage, Shoot
 from datetime import date
 from django.core.exceptions import ValidationError
@@ -29,6 +30,10 @@ class ShootForm(forms.ModelForm):
     class Meta:
         model = Shoot
         fields = ["date", "location"]
+
+        help_texts = {
+            'date': _('Date format: date/month/year')
+        }
 
     def clean_date(self):
         date = self.cleaned_data["date"]

@@ -1,5 +1,5 @@
 from builtins import print
-from django.http import HttpResponse, FileResponse
+from django.http import HttpResponse, FileResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 import json, io
 from shop.forms import ClientForm, ImageUploadForm, MessageForm, ShootForm
@@ -26,10 +26,8 @@ from dashboard.serializers import SetShootCompleteSerializer
 def home(request):
     message_form = MessageForm()
 
-    context = {
-        'message_form': message_form
-    }
-    
+    context = {"message_form": message_form}
+
     return render(request, "home.html", context)
 
 
@@ -72,8 +70,14 @@ def image_upload_view(request):
 
 def package(request):
     packages = Package.objects.all()
+    client_form = ClientForm()
+    shoot_form = ShootForm()
 
-    context = {"packages": packages}
+    context = {
+        "packages": packages,
+        "client_form": client_form,
+        "shoot_form": shoot_form,
+    }
 
     return render(request, "packages.html", context)
 
@@ -82,14 +86,14 @@ def book_wedding_shoot(request):
     client_form = ClientForm(request.POST or None)
     shoot_form = ShootForm(request.POST or None)
 
-    contex = {"client_form": client_form, "shoot_form": shoot_form}
-
+    
     if request.method == "POST":
         if not request.POST.get("photography") and not request.POST.get("videography"):
             messages.error(request, "Please select a package")
-            return render(request, "book_wedding.html", contex)
+            return redirect('packages')
 
         if client_form.is_valid() and shoot_form.is_valid():
+            print('forms valid')
             client = client_form.save()
             shoot = shoot_form.save(commit=False)
             shoot.client = client
@@ -116,20 +120,24 @@ def book_wedding_shoot(request):
 
             messages.success(request, "Shoot booked successfully.")
             return redirect("pay-shoot", shoot_id=shoot.id)
-
-    return render(request, "book_wedding.html", contex)
+        else:
+            context = {"client_form": client_form, "shoot_form": shoot_form}
+            messages.error(request, 'Oops. It seems that you did not fill the form correctly')
+            return render(request, "packages.html", context)
+    else:
+        return HttpResponseNotAllowed(['POST'])
 
 
 def book_portrait_shoot(request):
     client_form = ClientForm(request.POST or None)
     shoot_form = ShootForm(request.POST or None)
 
-    contex = {"client_form": client_form, "shoot_form": shoot_form}
+    
 
     if request.method == "POST":
         if not request.POST.get("portrait_category"):
             messages.error(request, "Please select a package")
-            return render(request, "book_portrait.html", contex)
+            return redirect('packages')
 
         if client_form.is_valid() and shoot_form.is_valid():
             client = client_form.save()
@@ -148,19 +156,23 @@ def book_portrait_shoot(request):
 
             messages.success(request, "Shoot booked successfully.")
             return redirect("pay-shoot", shoot_id=shoot.id)
-    return render(request, "book_portrait.html", contex)
+        else:
+            context = {"client_form": client_form, "shoot_form": shoot_form}
+            messages.error(request, 'Oops. It seems that you did not fill the form correctly')
+            return render(request, "packages.html", context)
+    else:
+        return HttpResponseNotAllowed(['POST'])
 
 
 def book_ruracio_shoot(request):
     client_form = ClientForm(request.POST or None)
     shoot_form = ShootForm(request.POST or None)
 
-    contex = {"client_form": client_form, "shoot_form": shoot_form}
 
     if request.method == "POST":
         if not request.POST.get("photography") and not request.POST.get("videography"):
             messages.error(request, "Please select a package")
-            return render(request, "book_ruracio.html", contex)
+            return redirect('packages')
 
         if client_form.is_valid() and shoot_form.is_valid():
             client = client_form.save()
@@ -170,7 +182,7 @@ def book_ruracio_shoot(request):
 
             if request.POST.get("photography"):
                 nature = request.POST.get("photography")
-                print('nature: ', nature)
+                print("nature: ", nature)
                 package = Package.objects.filter(nature=nature, type="RURACIO").first()
 
                 print("package: ", package)
@@ -180,7 +192,7 @@ def book_ruracio_shoot(request):
 
             if request.POST.get("videography"):
                 nature = request.POST.get("videography")
-                print('nature: ', nature)
+                print("nature: ", nature)
                 package = Package.objects.filter(nature=nature, type="RURACIO").first()
 
                 print("package: ", package)
@@ -192,8 +204,12 @@ def book_ruracio_shoot(request):
 
             messages.success(request, "Shoot booked successfully.")
             return redirect("pay-shoot", shoot_id=shoot.id)
-
-    return render(request, "book_ruracio.html", contex)
+        else:
+            context = {"client_form": client_form, "shoot_form": shoot_form}
+            messages.error(request, 'Oops. It seems that you did not fill the form correctly')
+            return render(request, "packages.html", context)
+    else:
+        return HttpResponseNotAllowed(['POST'])
 
 
 def pay_shoot(request, shoot_id):

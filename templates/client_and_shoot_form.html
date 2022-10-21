@@ -2,11 +2,12 @@
     <h1 class="text-textSecondary font-semibold text-xl">Client Details</h1>
     {% for field in client_form %}
     <div class="field flex flex-col text-textPrimary text-xl my-2">
-        {{ field.errors }}
-        {{ field.label_tag }} {{ field }}
+        <div class="text-red-800">{{ field.errors }}</div>
         {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
+        <p class="help text-green-500">{{ field.help_text|safe }}</p>
         {% endif %}
+        {{ field.label_tag }} {{ field }}
+        
     </div>
     {% endfor %}
 </div>
@@ -14,11 +15,11 @@
     <h1 class="text-textSecondary font-semibold text-xl">Shoot Details</h1>
     {% for field in shoot_form %}
     <div class="field flex flex-col text-textPrimary text-xl my-2">
-        {{ field.errors }}
-        {{ field.label_tag }} {{ field }}
+        <div class="text-sm text-red-500">{{ field.errors }}</div>
         {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
+        <p class="text-sm text-green-500">{{ field.help_text|safe }}</p>
         {% endif %}
+        {{ field.label_tag }} {{ field }}
     </div>
     {% endfor %}
 </div>

@@ -1,66 +1,60 @@
-{% extends 'base.html' %}
-
-
-{% block content %}
-<section class="book-wedding">
-    {% include 'wedding_package.html' %}
-    <form action="#" method="post" class="flex flex-col items-center md:px-2 w-full md:w-1/2">{% csrf_token %}
-        {% include 'client_and_shoot_form.html' %}
-        <div class="flex justify-evenly w-full py-10">
+<form action="{% url 'book-wedding' %}" method="post" class="flex flex-col items-center md:px-2 w-full">{% csrf_token %}
+    {% include 'client_and_shoot_form.html' %}
+    <div class="flex justify-evenly w-full py-10">
+        <div>
+            <!-- Photography section -->
             <div>
-                <!-- Photography section -->
+                <input id="photography" type="checkbox" name="photography" value="photography">
+                <label for="photography">Photography</label>
+            </div>
+            <div id="photography_options" class="hide mt-4">
                 <div>
-                    <input id="photography" type="checkbox" name="photography" value="photography">
-                    <label for="photography">Photography</label>
+                    <input type="radio" name="photography_category" value="BRONZE" required checked>
+                    <label for="bronze">Bronze</label>
                 </div>
-                <div id="photography_options" class="hide mt-4">
-                    <div>                       
-                        <input type="radio" name="photography_category" value="BRONZE" required checked>
-                        <label for="bronze">Bronze</label>
-                    </div>
-                    <div>                    
-                        <input type="radio" name="photography_category" value="SILVER">
-                        <label for="silver">Silver</label>
-                    </div>
-                    <div>                        
-                        <input type="radio" name="photography_category" value="GOLD">
-                        <label for="gold">Gold</label>
-                    </div>
+                <div>
+                    <input type="radio" name="photography_category" value="SILVER">
+                    <label for="silver">Silver</label>
+                </div>
+                <div>
+                    <input type="radio" name="photography_category" value="GOLD">
+                    <label for="gold">Gold</label>
                 </div>
             </div>
+        </div>
+        <div>
+            <!-- Videography section -->
             <div>
-                <!-- Videography section -->
-                <div>                   
-                    <input id="videography" type="checkbox" name="videography" value="videography">
-                    <label for="videography">Videography</label>
+                <input id="videography" type="checkbox" name="videography" value="videography">
+                <label for="videography">Videography</label>
+            </div>
+            <div id="videography_options" class="hide mt-4">
+                <div>
+                    <input type="radio" name="videography_category" value="BRONZE" required checked>
+                    <label for="bronze">Bronze</label>
                 </div>
-                <div id="videography_options" class="hide mt-4">
-                    <div>                      
-                        <input type="radio" name="videography_category" value="BRONZE" required checked>
-                        <label for="bronze">Bronze</label>
-                    </div>
-                    <div>                       
-                        <input type="radio" name="videography_category" value="SILVER">
-                        <label for="silver">Silver</label>
-                    </div>
-                    <div>                      
-                        <input type="radio" name="videography_category" value="GOLD">
-                        <label for="gold">Gold</label>
-                    </div>
+                <div>
+                    <input type="radio" name="videography_category" value="SILVER">
+                    <label for="silver">Silver</label>
+                </div>
+                <div>
+                    <input type="radio" name="videography_category" value="GOLD">
+                    <label for="gold">Gold</label>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="flex mt-5">
-            <button class="py-2 px-4 bg-textPrimary text-backgroundPrimary rounded-lg hover:scale-110 transition duration-300 ease-out"
-                type="submit">Back to packages</button>
+    <div class="flex">
+        <button
+            class="py-2 px-4 bg-textPrimary text-backgroundPrimary rounded-lg hover:scale-110 transition duration-300 ease-out"
+            type="button" data-bs-dismiss="modal">Cancel</button>
 
-            <button class="py-2 px-4 bg-backgroundSecondary ml-3 rounded-lg hover:scale-110 transition duration-300 ease-out"
-                type="submit">Proceed to payment</button>
-        </div>
-    </form>
-
-</section>
+        <button
+            class="py-2 px-4 bg-backgroundSecondary ml-3 rounded-lg hover:scale-110 transition duration-300 ease-out"
+            type="submit">Proceed to payment</button>
+    </div>
+</form>
 <script>
     const photographyInput = document.getElementById('photography')
     const photographyOptions = document.getElementById('photography_options')
@@ -77,13 +71,11 @@
     })
 
     videographyInput.addEventListener('click', () => {
-            if (videographyInput.checked) {
-                videographyOptions.classList.remove('hide')
-            } else {
-                videographyOptions.classList.add('hide')
-            }
-        })
-    
-</script>
+        if (videographyInput.checked) {
+            videographyOptions.classList.remove('hide')
+        } else {
+            videographyOptions.classList.add('hide')
+        }
+    })
 
-{% endblock %}
+</script>

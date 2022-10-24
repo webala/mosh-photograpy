@@ -5,7 +5,7 @@
 
 <section class="dashboard min-h-screen">
     <div class="flex flex-col items-center mt-20 ">
-        <a href="/dashboard/transactions" class="w-2/3">
+        <a href="/dashboard/shoots" class="w-2/3">
             <div
                 class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg sales">
                 <h1 class="font-bold text-2xl">Shoots summary</h1>
@@ -13,14 +13,12 @@
                     <div class="">
                         <i class="text-2xl uil uil-money-bill"></i>
                         <p><span class="font-bold text-2xl">{{shoot_data.week_shoots}}</span> shoots this week</p>
-                        <p class="font-semibold">Total: ksh <span
-                                class="font-bold text-2xl">{{week_sales.sales_amount}}</span></p>
+
                     </div>
                     <div class="ml-10 xl:ml-52">
                         <i class="text-2xl uil uil-money-bill"></i>
-                        <p><span class="font-bold text-2xl">{{shoot_data.month_shoots}}</span> sales this month</p>
-                        <p class="font-semibold">Total: ksh <span
-                                class="font-bold text-2xl">{{week_sales.sales_amount}}</span></p>
+                        <p><span class="font-bold text-2xl">{{shoot_data.month_shoots}}</span> shoots this month</p>
+
                     </div>
                 </div>
             </div>
@@ -37,21 +35,17 @@
                     <p><span class="font-bold text-2xl">{{message_data.unread_messages}}</span> new messages</p>
                 </div>
             </a>
-            <a href="/dashboard/customers">
+            <a href="/dashboard/clients">
                 <div
                     class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center sm:w-64 sm:h-28 h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg customers">
                     <i class="text-2xl uil uil-user-arrows"></i>
                     <p><span class="font-bold text-2xl">{{clients}}</span> clients</p>
                 </div>
             </a>
-    
-            <a href="/dashboard/products">
-                <div
-                    class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center sm:w-64 sm:h-28 h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg">
-                    <p><span class="font-bold text-2xl">{{packages}}</span> packages</p>
-                </div>
-            </a>
-    
+            <div
+                class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center sm:w-64 sm:h-28 h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg">
+                <p><span class="font-bold text-2xl">{{packages}}</span> packages</p>
+            </div>
         </div>
     </div>
 

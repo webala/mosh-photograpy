@@ -45,4 +45,5 @@ urlpatterns = [
     path("shoot/complete", set_shoot_complete, name="set-shoot-complete"),
     path("transaction/<pk>", TransactionDetail.as_view(), name="transaction-detail"),
     path("clients", ClientList.as_view(), name="client-list"),
+    path("client/<int:pk>", ClientDetail.as_view(), name="client-detail"),
 ]

@@ -11,15 +11,15 @@
         {% else %}
         <div class="w-full md:w-1/2">
             {% for message in client_messages %}
-            <a href="/dashboard/message/{{message.id}}">
-                <div
-                    class="flex flex-col text-xl w-full border my-3 p-2 hover:cursor-pointer border-backgroundSecondary rounded-lg {% if not message.read %} text-textSecondary {% else %} text-textPrimary {% endif %}">
+            <a href="/dashboard/message/{{message.id}}" class="hover:text-black">
+                <div {% if message.read %} class="rounded-lg my-4 p-2" {% else %}
+                    class="border-2 border-blue-500 hover:border transition duration-300 ease-in-out rounded-lg my-4 p-2" {% endif %}>
                     <div class="flex justify-between">
-                        <p>@{{message.name}}</p>
+                        <p>{{message.name}}</p>
                         <p>{{message.date}}</p>
                     </div>
                     <div>
-                        <p>{{message.message}}</p>
+                        <p class="truncate">{{message.message}}</p>
                     </div>
                 </div>
             </a>

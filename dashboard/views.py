@@ -156,6 +156,7 @@ class MessageDetail(DetailView):
     template_name: str = "message.html"
     context_object_name: str = "client_message"
 
+
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         message = super().get_object()
@@ -164,6 +165,15 @@ class MessageDetail(DetailView):
         reply_form = MyMessageForm()
         context['form'] = reply_form
         return context
+
+    
+    def get_object(self, queryset=None):
+        message =  super().get_object(queryset)
+        if not message.read:
+            message.read = True
+            message.save()
+        
+        return message
 
 
 @api_view(["POST"])
@@ -197,9 +207,9 @@ def send_my_message(request):
                 replied_message=replied_message,
                 message=message
             )
-            return Response({'message': 'Reply sent.'})
+            return Response({'message': 'Message sent.'}, 200)
         else:
-            return Response({"message": "Message does not exist"})
+            return Response({"message": "Message does not exist"}, 404)
     
 
 

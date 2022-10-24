@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-&hdd22v1)9ivn%adt89(b)glpydldsx2aer^5+@4$)vdf1g4l0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "92d3-41-90-36-160.in.ngrok.io"]
+ALLOWED_HOSTS = ["localhost", "962a-102-219-208-82.in.ngrok.io"]
 
 # Daraja API configurations
 BUSINESS_SHORT_CODE = 174379

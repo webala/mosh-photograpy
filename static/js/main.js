@@ -15,6 +15,8 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
+
+//This function sends data to the backend
 const postData = async (data, endpoint) => {
     const res = await fetch(endpoint, {
         method: 'POST',
@@ -30,3 +32,11 @@ const postData = async (data, endpoint) => {
     const jsonResponse = await res.json()
     return jsonResponse
 }
+
+//Navigatio toggle functionality
+const nav = document.querySelector('.nav-items')
+const navBtn = document.querySelector('.nav-btn')
+
+navBtn.addEventListener('click', () => {
+    nav.classList.toggle('active')
+})

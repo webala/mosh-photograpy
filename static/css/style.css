@@ -29,3 +29,38 @@
 .curtain {
     z-index:-9;
 }
+
+.nav-btn {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .nav-btn {
+        display: flex
+    }
+
+    .nav-items ul {
+        display: none;
+        transition: display .3s ease-in;
+    }
+
+    .nav-items.active ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        padding: 0 20px;
+        height: 100vh;
+        background: #395B64;
+        border: 1px solid #395B64;
+        width: 50%;
+
+    }
+
+    .nav-items.active ul li {
+        margin: 20px 0;
+    }
+}

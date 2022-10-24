@@ -171,10 +171,10 @@
         </div>
     </section>
 
-    <section class="contact px-10 xl:px-32  mt-20">
+    <section class="contact px-10 xl:px-32  mt-20 w-full">
         <h1 class="font-semibold text-2xl my-5 text-textSecondary">Contact</h1>
         <div class="flex flex-col items-start">
-            <form action="/dashboard/message/create" method="post">{% csrf_token %}
+            <form action="/dashboard/message/create" class="w-full" method="post">{% csrf_token %}
                 {% for field in message_form %}
                 <div class="field flex flex-col font-bold text-xl my-2">
                     {{ field.errors }}

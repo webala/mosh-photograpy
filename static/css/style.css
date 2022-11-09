@@ -14,6 +14,7 @@ a {
 }
 
 .field input {
+    border: 2px solid #395B64;
     border-radius: 8px;
     color: #2C3333;
 }

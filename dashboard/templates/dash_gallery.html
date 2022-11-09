@@ -1,43 +1,66 @@
-{% extends 'base.html' %}
-
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <section class="gallery flex flex-col items-center pt-20">
-    <div class="flex justify-start w-full my-10 px-10 xl:px-32">
-        <h1 class="text-2xl text-textSecondary underline">Manage your gallery</h1>
+  <div class="flex justify-start w-full my-10 px-10 xl:px-32">
+    <h1 class="text-2xl text-textSecondary underline">Manage your gallery</h1>
+    <a
+      href="/gallery/upload"
+      class="flex ml-10 hover:text-textSecondary items-center"
+      ><i class="fa-solid fa-cloud-arrow-up"></i>
+      <p class="ml-2">Upload photos</p></a
+    >
+  </div>
+  <div
+    class="grid grid-cols-2 sm:grid-cols-3 md:flex flex-wrap gap-4 items-center justify-center"
+  >
+    {% for photo in gallery_images %}
+    <div class="hover:scale-110 transition duration-300 ease-in relative">
+      <div class="absolute top-5 right-5 text-2xl">
+        <i
+          class="fa-solid fa-trash text-red-700 pointer image-action"
+          data-action="delete"
+          data-id="{{photo.id}}"
+        ></i>
+        {% if photo.display %}
+        <i
+          class="fa-solid fa-eye-slash cursour-pointer image-action"
+          data-action="display"
+          data-id="{{photo.id}}"
+        ></i>
+        {% else %}
+        <i
+          class="fa-solid fa-eye cursour-pointer image-action"
+          data-action="display"
+          data-id="{{photo.id}}"
+        ></i>
+        {% endif %}
+      </div>
+      <img
+        class="md:h-96"
+        src="{{photo.download_url}}"
+        alt="{{photo.filename}}"
+      />
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:flex flex-wrap gap-4 items-center justify-center">
-        {% for photo in gallery_images %}
-        <div class="hover:scale-110 transition duration-300 ease-in relative">
-            <div class="absolute top-5 right-5 text-2xl">
-                <i class="fa-solid fa-trash text-red-700 pointer image-action" data-action="delete" data-id="{{photo.id}}"></i>
-                {% if photo.display %}
-                    <i class="fa-solid fa-eye-slash cursour-pointer image-action" data-action="display" data-id="{{photo.id}}"></i>
-                {% else %}
-                    <i class="fa-solid fa-eye cursour-pointer image-action" data-action="display" data-id="{{photo.id}}"></i>
-                {% endif %}
-            </div>
-            <img class="md:h-96" src='{{photo.download_url}}' alt="{{photo.filename}}">
-        </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
+  </div>
 </section>
 
 <script>
-    const actionBtns = Array.from(document.getElementsByClassName('image-action'))
-    actionBtns.forEach((btn) => {
-        btn.addEventListener('click', async () => {
-            const photoId = btn.dataset.id
-            const action = btn.dataset.action
-            console.log('id: ', photoId, 'action: ', action)
-            const data = {
-                photo_id: photoId,
-                action: action
-            }
-            const endpoint = '/dashboard/image-action'
-            const response = await postData(data, endpoint)
-            location.reload()
-        })
-    })
+  const actionBtns = Array.from(
+    document.getElementsByClassName("image-action")
+  );
+  actionBtns.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const photoId = btn.dataset.id;
+      const action = btn.dataset.action;
+      console.log("id: ", photoId, "action: ", action);
+      const data = {
+        photo_id: photoId,
+        action: action,
+      };
+      const endpoint = "/dashboard/image-action";
+      const response = await postData(data, endpoint);
+      location.reload();
+    });
+  });
 </script>
 {% endblock %}

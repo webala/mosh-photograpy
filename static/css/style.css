@@ -13,6 +13,9 @@ a {
     margin: 10px 0;
 }
 
+.photo-grid {
+    place-content: center;
+}
 .field input {
     border: 2px solid #395B64;
     border-radius: 8px;
@@ -39,9 +42,8 @@ a {
     display: none;
 }
 
-.nav-items.active ul li {
-    /* margin: 0 20px; */
-}
+
+
 
 @media screen and (max-width: 600px) {
     .nav-btn {
@@ -66,7 +68,7 @@ a {
         background: #395B64;
         border: 1px solid #395B64;
         width: 50%;
-
+        z-index: 100;
     }
 
     .nav-items.active ul li {

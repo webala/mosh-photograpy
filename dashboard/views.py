@@ -1,4 +1,3 @@
-import json
 from django.shortcuts import  render, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
@@ -7,18 +6,19 @@ from django.contrib.auth.forms import UserCreationForm, PasswordResetForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordResetConfirmView
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, BadHeaderError
-from dashboard.serializers import MyMessageSerializer, SetShootCompleteSerializer
+from dashboard.serializers import MyMessageSerializer, SetShootCompleteSerializer, ImageActionSerializer
 from shop.forms import MessageForm, MyMessageForm
-from shop.models import Client, Message, MyMessage, Package, Shoot, Transaction
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.decorators import api_view, permission_classes
+from shop.models import Client, Message, MyMessage, Package, Shoot, Transaction, GalleryImage
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .utils import message_data, shoot_data
+from shop.utils import send_email
 
 # Create your views here.
 
@@ -69,23 +69,27 @@ def password_reset_request(request):
     form = PasswordResetForm()
     return render(request, "registration/password_reset.html", context={"form": form})
 
-# class PasswordResetConfirm(PasswordResetConfirmView):
-#     success_url:str = '/dashboard/reset/done'
 
+@login_required
 def dashboard(request):
     shootData = shoot_data()
     messageData = message_data()
     clients = len(list(Client.objects.all()))
     packages = len(list(Package.objects.all()))
+    gallery = len(list(GalleryImage.objects.all()))
     context = {
         "shoot_data": shootData,
         'message_data': messageData,
         'clients': clients,
-        'packages': packages
+        'packages': packages,
+        'gallery': gallery
     }
 
     return render(request, "dashboard.html", context)
 
+
+def terms_and_conditions(request):
+    return render(request, 'terms_and_conditions.html')
 
 def message_create(request):
     form = MessageForm(request.POST or None)
@@ -98,28 +102,30 @@ def message_create(request):
         return redirect("home")
 
 
-class TransactionsList(ListView):
+
+class TransactionsList(LoginRequiredMixin, ListView):
     model = Transaction
     template_name: str = "transactions.html"
     context_object_name: str = "transactions"
     paginate_by: int = 10
 
 
-class MessagesList(ListView):
+class MessagesList(LoginRequiredMixin, ListView):
     model = Message
     template_name: str = "messages.html"
     context_object_name: str = "client_messages"
     paginate_by: int = 10
+    ordering = ['-id']
 
 
-class ShootsList(ListView):
+class ShootsList(LoginRequiredMixin, ListView):
     model = Shoot
     template_name: str = "shoots.html"
     context_object_name: str = "shoots"
     paginate_by: int = 10
 
 
-class ShootDetail(DetailView):
+class ShootDetail(LoginRequiredMixin, DetailView):
     model = Shoot
     template_name: str = "shoot.html"
     context_object_name: str = "shoot"
@@ -132,26 +138,26 @@ class ShootDetail(DetailView):
         return context
 
 
-class TransactionDetail(DetailView):
+class TransactionDetail(LoginRequiredMixin, DetailView):
     model = Transaction
     template_name: str = "transaction.html"
     context_object_name: str = "transaction"
 
 
-class ClientDetail(DetailView):
+class ClientDetail(LoginRequiredMixin, DetailView):
     model = Client
     template_name: str = "client.html"
     context_object_name: str = "client"
 
 
-class ClientList(ListView):
+class ClientList(LoginRequiredMixin, ListView):
     model = Client
     template_name: str = "clients.html"
     context_object_name: str = "clients"
     paginate_by: int = 15
 
 
-class MessageDetail(DetailView):
+class MessageDetail(LoginRequiredMixin, DetailView):
     model = Message
     template_name: str = "message.html"
     context_object_name: str = "client_message"
@@ -207,9 +213,34 @@ def send_my_message(request):
                 replied_message=replied_message,
                 message=message
             )
+            receiver = replied_message.email
+            send_email(replied_message.message, message, receiver)
             return Response({'message': 'Message sent.'}, 200)
         else:
             return Response({"message": "Message does not exist"}, 404)
     
+@login_required
+def dashboard_gallery(request):
+    gallery_images = GalleryImage.objects.all()
+    context = {
+        'gallery_images': gallery_images
+    }
+    return render(request, 'dash_gallery.html', context)
 
-
+@api_view(['POST'])
+def image_action(request):
+    serializer = ImageActionSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        data = serializer.validated_data
+        photo_id = data.get('photo_id')
+        action = data.get('action')
+        photo = GalleryImage.objects.get(id=photo_id)
+        if action == 'delete':
+            photo.delete()
+            return Response({'message': 'Photo deleted'}, 200)
+        elif action == 'display':
+            photo.display = not photo.display
+            photo.save()
+            return Response({'message': 'Photo display changed'}, 200)
+    else:
+        return Response({'message': 'Invalid id or action'}, 400)

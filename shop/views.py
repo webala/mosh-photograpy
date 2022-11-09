@@ -32,7 +32,7 @@ def home(request):
 
 
 def gallery(request):
-    photos = GalleryImage.objects.all()
+    photos = GalleryImage.objects.filter(display=True)
     # query photos 10 at a time
     paginator = Paginator(photos, 10)
     page_number = request.GET.get("page")  # get page number from GET request
@@ -233,7 +233,8 @@ def pay_shoot(request, shoot_id):
 def await_confirmation(request, request_id):
     transaction = Transaction.objects.get(request_id=request_id)
 
-    context = {"transaction": transaction}
+    context = {"transaction": transaction}# class PasswordResetConfirm(PasswordResetConfirmView):
+#     success_url:str = '/dashboard/reset/done'
     return render(request, "await_confirmation.html", context)
 
 

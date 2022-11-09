@@ -41,6 +41,9 @@ class GalleryImage(models.Model):
     display = models.BooleanField(default=False)
     download_url = models.CharField(max_length=1000)
 
+    class Meta:
+        ordering = ['-id']
+
 class Client(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)

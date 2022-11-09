@@ -37,7 +37,7 @@
 </section>
 
 <script defer>
-    const handleMessageReply = (event) => {
+    const handleMessageReply = async (event) => {
         event.preventDefault()
         const replyEndpoint = '/dashboard/message/reply'
         const my_message = document.getElementById('my_message').value
@@ -47,8 +47,9 @@
             message_id
         }
         console.log('Data: ', data)
-        postData(data, replyEndpoint)
-        // location.reload()
+        const response = await postData(data, replyEndpoint)
+        console.log(response)
+        location.reload()
     }
 
     const replyForm = document.getElementById('reply_message_form')

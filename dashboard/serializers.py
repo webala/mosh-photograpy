@@ -7,3 +7,7 @@ class SetShootCompleteSerializer(serializers.Serializer):
 class MyMessageSerializer(serializers.Serializer):
     my_message = serializers.CharField()
     message_id = serializers.IntegerField()
+
+class ImageActionSerializer(serializers.Serializer):
+    photo_id = serializers.IntegerField()
+    action = serializers.CharField()

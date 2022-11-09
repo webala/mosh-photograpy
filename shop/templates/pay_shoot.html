@@ -7,18 +7,37 @@
     {% include 'shoot_detail.html' %}
     <div class="mt-10">
         <form action="#" method="POST">{% csrf_token %}
-            <p>A deposit of ksh 1000 is required to book a shoot.</p>
+            <p>A deposit of ksh 2000 is required to book a shoot.</p>
             <div class="field flex flex-col">
                 <label class="mb-2" for="phone">Please confirm your m-pesa number below.</label>
                 <input name="phone" class="md:w-1/2 xl:w-1/4" type="text" value="{{shoot.client.phone}}">
             </div>
             <div class="mt-5">
-                <button
-                    class="py-2 px-4 bg-backgroundSecondary ml-3 rounded-lg hover:scale-110 transition duration-300 ease-out"
-                    type="submit">Pay via m-pesa</button>
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms-check-box">
+                    <p class="ml-3">I agree to Glitch Cloud Photography's <a class="text-blue-500" href="/terms-and-conditions">Terms and Conditions.</a>
+                    </p>
+                </div>
+                <button id="pay-btn"
+                    class="py-2 px-4 bg-backgroundSecondary mt-3 rounded-lg hover:scale-110 transition duration-300 ease-out"
+                    type="submit" disabled>Pay via m-pesa</button>
             </div>
         </form>
     </div>
+
+    <script>
+        const checkBox = document.getElementById('terms-check-box')
+        checkBox.addEventListener('click', () => {
+            const payBtn = document.getElementById('pay-btn')
+            console.log(checkBox.checked)
+
+            if (checkBox.checked) {
+                payBtn.removeAttribute('disabled')
+            } else {
+                payBtn.setAttribute('disabled', '')
+            }
+        })
+    </script>
 </section>
 
 

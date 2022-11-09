@@ -4,6 +4,9 @@
     border-radius: 50%;
 }
 
+a {
+    color: #7be5e9;
+}
 .mini-gallery .qualities p{
     font-size: larger;
     font-weight: 600;
@@ -18,6 +21,7 @@
 .hide {
     visibility: hidden;
 }
+
 .header-background {
     z-index: -10;
 }
@@ -32,6 +36,10 @@
 
 .nav-btn {
     display: none;
+}
+
+.nav-items.active ul li {
+    /* margin: 0 20px; */
 }
 
 @media screen and (max-width: 600px) {

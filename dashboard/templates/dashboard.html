@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<section class="dashboard min-h-screen">
+<section class="dashboard">
     <div class="flex flex-col items-center mt-20 ">
         <a href="/dashboard/shoots" class="w-2/3">
             <div
@@ -40,6 +40,13 @@
                     class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center sm:w-64 sm:h-28 h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg customers">
                     <i class="text-2xl uil uil-user-arrows"></i>
                     <p><span class="font-bold text-2xl">{{clients}}</span> clients</p>
+                </div>
+            </a>
+            <a href="/dashboard/gallery">
+                <div
+                    class="bg-slate-800 hover:bg-slate-700 transition duration-300 ease-in-out flex flex-col justify-center sm:w-64 sm:h-28 h-fit mb-5 mx-2 px-4 py-4 text-white rounded-lg customers">
+                    <i class="fa-solid fa-images"></i>
+                    <p>Gallery ({{gallery}} photos)</p>
                 </div>
             </a>
             <div

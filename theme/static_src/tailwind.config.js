@@ -53,7 +53,7 @@ module.exports = {
                 backgroundPrimary: '#2C3333',
                 backgroundSecondary: '#395B64',
                 textPrimary: '#E7F6F2',
-                textSecondary: '#A5C9CA',
+                textSecondary: '#7be5e9',
             }
         }, 
     },

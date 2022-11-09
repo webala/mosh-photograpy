@@ -2,21 +2,26 @@
 
 
 {% block content %}
-<section class="gallery flex flex-col items-center min-h-screen">
+<section class="gallery flex flex-col items-center pt-20">
     <div class="flex justify-start w-full my-10 px-10 xl:px-32">
         <h1 class="text-2xl text-textSecondary">Gallery</h1>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 md:flex flex-wrap gap-4 items-center justify-center">
         {% for photo in page_obj %}
+        {% if photo.display %}
         <div class="hover:scale-110 transition duration-300 ease-in">
-            <img class="md:h-96" src='{{photo.download_url}}'  alt="bikini shot">
+            <img class="md:h-96" src='{{photo.download_url}}'  alt="{{photo.filename}}">
         </div>
+        {% endif %}
         {% endfor %}
+    </div>
+    <div class="mt-16">
+        <a href="/packages" class="font-bold text-2xl animate-pulse hover:text-textSecondary hover:animate-none">Book a
+            shoot now</a>
+        <i class="uil uil-arrow-circle-right text-2xl group-hover:translate-x-10 transition duration-300 ease-in ml-2"></i>
     </div>
     {% include 'paginator.html' %}
 </section>
-<script>
 
-</script>
 
 {% endblock %}

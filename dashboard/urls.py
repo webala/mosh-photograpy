@@ -46,4 +46,6 @@ urlpatterns = [
     path("transaction/<pk>", TransactionDetail.as_view(), name="transaction-detail"),
     path("clients", ClientList.as_view(), name="client-list"),
     path("client/<int:pk>", ClientDetail.as_view(), name="client-detail"),
+    path("gallery", dashboard_gallery, name="dashboard-gallery"),
+    path("image-action", image_action, name="image-action"),
 ]

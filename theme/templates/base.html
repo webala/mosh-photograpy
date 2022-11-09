@@ -41,34 +41,37 @@
 		</div>
 		<div class="curtain fixed w-full h-screen bg-slate-600 opacity-30"></div> -->
 
-		<header class="text-textPrimary w-full bg-backgroundSecondary relative">
-			<div class="flex justify-between items-center w-full py-4 px-10 md:px-32 xl:px-64 z-10 nav relative">
+		
+		<header  class="text-textPrimary w-full relative h-1/2 xl:pt-24 border-black">
+			<img src="https://firebasestorage.googleapis.com/v0/b/mosh-photography.appspot.com/o/gallery%2F028583e62b8382ca.jpg?alt=media&token=eyJhbGciOiJSUzI1NiIsImtpZCI6ImRjMzdkNTkzNjVjNjIyOGI4Y2NkYWNhNTM2MGFjMjRkMDQxNWMxZWEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbW9zaC1waG90b2dyYXBoeSIsImF1ZCI6Im1vc2gtcGhvdG9ncmFwaHkiLCJhdXRoX3RpbWUiOjE2Njc0MDgyMDYsInVzZXJfaWQiOiIwSTRKTnBOQ2toTVJXQnJTb2tydk5wWDlZTHEyIiwic3ViIjoiMEk0Sk5wTkNraE1SV0JyU29rcnZOcFg5WUxxMiIsImlhdCI6MTY2NzQwODIwNiwiZXhwIjoxNjY3NDExODA2LCJlbWFpbCI6IndlYmRzcGFtQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ3ZWJkc3BhbUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.dWvsRIuYZHz2efuX6xvRbb3UMf7JA7JRVkblO42MsW-ZZAo9dj6moQ1BTnLi-jpze3myZfVvo4WIEWyy0NR3p7IzRNmIGJOXN7OX0D5v6r9zG3GTUckecsMdPNzmPTpDVZR0p2T8CXQ7-ARu3mnMzjb19r50dzrOnb1u_CRVyi2FeJrAC0nSBQBx1s_hx9Q1ZHRgz3a1QdDe6qXgp26e0YnOOnLWmXxNcIF1Md0WPkPoHWiOOEV8_FftvyiUAwa33-LjqgIApZzxl0GhcwPGambyfZtdk3-5xdqawV84GUw-2ClsKLtys20-6RiLnWE6S_Bz16IM_rlAa8NDWhO-qA" alt="" class="absolute top-0 w-full -z-20 opacity-50">
+			<div class="flex justify-between items-center w-full py-4 px-10 md:px-32 z-10 nav h-full ">
 				<div class="logo flex flex-col items-center italic w-1/4">
-					<img class="w-full" src="{% static 'images/logo/logo-main.png' %}" alt="logo">
-					<!-- <h1 class="text-xl text-textSecondary">Glitch Cloud Photography</h1> -->
-				</div>
+					<a href="/">
+						<img class="w-24" src="{% static 'images/logo/logo-main.png' %}" alt="logo">
+					</a>
+				</div> 
 
-				<div class="nav-items md:w-1/2 font-bold flex items-center">
+				<div class="nav-items font-bold flex items-center xl:text-2xl lg:relative lg:right-32">
 					<ul class="flex justify-evenly">
 						<li
-							class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+							class="text-xl mx-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
 							<a class="hover:text-textSecondary" href="/">Home</a>
 						</li>
 						<li
-							class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+							class="text-xl mx-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
 							<a class="hover:text-textSecondary" href="/packages">Packages</a>
 						</li>
 						<li
-							class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+							class="text-xl mx-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
 							<a class="hover:text-textSecondary" href="/gallery">Gallery</a>
 						</li>
 						<li
-							class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
-							About
+							class="text-xl mx-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+							<a class="hover:text-textSecondary" href="/#about">About</a> 
 						</li>
 						<li
-							class="text-xl ml-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
-							Contact
+							class="text-xl mx-2 hover:text-textSecondary hover:scale-110 transition duration-300 ease-in cursor-pointer">
+							<a class="hover:text-textSecondary" href="/#contact">Contact</a>
 						</li>
 					</ul>
 					<div class="nav-btn">
@@ -77,7 +80,7 @@
 				</div>
 			</div>
 		</header>
-		<div class="container mx-auto">
+		<div class="container mx-auto relative sm:top-44 xl:top-80 sm:pb-44 xl:pb-80">
 			{% block content %}
 
 

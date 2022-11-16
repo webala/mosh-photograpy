@@ -930,20 +930,16 @@ select {
   margin-top: 4rem;
 }
 
+.mb-20 {
+  margin-bottom: 5rem;
+}
+
 .mb-44 {
   margin-bottom: 11rem;
 }
 
-.ml-5 {
-  margin-left: 1.25rem;
-}
-
 .mt-3 {
   margin-top: 0.75rem;
-}
-
-.mb-20 {
-  margin-bottom: 5rem;
 }
 
 .block {
@@ -984,16 +980,8 @@ select {
   height: 100%;
 }
 
-.h-44 {
-  height: 11rem;
-}
-
 .h-72 {
   height: 18rem;
-}
-
-.h-96 {
-  height: 24rem;
 }
 
 .min-h-screen {
@@ -1121,18 +1109,6 @@ select {
   flex-wrap: wrap;
 }
 
-.place-content-center {
-  place-content: center;
-}
-
-.place-content-end {
-  place-content: end;
-}
-
-.place-items-center {
-  place-items: center;
-}
-
 .items-start {
   align-items: flex-start;
 }
@@ -1163,14 +1139,6 @@ select {
 
 .gap-4 {
   gap: 1rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
-}
-
-.gap-1 {
-  gap: 0.25rem;
 }
 
 .truncate {
@@ -1553,10 +1521,6 @@ select {
     top: 11rem;
   }
 
-  .sm\:grid {
-    display: grid;
-  }
-
   .sm\:h-28 {
     height: 7rem;
   }
@@ -1573,14 +1537,6 @@ select {
     flex-direction: row;
   }
 
-  .sm\:place-content-start {
-    place-content: start;
-  }
-
-  .sm\:place-items-start {
-    place-items: start;
-  }
-
   .sm\:items-start {
     align-items: flex-start;
   }
@@ -1593,24 +1549,20 @@ select {
     justify-content: center;
   }
 
-  .sm\:gap-2 {
-    gap: 0.5rem;
-  }
-
   .sm\:pb-44 {
     padding-bottom: 11rem;
   }
 }
 
 @media (min-width: 768px) {
-  .md\:mx-3 {
-    margin-left: 0.75rem;
-    margin-right: 0.75rem;
-  }
-
   .md\:my-20 {
     margin-top: 5rem;
     margin-bottom: 5rem;
+  }
+
+  .md\:mx-3 {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
   }
 
   .md\:mr-4 {
@@ -1621,8 +1573,8 @@ select {
     margin-bottom: 11rem;
   }
 
-  .md\:mb-10 {
-    margin-bottom: 2.5rem;
+  .md\:mb-20 {
+    margin-bottom: 5rem;
   }
 
   .md\:flex {
@@ -1633,28 +1585,12 @@ select {
     height: 24rem;
   }
 
-  .md\:h-72 {
-    height: 18rem;
-  }
-
-  .md\:h-64 {
-    height: 16rem;
-  }
-
-  .md\:h-6 {
-    height: 1.5rem;
-  }
-
   .md\:w-1\/2 {
     width: 50%;
   }
 
   .md\:w-72 {
     width: 18rem;
-  }
-
-  .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:flex-row {
@@ -1715,10 +1651,6 @@ select {
 
   .lg\:h-96 {
     height: 24rem;
-  }
-
-  .lg\:justify-start {
-    justify-content: flex-start;
   }
 }
 

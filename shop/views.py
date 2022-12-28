@@ -11,14 +11,17 @@ from shop.utils import (
     email,
     password,
 )
-from .models import GalleryImage, Package, Shoot, Transaction
+from .models import GalleryImage, Package, Shoot, Transaction, Client
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib import messages
 from django.core.paginator import Paginator
 from reportlab.pdfgen import canvas
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 from dashboard.serializers import SetShootCompleteSerializer
+from .serializers import BookShootSerializer, ClientSerializer, PackgesSerializer, ShootSerializer
 
 # Create your views here.
 
@@ -82,134 +85,75 @@ def package(request):
     return render(request, "packages.html", context)
 
 
-def book_wedding_shoot(request):
-    client_form = ClientForm(request.POST or None)
-    shoot_form = ShootForm(request.POST or None)
-
-    
-    if request.method == "POST":
-        if not request.POST.get("photography") and not request.POST.get("videography"):
-            messages.error(request, "Please select a package")
-            return redirect('packages')
-
-        if client_form.is_valid() and shoot_form.is_valid():
-            print('forms valid')
-            client = client_form.save()
-            shoot = shoot_form.save(commit=False)
-            shoot.client = client
-            shoot.save()
-
-            if request.POST.get("photography"):
-                category = request.POST.get("photography_category")
-                print(category)
-                package = Package.objects.filter(
-                    nature="PHOTOGRAHY", category=category, type="WEDDING"
-                ).first()
-                shoot.package.add(package)
-                shoot.cost += int(package.price)
-            if request.POST.get("videography"):
-                category = request.POST.get("videography_category")
-                print(category)
-                package = Package.objects.filter(
-                    nature="VIDEOGRAPHY", category=category, type="WEDDING"
-                ).first()
-                shoot.package.add(package)
-                shoot.cost += int(package.price)
-
-            shoot.save()
-
-            messages.success(request, "Shoot booked successfully.")
-            return redirect("pay-shoot", shoot_id=shoot.id)
-        else:
-            context = {"client_form": client_form, "shoot_form": shoot_form}
-            messages.error(request, 'Oops. It seems that you did not fill the form correctly')
-            return render(request, "packages.html", context)
-    else:
-        return HttpResponseNotAllowed(['POST'])
-
-
-def book_portrait_shoot(request):
-    client_form = ClientForm(request.POST or None)
-    shoot_form = ShootForm(request.POST or None)
-
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def book_shoot(request):
+    shoot_serializer = BookShootSerializer(data = request.data)
     
 
-    if request.method == "POST":
-        if not request.POST.get("portrait_category"):
-            messages.error(request, "Please select a package")
-            return redirect('packages')
+    if shoot_serializer.is_valid(raise_exception=True):
+        print('data; ', shoot_serializer.validated_data)
+        data = shoot_serializer.validated_data
+        client_data = data.get('client')
+        client = Client.objects.create(
+            first_name=client_data.get('first_name'),
+            last_name=client_data.get('last_name'),
+            phone=client_data.get('phone'),
+            email=client_data.get('email')
+        )
 
-        if client_form.is_valid() and shoot_form.is_valid():
-            client = client_form.save()
-            shoot = shoot_form.save(commit=False)
-            shoot.client = client
-            shoot.save()
+        print('client: ', client)
+        shoot_data = data.get('shoot')
 
-            category = request.POST.get("portrait_category")
-            package = Package.objects.filter(
-                category=category, type="PORTRAIT", nature="PHOTOGRAHY"
-            ).first()
+        shoot = Shoot.objects.create(
+            client=client,
+            date=shoot_data.get('date'),
+            location=shoot_data.get('location'),
+        )
 
-            shoot.package.add(package)
-            shoot.cost += int(package.price)
-            shoot.save()
+        print('shoot: ', shoot)
+        cost = 0
+        packages = data.get('packages')
 
-            messages.success(request, "Shoot booked successfully.")
-            return redirect("pay-shoot", shoot_id=shoot.id)
-        else:
-            context = {"client_form": client_form, "shoot_form": shoot_form}
-            messages.error(request, 'Oops. It seems that you did not fill the form correctly')
-            return render(request, "packages.html", context)
-    else:
-        return HttpResponseNotAllowed(['POST'])
+        for item in packages:
+            if item.get('category'):
+                print('item with category: ', item)
 
+                print('type: ', item.get('type'))
+                pkg = Package.objects.filter(
+                    category=item.get('category'),
+                    nature=item.get('nature'),
+                    type=item.get('type')
+                )
 
-def book_ruracio_shoot(request):
-    client_form = ClientForm(request.POST or None)
-    shoot_form = ShootForm(request.POST or None)
+                print('pkg ', pkg)
 
+                if pkg.exists():
+                    pkg = pkg.first()
+                    cost += pkg.price
+                    shoot.package.add(pkg)
+                else:
+                    return Response({'Message': "Invalid Package"}, 404)
+            else:
+                print('item no category: ', item)
+                pkg = Package.objects.filter(
+                    nature=item.get('nature'),
+                    type=item.get('type')
+                )
 
-    if request.method == "POST":
-        if not request.POST.get("photography") and not request.POST.get("videography"):
-            messages.error(request, "Please select a package")
-            return redirect('packages')
+                if pkg.exists():
+                    pkg = pkg.first()
+                    cost += pkg.price
+                    shoot.package.add(pkg)
+                else:
+                    return Response({'Message': "Invalid Package"}, 404)
+        shoot.cost = cost
+        shoot.save()
 
-        if client_form.is_valid() and shoot_form.is_valid():
-            client = client_form.save()
-            shoot = shoot_form.save(commit=False)
-            shoot.client = client
-            shoot.save()
-
-            if request.POST.get("photography"):
-                nature = request.POST.get("photography")
-                print("nature: ", nature)
-                package = Package.objects.filter(nature=nature, type="RURACIO").first()
-
-                print("package: ", package)
-
-                shoot.package.add(package)
-                shoot.cost += int(package.price)
-
-            if request.POST.get("videography"):
-                nature = request.POST.get("videography")
-                print("nature: ", nature)
-                package = Package.objects.filter(nature=nature, type="RURACIO").first()
-
-                print("package: ", package)
-
-                shoot.package.add(package)
-                shoot.cost += int(package.price)
-
-            shoot.save()
-
-            messages.success(request, "Shoot booked successfully.")
-            return redirect("pay-shoot", shoot_id=shoot.id)
-        else:
-            context = {"client_form": client_form, "shoot_form": shoot_form}
-            messages.error(request, 'Oops. It seems that you did not fill the form correctly')
-            return render(request, "packages.html", context)
-    else:
-        return HttpResponseNotAllowed(['POST'])
+        
+        return Response({'message': 'shoot booked', "id": shoot.id}, 201)
+    return Response({"Message": "Bad request"}, 400)
+    
 
 
 def pay_shoot(request, shoot_id):

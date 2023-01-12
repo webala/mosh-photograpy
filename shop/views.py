@@ -1,4 +1,4 @@
-from builtins import print
+
 from django.http import HttpResponse, FileResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 import json, io
@@ -12,16 +12,14 @@ from shop.utils import (
     password,
 )
 from .models import GalleryImage, Package, Shoot, Transaction, Client
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView
+from django.shortcuts import render
 from django.contrib import messages
 from django.core.paginator import Paginator
 from reportlab.pdfgen import canvas
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from dashboard.serializers import SetShootCompleteSerializer
-from .serializers import BookShootSerializer, ClientSerializer, PackgesSerializer, ShootSerializer
+from .serializers import BookShootSerializer, PhoneNumberSerializer
 
 # Create your views here.
 
@@ -84,6 +82,21 @@ def package(request):
 
     return render(request, "packages.html", context)
 
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def shoot(request, shoot_id):
+    shoot = Shoot.objects.get(id=shoot_id)
+    client = shoot.client
+    packages = shoot.package
+
+    data = {
+        "shoot": shoot,
+        "client": client,
+        "packages": packages
+    }
+    serializer = BookShootSerializer(data)
+    return Response(serializer.data, status=200)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -155,23 +168,49 @@ def book_shoot(request):
     return Response({"Message": "Bad request"}, 400)
     
 
-
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def pay_shoot(request, shoot_id):
-    shoot = Shoot.objects.get(id=shoot_id)
-    packages = shoot.package.all()
-    context = {"shoot": shoot, "packages": packages}
-
-    if request.method == "POST":
-        phone = request.POST.get("phone")
+    serializer = PhoneNumberSerializer(data=request.data)
+    
+    if serializer.is_valid(raise_exception=True):
+        shoot = Shoot.objects.get(id=shoot_id)
+        phone_number = serializer.validated_data.get('phoneNumber')
         deposit_amount = 1000
-        transaction_data = initiate_stk_push(phone, deposit_amount)
-        request_id = transaction_data.get("chechout_request_id")
-        transaction = Transaction.objects.create(
-            shoot=shoot,
-            request_id=request_id,
-        )
-        return redirect("await-confirmation", request_id=request_id)
-    return render(request, "pay_shoot.html", context)
+        transaction_data = initiate_stk_push(phone_number, deposit_amount)
+
+        if transaction_data.get('errorCode'):
+            return Response({'message': transaction_data.get('errorMessage')}, status=400)
+        else:
+            request_id = transaction_data.get("chechout_request_id")
+            transaction = Transaction.objects.create(
+                shoot=shoot,
+                request_id=request_id,
+            )
+
+            print('data:', transaction)
+
+            return Response({'requestId': request_id}, status=200)
+        
+        
+
+
+# def pay_shoot(request, shoot_id):
+#     shoot = Shoot.objects.get(id=shoot_id)
+#     packages = shoot.package.all()
+#     context = {"shoot": shoot, "packages": packages}
+
+#     if request.method == "POST":
+#         phone = request.POST.get("phone")
+#         deposit_amount = 1000
+#         transaction_data = initiate_stk_push(phone, deposit_amount)
+#         request_id = transaction_data.get("chechout_request_id")
+#         transaction = Transaction.objects.create(
+#             shoot=shoot,
+#             request_id=request_id,
+#         )
+#         return redirect("await-confirmation", request_id=request_id)
+#     return render(request, "pay_shoot.html", context)
 
 
 def await_confirmation(request, request_id):

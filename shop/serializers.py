@@ -28,3 +28,6 @@ class BookShootSerializer(serializers.Serializer):
      shoot = ShootSerializer()
      client = ClientSerializer()
      packages= PackgesSerializer(many=True)
+
+class PhoneNumberSerializer(serializers.Serializer):
+     phoneNumber = serializers.CharField()

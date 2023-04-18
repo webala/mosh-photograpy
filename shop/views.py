@@ -11,18 +11,29 @@ from shop.utils import (
     email,
     password,
 )
-from .models import GalleryImage, Package, Shoot, Transaction, Client
+from .models import GalleryImage, Package, Shoot, Transaction, Client, Service
 from django.shortcuts import render
 from django.contrib import messages
 from django.core.paginator import Paginator
 from reportlab.pdfgen import canvas
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from .serializers import BookShootSerializer, PhoneNumberSerializer
+from rest_framework import generics
+from .serializers import BookShootSerializer, PhoneNumberSerializer, GallerySerializer, UploadImageSerializer, ServiceSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
 
 # Create your views here.
 
+class ServiceListCreateView(generics.ListCreateAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+    permission_classes = (AllowAny, )
+
+class ServiceView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+    permission_classes = (AllowAny, )
 
 def home(request):
     message_form = MessageForm()
@@ -43,30 +54,32 @@ def gallery(request):
 
     return render(request, "gallery.html", context)
 
+class GalleryView(generics.ListAPIView):
+    queryset = GalleryImage.objects.all()
+    serializer_class = GallerySerializer
+    permission_classes = (AllowAny, )
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+@parser_classes([FormParser, MultiPartParser])
 def image_upload_view(request):
-    form = ImageUploadForm(request.POST or None, request.FILES or None)
+    serializer = UploadImageSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        data = serializer.validated_data
 
-    context = {"form": form}
-
-    if form.is_valid():
-
-        data = form.cleaned_data
-        image = data.get("image")
-
-        # Upload image to firebase
-        filename = upload_image("gallery", image)
-        image = GalleryImage.objects.create(filename=filename)
+        image = data.get('image')
+        filename = upload_image('gallery', image)
         user = auth.sign_in_with_email_and_password(email, password)
-        image_url = get_image_url("gallery", filename, user)
-        image.download_url = image_url
-        image.save()
-        messages.success(request, "Image uploaded successfully.")
-        form = ImageUploadForm()
-        context["form"] = form
-        return render(request, "image-upload.html", context)
+        image_url = get_image_url('gallery', filename, user)
+        gallery_image = GalleryImage.objects.create(
+            filename=filename,
+            download_url=image_url
+        )
 
-    return render(request, "image-upload.html", context)
+        serializer = GallerySerializer(gallery_image)
+
+        return Response(serializer.data, status=200)
+   
 
 
 def package(request):

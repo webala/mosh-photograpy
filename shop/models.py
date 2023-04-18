@@ -4,6 +4,7 @@ from http import client
 from django.db import models
 
 
+
 # Create your models here.
 class Package(models.Model):
     nature_choice = [
@@ -43,6 +44,11 @@ class GalleryImage(models.Model):
 
     class Meta:
         ordering = ['-id']
+
+class Service(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
+    price = models.DecimalField(decimal_places=2, max_digits=6)
 
 class Client(models.Model):
     first_name = models.CharField(max_length=20)

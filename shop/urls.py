@@ -3,9 +3,11 @@ from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
-    path('gallery', gallery, name='gallery'),
+    path('gallery', GalleryView.as_view(), name='gallery'),
     path('gallery/upload', image_upload_view, name='image-upload'),
     path('packages', package , name='packages'),
+    path('services', ServiceListCreateView.as_view() , name='services'),
+    path('service/<pk>', ServiceView.as_view() , name='service'),
     path('shoot/<int:shoot_id>', shoot, name='shoot'),
     path('shoot/book', book_shoot, name='book-shoot'),
     # path('book/portrait', book_portrait_shoot, name='book-portrait'),

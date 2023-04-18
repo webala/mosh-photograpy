@@ -47,9 +47,7 @@ def upload_image(directory, file):
     filename = random_hex + f_ext
     file.name = filename
     image = compress(file, f_ext[1:])
-    print("image:", image)
     directory = directory + "/" + filename
-    print("filename: ", image.name)
     storege.child(directory).put(image)
     return filename
 

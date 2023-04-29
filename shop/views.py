@@ -11,7 +11,7 @@ from shop.utils import (
     email,
     password,
 )
-from .models import GalleryImage, Package, Shoot, Transaction, Client, Service
+from .models import GalleryImage, Package, Shoot, Transaction, Client, Service, ServiceCategory
 from django.shortcuts import render
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -20,10 +20,15 @@ from rest_framework.decorators import api_view, permission_classes, parser_class
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import generics
-from .serializers import BookShootSerializer, PhoneNumberSerializer, GallerySerializer, UploadImageSerializer, ServiceSerializer
+from .serializers import BookShootSerializer, PhoneNumberSerializer, GallerySerializer, UploadImageSerializer, ServiceSerializer, CategorySerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 
 # Create your views here.
+
+class CategoriesListCreateView(generics.ListCreateAPIView):
+    queryset = ServiceCategory.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = (AllowAny, )
 
 class ServiceListCreateView(generics.ListCreateAPIView):
     queryset = Service.objects.all()

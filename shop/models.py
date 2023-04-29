@@ -45,10 +45,20 @@ class GalleryImage(models.Model):
     class Meta:
         ordering = ['-id']
 
+class ServiceCategory(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
 class Service(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
     price = models.DecimalField(decimal_places=2, max_digits=6)
+    category = models.ManyToManyField(ServiceCategory)
+
+    def __str__(self):
+        return self.name
 
 class Client(models.Model):
     first_name = models.CharField(max_length=20)

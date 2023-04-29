@@ -7,6 +7,7 @@ urlpatterns = [
     path('gallery/upload', image_upload_view, name='image-upload'),
     path('packages', package , name='packages'),
     path('services', ServiceListCreateView.as_view() , name='services'),
+    path('categories', CategoriesListCreateView.as_view() , name='categories'),
     path('service/<pk>', ServiceView.as_view() , name='service'),
     path('shoot/<int:shoot_id>', shoot, name='shoot'),
     path('shoot/book', book_shoot, name='book-shoot'),

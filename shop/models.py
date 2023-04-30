@@ -70,13 +70,14 @@ class Client(models.Model):
         return self.first_name + ' ' + self.last_name
 
 class Shoot(models.Model):
-    package = models.ManyToManyField(Package)
     client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
     date = models.DateField()
     location = models.CharField(max_length=25)
+    description = models.CharField(max_length=300)
     booked = models.BooleanField(default=False)
     cost = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
     complete = models.BooleanField(default=False)
+    services = models.ManyToManyField(Service)
 
     def __str__(self):
         return self.location + ' ' + str(self.date)

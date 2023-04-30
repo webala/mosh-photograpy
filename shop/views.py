@@ -20,7 +20,7 @@ from rest_framework.decorators import api_view, permission_classes, parser_class
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import generics
-from .serializers import BookShootSerializer, PhoneNumberSerializer, GallerySerializer, UploadImageSerializer, ServiceSerializer, CategorySerializer
+from .serializers import ShootSerializer, PhoneNumberSerializer, GallerySerializer, UploadImageSerializer, ServiceSerializer, CategorySerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 
 # Create your views here.
@@ -113,77 +113,13 @@ def shoot(request, shoot_id):
         "client": client,
         "packages": packages
     }
-    serializer = BookShootSerializer(data)
+    serializer = ShootSerializer(data)
     return Response(serializer.data, status=200)
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def book_shoot(request):
-    shoot_serializer = BookShootSerializer(data = request.data)
-    
-
-    if shoot_serializer.is_valid(raise_exception=True):
-        print('data; ', shoot_serializer.validated_data)
-        data = shoot_serializer.validated_data
-        client_data = data.get('client')
-        client = Client.objects.create(
-            first_name=client_data.get('first_name'),
-            last_name=client_data.get('last_name'),
-            phone=client_data.get('phone'),
-            email=client_data.get('email')
-        )
-
-        print('client: ', client)
-        shoot_data = data.get('shoot')
-
-        shoot = Shoot.objects.create(
-            client=client,
-            date=shoot_data.get('date'),
-            location=shoot_data.get('location'),
-        )
-
-        print('shoot: ', shoot)
-        cost = 0
-        packages = data.get('packages')
-
-        for item in packages:
-            if item.get('category'):
-                print('item with category: ', item)
-
-                print('type: ', item.get('type'))
-                pkg = Package.objects.filter(
-                    category=item.get('category'),
-                    nature=item.get('nature'),
-                    type=item.get('type')
-                )
-
-                print('pkg ', pkg)
-
-                if pkg.exists():
-                    pkg = pkg.first()
-                    cost += pkg.price
-                    shoot.package.add(pkg)
-                else:
-                    return Response({'Message': "Invalid Package"}, 404)
-            else:
-                print('item no category: ', item)
-                pkg = Package.objects.filter(
-                    nature=item.get('nature'),
-                    type=item.get('type')
-                )
-
-                if pkg.exists():
-                    pkg = pkg.first()
-                    cost += pkg.price
-                    shoot.package.add(pkg)
-                else:
-                    return Response({'Message': "Invalid Package"}, 404)
-        shoot.cost = cost
-        shoot.save()
-
-        
-        return Response({'message': 'shoot booked', "id": shoot.id}, 201)
-    return Response({"Message": "Bad request"}, 400)
+class ShootListCreateView(generics.ListCreateAPIView):
+    serializer_class = ShootSerializer
+    queryset = Shoot.objects.all()
+    permission_classes = [AllowAny]
     
 
 @api_view(['POST'])

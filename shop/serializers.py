@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Client, Shoot, GalleryImage, Service, ServiceCategory
+from .models import Client, Shoot, GalleryImage, Service, ServiceCategory, BookedService
 
 class ClientSerializer(serializers.ModelSerializer):
      class Meta:
@@ -35,12 +35,18 @@ class ServiceSerializer(serializers.ModelSerializer):
           model = Service
           fields = "__all__"
 
+class BookedServiceSerializer(serializers.ModelSerializer):
+     service = ServiceSerializer()
+     class Meta:
+          model = BookedService
+          fields = "__all__"
+
 class ShootSerializer(serializers.ModelSerializer):
-     services = ServiceSerializer(many=True)
+     booked_services = BookedServiceSerializer(many=True)
      client = ClientSerializer(required=False)
      class Meta:
           model = Shoot
-          fields = ['client', 'date', 'location', 'description', 'booked', 'cost', 'complete', 'services']
+          fields = ['client', 'date', 'location', 'description', 'booked', 'cost', 'complete', 'booked_services']
      
      def create(self, validated_data):
           shoot = Shoot.objects.create(
@@ -49,15 +55,23 @@ class ShootSerializer(serializers.ModelSerializer):
                description=validated_data.get('description')
           )
 
-          services = validated_data.get('services')
-          for value in services:
+          booked_services = validated_data.get('booked_services')
+          for value in booked_services:
+               service_values = value.get('service')
                service = Service.objects.get(
-                    name=value.get('name'),
-                    description=value.get('description'),
-                    price=value.get('price')
+                    name=service_values.get('name'),
+                    description=service_values.get('description'),
+                    price=service_values.get('price'),
+                    quantifiable=service_values.get('quantifiable')
                )
-               shoot.services.add(service)
-          
+               booked_service, created = BookedService.objects.get_or_create(
+                    service = service,
+                    quantity = value.get('quantity')
+               )
+               print('book service: ', booked_services)
+               shoot.booked_services.add(booked_service)
+               print('added')
+               
           return shoot
 
 

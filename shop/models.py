@@ -56,9 +56,18 @@ class Service(models.Model):
     description = models.CharField(max_length=50)
     price = models.DecimalField(decimal_places=2, max_digits=6)
     category = models.ManyToManyField(ServiceCategory)
+    quantifiable = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
+
+class BookedService(models.Model):
+    service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField(default=1)
+
+    @property
+    def price(self):
+        return self.service.price * self.quantity
 
 class Client(models.Model):
     first_name = models.CharField(max_length=20)
@@ -77,7 +86,7 @@ class Shoot(models.Model):
     booked = models.BooleanField(default=False)
     cost = models.DecimalField(max_digits=7, decimal_places=2, default=0.00)
     complete = models.BooleanField(default=False)
-    services = models.ManyToManyField(Service)
+    booked_services = models.ManyToManyField(BookedService)
 
     def __str__(self):
         return self.location + ' ' + str(self.date)

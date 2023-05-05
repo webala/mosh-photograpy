@@ -61,6 +61,9 @@ class Service(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['-id']
+
 class BookedService(models.Model):
     service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(default=1)
@@ -91,15 +94,20 @@ class Shoot(models.Model):
     def __str__(self):
         return self.location + ' ' + str(self.date)
 
+    @property
+    def total(self):
+        return sum([(booked_service.service.price * booked_service.quantity) for booked_service in self.booked_services])
+
 class Transaction(models.Model):
-    date = models.DateTimeField(auto_now_add=True)
+    order_tracking_id = models.CharField(max_length=50, null=True)
     shoot = models.ForeignKey(Shoot, on_delete=models.SET_NULL, null=True)
-    request_id = models.CharField(max_length=50, unique=True)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    complete = models.BooleanField(default=False)
-    phone_number = models.CharField(max_length=15, null=True)
-    receipt_number = models.CharField(max_length=15, null=True)
-    viewed = models.BooleanField(default=False)
+    date = models.DateTimeField(auto_now_add=True)
+    payment_method = models.CharField(max_length=30, null=True)
+    amount = models.DecimalField(max_digits=7, decimal_places=2, null=True)
+    confirmation_code = models.CharField(max_length=30, null=True)
+    payment_status = models.CharField(max_length=20, null=True)
+    payment_status_description = models.CharField(max_length=50, null=True)
+    payment_currency = models.CharField(max_length=5, null=True)
 
 class Message(models.Model):
     email = models.EmailField()

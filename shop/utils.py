@@ -181,3 +181,122 @@ def send_email(subject, body, receiver):
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
         smtp.login(email_sender, email_password)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
+
+
+
+
+#Authentiacate pesapal
+def get_pesapal_access_token():
+    consumer_key = os.getenv("PESAPAL_CONSUMER_KEY")
+    consumer_secret = os.getenv("PESAPAL_CONSUMER_SECRET")
+
+    data = {
+        "consumer_key": consumer_key,
+        "consumer_secret": consumer_secret
+    }
+
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+
+    response = requests.post(
+        settings.PESAPAL_AUTH_URL, json=data, headers=headers
+    )
+
+    print('token response: ', response)
+
+    json_res = response.json()
+    token = json_res['token']
+    return token
+
+
+def register_ipn_url(callback_url, token):
+
+    headers = {
+        "Authorization": "Bearer {}".format(token),
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+
+    data = {
+        "url": callback_url,
+        "ipn_notification_type": "POST"
+    }
+
+    response = requests.post(
+        settings.PESAPAL_IPN_REGISTRATION_URL, headers=headers, json=data
+    )
+
+    response = response.json()
+    return response
+
+def get_registered_ipns(token):
+   
+    headers = {
+        "Authorization": "Bearer {}".format(token),
+    }
+
+    response = requests.get(
+        settings.REGISTERED_IPNS_URL, headers=headers
+    )
+
+    ipns = response.json()
+
+    # if not ipns:
+    ipn = register_ipn_url("https://445b-105-163-1-137.ngrok-free.app/api/payment/ipn", token)
+    # else:
+        # ipn = ipns[0]
+    
+    return ipn
+
+def initiate_pesapal_transaction(description, id, amount=1.0):
+    print('initiation called')
+    token = get_pesapal_access_token()
+    ipn_data = get_registered_ipns(token)
+    notification_id = ipn_data["ipn_id"]
+
+    headers = {
+        "Authorization": "Bearer {}".format(token),
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+
+    unique_id = secrets.token_hex(8)
+    
+    data = {
+        "id": unique_id,
+	    "currency": "KES",
+        "amount": amount,
+        "description": description,
+        "notification_id": notification_id,
+        "billing_address": {
+            "email_address": "john.doe@example.com",
+            "phone_number": "0723xxxxxx",
+	        "country_code": "KE",
+	    }
+    }
+
+    response = requests.post(
+        settings.PESAPAL_ORDER_REQUEST_URL, headers=headers, json=data
+    )
+
+    
+    json_res = response.json()
+    print('initialize response: ', json_res)
+    return json_res
+
+
+def get_transaction_status(order_tracking_id):
+    token = get_pesapal_access_token()
+
+    headers = {
+        "Authorization": "Bearer {}".format(token),
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+
+    response = requests.get(settings.TRANSACTION_STATUS_URL.format(order_tracking_id), headers=headers)    
+
+    json_res = response.json()
+    return json_res

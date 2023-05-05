@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Client, Shoot, GalleryImage, Service, ServiceCategory, BookedService
+from .models import Client, Shoot, GalleryImage, Service, ServiceCategory, BookedService, Transaction
 
 class ClientSerializer(serializers.ModelSerializer):
      class Meta:
@@ -25,6 +25,7 @@ class UploadImageSerializer(serializers.Serializer):
     image = serializers.ImageField()
 
 class CategorySerializer(serializers.ModelSerializer):
+     id = serializers.IntegerField()
      class Meta:
           model = ServiceCategory
           fields = "__all__"
@@ -35,6 +36,26 @@ class ServiceSerializer(serializers.ModelSerializer):
           model = Service
           fields = "__all__"
 
+     
+     def create(self, validated_data):
+          service = Service.objects.create(
+               name = validated_data.get('name'),
+               description=validated_data.get('description'),
+               price = validated_data.get('price'),
+               quantifiable = validated_data.get('quantifiable')
+          )
+          categories = validated_data.get('category')
+          for value in categories:
+               print('value: ', value)
+               category = ServiceCategory.objects.get(
+                    id=value.get('id')
+               )
+               service.category.add(category)
+          
+          return service
+
+
+
 class BookedServiceSerializer(serializers.ModelSerializer):
      service = ServiceSerializer()
      class Meta:
@@ -42,11 +63,12 @@ class BookedServiceSerializer(serializers.ModelSerializer):
           fields = "__all__"
 
 class ShootSerializer(serializers.ModelSerializer):
+     id = serializers.IntegerField()
      booked_services = BookedServiceSerializer(many=True)
      client = ClientSerializer(required=False)
      class Meta:
           model = Shoot
-          fields = ['client', 'date', 'location', 'description', 'booked', 'cost', 'complete', 'booked_services']
+          fields = ['id','client', 'date', 'location', 'description', 'booked', 'cost', 'complete', 'booked_services']
      
      def create(self, validated_data):
           shoot = Shoot.objects.create(
@@ -58,12 +80,13 @@ class ShootSerializer(serializers.ModelSerializer):
           booked_services = validated_data.get('booked_services')
           for value in booked_services:
                service_values = value.get('service')
-               service = Service.objects.get(
+               service_query = Service.objects.filter(
                     name=service_values.get('name'),
                     description=service_values.get('description'),
                     price=service_values.get('price'),
                     quantifiable=service_values.get('quantifiable')
                )
+               service = service_query.first()
                booked_service, created = BookedService.objects.get_or_create(
                     service = service,
                     quantity = value.get('quantity')
@@ -76,7 +99,5 @@ class ShootSerializer(serializers.ModelSerializer):
 
 
 
-class BookShootSerializer(serializers.Serializer):
+class PaymentSerializer(serializers.Serializer):
      shoot = ShootSerializer()
-     client = ClientSerializer()
-     packages= PackgesSerializer(many=True)

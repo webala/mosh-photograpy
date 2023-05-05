@@ -10,6 +10,8 @@ from shop.utils import (
     auth,
     email,
     password,
+    initiate_pesapal_transaction,
+    get_transaction_status
 )
 from .models import GalleryImage, Package, Shoot, Transaction, Client, Service, ServiceCategory
 from django.shortcuts import render
@@ -20,7 +22,8 @@ from rest_framework.decorators import api_view, permission_classes, parser_class
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import generics
-from .serializers import ShootSerializer, PhoneNumberSerializer, GallerySerializer, UploadImageSerializer, ServiceSerializer, CategorySerializer
+from rest_framework.views import APIView
+from .serializers import ShootSerializer, PhoneNumberSerializer, GallerySerializer, UploadImageSerializer, ServiceSerializer, CategorySerializer, PaymentSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 
 # Create your views here.
@@ -101,20 +104,10 @@ def package(request):
     return render(request, "packages.html", context)
 
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def shoot(request, shoot_id):
-    shoot = Shoot.objects.get(id=shoot_id)
-    client = shoot.client
-    packages = shoot.package
-
-    data = {
-        "shoot": shoot,
-        "client": client,
-        "packages": packages
-    }
-    serializer = ShootSerializer(data)
-    return Response(serializer.data, status=200)
+class ShootView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Shoot.objects.all()
+    serializer_class = ShootSerializer
+    permission_classes = [AllowAny]
 
 class ShootListCreateView(generics.ListCreateAPIView):
     serializer_class = ShootSerializer
@@ -122,49 +115,6 @@ class ShootListCreateView(generics.ListCreateAPIView):
     permission_classes = [AllowAny]
     
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def pay_shoot(request, shoot_id):
-    serializer = PhoneNumberSerializer(data=request.data)
-    
-    if serializer.is_valid(raise_exception=True):
-        shoot = Shoot.objects.get(id=shoot_id)
-        phone_number = serializer.validated_data.get('phoneNumber')
-        deposit_amount = 1000
-        transaction_data = initiate_stk_push(phone_number, deposit_amount)
-
-        if transaction_data.get('errorCode'):
-            return Response({'message': transaction_data.get('errorMessage')}, status=400)
-        else:
-            request_id = transaction_data.get("chechout_request_id")
-            transaction = Transaction.objects.create(
-                shoot=shoot,
-                request_id=request_id,
-            )
-
-            print('data:', transaction)
-
-            return Response({'requestId': request_id}, status=200)
-        
-        
-
-
-# def pay_shoot(request, shoot_id):
-#     shoot = Shoot.objects.get(id=shoot_id)
-#     packages = shoot.package.all()
-#     context = {"shoot": shoot, "packages": packages}
-
-#     if request.method == "POST":
-#         phone = request.POST.get("phone")
-#         deposit_amount = 1000
-#         transaction_data = initiate_stk_push(phone, deposit_amount)
-#         request_id = transaction_data.get("chechout_request_id")
-#         transaction = Transaction.objects.create(
-#             shoot=shoot,
-#             request_id=request_id,
-#         )
-#         return redirect("await-confirmation", request_id=request_id)
-#     return render(request, "pay_shoot.html", context)
 
 
 def await_confirmation(request, request_id):
@@ -234,3 +184,50 @@ def download_receipt(request, transaction_id):
 
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename="Receipt.pdf")
+
+
+class ProcessPayment(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = PaymentSerializer(data=request.data)
+
+        if serializer.is_valid(raise_exception=True):
+            data = serializer.validated_data
+            shood_data = data.get('shoot')
+            print('shoot: ', shood_data.get('id'))
+            shoot = Shoot.objects.get(id=shood_data.get('id'))
+            description = "Payment for shoot #{}".format(shoot.id)
+            transaction = Transaction.objects.create(
+                shoot=shoot
+            )
+            response = initiate_pesapal_transaction(description, transaction.id)
+            order_tracking_id = response.get('order_tracking_id')
+            transaction.order_tracking_id = order_tracking_id
+            transaction.save()
+
+            return Response(response, status=200)
+
+@csrf_exempt
+def pesapal_ipn(request):
+    data = json.loads(request.body)
+    order_tracking_id = data.get('OrderTrackingId')
+    transaction_query = Transaction.objects.filter(order_tracking_id=order_tracking_id)
+    if transaction_query.exists():
+        transaction = transaction_query.first()
+        transaction_status = get_transaction_status(order_tracking_id)
+        print('transaction status: ', transaction_status)
+        transaction.payment_method = transaction_status.get('payment_method')
+        transaction.amount = transaction_status.get('amount')
+        transaction.confirmation_code = transaction_status.get('confirmation_code')
+        transaction.payment_status = transaction_status.get('payment_status_description')
+        transaction.payment_status_description = transaction_status.get('description')
+        transaction.payment_currency = transaction_status.get('currency')
+        transaction.save()
+        shoot = transaction.shoot
+        if transaction.payment_status.lower() == 'completed':
+            shoot.booked = True
+            shoot.save()
+        return HttpResponse('OK')
+    

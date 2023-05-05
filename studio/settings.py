@@ -36,6 +36,13 @@ DARAJA_AUTH_URL = (
     "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
 )
 
+#Pesapal API configurations
+PESAPAL_AUTH_URL = "https://cybqa.pesapal.com/pesapalv3/api/Auth/RequestToken"
+PESAPAL_IPN_REGISTRATION_URL = "https://cybqa.pesapal.com/pesapalv3/api/URLSetup/RegisterIPN"
+PESAPAL_ORDER_REQUEST_URL = "https://cybqa.pesapal.com/pesapalv3/api/Transactions/SubmitOrderRequest"
+REGISTERED_IPNS_URL = "https://cybqa.pesapal.com/pesapalv3/api/URLSetup/GetIpnList"
+TRANSACTION_STATUS_URL = "https://cybqa.pesapal.com/pesapalv3/api/Transactions/GetTransactionStatus?orderTrackingId={}"
+
 
 # Application definition
 
@@ -157,3 +164,5 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 USE_TZ = True
+
+ALLOWED_HOSTS = ["*"]

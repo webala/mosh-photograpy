@@ -41,6 +41,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class Login(APIView):
+     permission_classes = [AllowAny]
      def post(self, request):
           serialiser = LoginSerializer(data=request.data)
           if serialiser.is_valid(raise_exception=True):
@@ -51,6 +52,6 @@ class Login(APIView):
                     serialiser = UserSerializer(user)
                     return Response(serialiser.data, status=200)
                else:
-                    return Response({'message': 'Invalid username or password'}, 403)
+                    return Response({'message': 'Invalid username or password'}, 401)
           return Response({'message': 'Bad request'}, status=400)
 

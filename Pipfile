@@ -12,6 +12,8 @@ python-dotenv = "*"
 reportlab = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+djangorestframework-simplejwt = "*"
+requests = "*"
 
 [dev-packages]
 

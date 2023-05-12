@@ -4,12 +4,12 @@ from django.views.decorators.csrf import csrf_exempt
 import json, io
 from shop.forms import ClientForm, ImageUploadForm, MessageForm, ShootForm
 from shop.utils import (
-    get_image_url,
-    initiate_stk_push,
-    upload_image,
-    auth,
-    email,
-    password,
+    # get_image_url,
+    # initiate_stk_push,
+    # upload_image,
+    # auth,
+    # email,
+    # password,
     initiate_pesapal_transaction,
     get_transaction_status
 )
@@ -67,26 +67,26 @@ class GalleryView(generics.ListAPIView):
     serializer_class = GallerySerializer
     permission_classes = (AllowAny, )
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-@parser_classes([FormParser, MultiPartParser])
-def image_upload_view(request):
-    serializer = UploadImageSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-        data = serializer.validated_data
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# @parser_classes([FormParser, MultiPartParser])
+# def image_upload_view(request):
+#     serializer = UploadImageSerializer(data=request.data)
+#     if serializer.is_valid(raise_exception=True):
+#         data = serializer.validated_data
 
-        image = data.get('image')
-        filename = upload_image('gallery', image)
-        user = auth.sign_in_with_email_and_password(email, password)
-        image_url = get_image_url('gallery', filename, user)
-        gallery_image = GalleryImage.objects.create(
-            filename=filename,
-            download_url=image_url
-        )
+#         image = data.get('image')
+#         filename = upload_image('gallery', image)
+#         user = auth.sign_in_with_email_and_password(email, password)
+#         image_url = get_image_url('gallery', filename, user)
+#         gallery_image = GalleryImage.objects.create(
+#             filename=filename,
+#             download_url=image_url
+#         )
 
-        serializer = GallerySerializer(gallery_image)
+#         serializer = GallerySerializer(gallery_image)
 
-        return Response(serializer.data, status=200)
+#         return Response(serializer.data, status=200)
    
 
 

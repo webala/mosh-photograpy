@@ -59,7 +59,11 @@ INSTALLED_APPS = [
     "shop",
     "dashboard",
     "rest_framework",
-    "corsheaders"
+    "corsheaders",
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'account'
+    
 ]
 
 MIDDLEWARE = [
@@ -99,7 +103,10 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
 # Database

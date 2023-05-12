@@ -1,4 +1,4 @@
-import pyrebase
+# import pyrebase
 import secrets, os, requests, json, base64, smtplib, ssl
 from requests.auth import HTTPBasicAuth
 from django.conf import settings
@@ -12,50 +12,50 @@ from email.message import EmailMessage
 
 load_dotenv()
 
-firebase_config = {
-    "apiKey": "AIzaSyDONrFp2bNY1vw5Lm9mCvTc4NVRyjlgdv4",
-    "authDomain": "mosh-photography.firebaseapp.com",
-    "projectId": "mosh-photography",
-    "storageBucket": "mosh-photography.appspot.com",
-    "messagingSenderId": "743008571288",
-    "appId": "1:743008571288:web:5a1ba6ffa447c6c78225ed",
-    "measurementId": "G-H1TRK2PB0K",
-    "databaseURL": "",
-}
+# firebase_config = {
+#     "apiKey": "AIzaSyDONrFp2bNY1vw5Lm9mCvTc4NVRyjlgdv4",
+#     "authDomain": "mosh-photography.firebaseapp.com",
+#     "projectId": "mosh-photography",
+#     "storageBucket": "mosh-photography.appspot.com",
+#     "messagingSenderId": "743008571288",
+#     "appId": "1:743008571288:web:5a1ba6ffa447c6c78225ed",
+#     "measurementId": "G-H1TRK2PB0K",
+#     "databaseURL": "",
+# }
 
-firebase = pyrebase.initialize_app(firebase_config)
-storege = firebase.storage()
-
-
-auth = firebase.auth()
-email = os.getenv("FIREBASE_EMAIL")
-password = os.getenv("FIREBASE_PASSWORD")
+# firebase = pyrebase.initialize_app(firebase_config)
+# storege = firebase.storage()
 
 
-def compress(image, f_ext):
-    im = Image.open(image)
-    im_io = BytesIO()
-    im.save(im_io, "JPEG", quality=60)
-    new_image = File(im_io, name=image.name)
-    return new_image
+# auth = firebase.auth()
+# email = os.getenv("FIREBASE_EMAIL")
+# password = os.getenv("FIREBASE_PASSWORD")
 
 
-def upload_image(directory, file):
-    print("image upload called")
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(file.name)
-    filename = random_hex + f_ext
-    file.name = filename
-    image = compress(file, f_ext[1:])
-    directory = directory + "/" + filename
-    storege.child(directory).put(image)
-    return filename
+# def compress(image, f_ext):
+#     im = Image.open(image)
+#     im_io = BytesIO()
+#     im.save(im_io, "JPEG", quality=60)
+#     new_image = File(im_io, name=image.name)
+#     return new_image
 
 
-def get_image_url(directory, filename, user):
-    path = directory + "/" + filename
-    url = storege.child(path).get_url(user["idToken"])
-    return url
+# def upload_image(directory, file):
+#     print("image upload called")
+#     random_hex = secrets.token_hex(8)
+#     _, f_ext = os.path.splitext(file.name)
+#     filename = random_hex + f_ext
+#     file.name = filename
+#     image = compress(file, f_ext[1:])
+#     directory = directory + "/" + filename
+#     storege.child(directory).put(image)
+#     return filename
+
+
+# def get_image_url(directory, filename, user):
+#     path = directory + "/" + filename
+#     url = storege.child(path).get_url(user["idToken"])
+#     return url
 
 
 # Function to generate daraja access token

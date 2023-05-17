@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "mosh-photography",
+  "private_key_id": "e917a3705667c33957f2c4c0c3c32937490cce85",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDCi3EOwBdpoFkk\nCpszDNsSuFaO6x8Z0AwBc3ptVK33/b1CzsUqHDrMj24NtjhJLexXnQIAQfGpEpBI\nbxPitY+fEZhcYpzgB3vTK0a5jpNzP1+myQOa6DKiebSTtbgaIFlNiROQkRtFkzsL\n9B0ru6ym59eqEyk6lC62WrTd1FxlhmLcGRulHL39Hg1SV5s7GlyPLtYIei654Zoe\nDN9Ha8CBBV4vC5wQKHz3FyOLV7q8PbrDcdOJsezcK4tPYcLLU9DyVfLsgPQA0cFq\nbi1wy6VuGtvoUp6o6RzAH0eakl5eYXoYcFm5X0nlsjOCoEENX+ette1bnjW+D5W0\nPfjXNnKfAgMBAAECggEACz79U6F2GQSMcqFsVFinZ18hndRosVjOAN14k85j2iSg\nZrbGPgdwvLeD4KYKfex6L5xja7lkK2Zn0dAeAaqGOWdOe/S1Zdv44/2p8nsT+gMN\nV/phy3glyS+o6SsFj/kTwIAukdpZjb2Tmb7MWuVX9zQKywmdhgXf52m57+LhTnsK\n4UDe9rKoVGFiZOnmmGR15Upe8z0qscc2Km6rSMJPp8MPPVa1byEL9U5sEwtAgvkx\n3jTxVShGvcy5OsaHk9vIRAMxCSzRCjuSIKCFkWeN3YSNAKGtLk6dq3ay5+2e7aj9\ngfnPvSDO89hA0Ecrm3eHvtq/orCgBg11BIylN5kgyQKBgQDzO4cy45O0WH567+n+\nAflchDDb0Fq21vpDk1AQBoE1CVxFlwoR61i8jvjYbJ+X2QdOFKKnBsT5Wh2t47Hi\ng7QVDuRt5qUuRu6iBQhip0/tLKKmdTgAMUKi52/JHywebznk4xqa6RXNXzsRbC6Y\n/EXJNKp8iOR+OU/NQO+a9P/RmQKBgQDMwanqrVtJ+ExFBvLEF3CmMBJVmquNLO+n\nP4GZ4DaAppvz+eONd0B1EqWMdx3LxVTX04xGJgoMVf+9fhVHeJ+xFzUJ4VhlZckD\n4WrqHLDqSeNYItC0+GPztXSDADZRAtuNTfo8tL92mi7JIDWXiTQeyOHq9yEwu3wJ\nUeoAwG/49wKBgQDQp1RHl2px3yhBFeZI/DCJ6Oxw5L+s8aYmqgyYcrwMX0dEe1ks\nHhQ1TQCzyBrwDEFz/ce6ONhof6HONfG3OvwUxH24uY8hr7+uRVr4JkcuUogE+7Fa\nmOdtD9SZV6BlS00CyL9d/G2zi+oD/CXNHzxOaluGEXjRvyByFy50Y4/AoQKBgQCr\n+sZDTNRubtVw7QMfXSjLDXl42W7aJzIr4hVzL3XX3RkEdZGBkvZa3wyZzLsEGnzG\nwvMBQJYUAm/Js4sf+tr2na143QOoNzP9xGpOtUaLowAHWUa/mhop6vEvzw/QP3w1\nVZenQZHHhn1hhWI+I4nZiZToDCaejfsCwQCxHPFvxQKBgD2jQKhXaf2w03HIaOqu\n9VEvtLmutvdPH+9KQuiqnS9cIh+5Hu1FKkLM6FwU0oHFv9g6bGjxMws50rQ4gTaL\nm0/03ZpqGxnxR8Y66mnQEz4uYEIsdyP4RYUzUcTWedy+BaKyrSN1JsGODHf9Qzz5\nIZYENglZ8b/HNgN950uvI0sG\n-----END PRIVATE KEY-----\n",
+  "client_email": "mosh-photography@appspot.gserviceaccount.com",
+  "client_id": "113090465278234024824",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mosh-photography%40appspot.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

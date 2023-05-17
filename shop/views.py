@@ -1,15 +1,10 @@
-
 from django.http import HttpResponse, FileResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 import json, io
 from shop.forms import ClientForm, ImageUploadForm, MessageForm, ShootForm
 from shop.utils import (
-    # get_image_url,
-    # initiate_stk_push,
-    # upload_image,
-    # auth,
-    # email,
-    # password,
+    upload_image,
+    delete_image,
     initiate_pesapal_transaction,
     get_transaction_status
 )
@@ -19,7 +14,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from reportlab.pdfgen import canvas
 from rest_framework.decorators import api_view, permission_classes, parser_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -51,43 +46,47 @@ def home(request):
     return render(request, "home.html", context)
 
 
-def gallery(request):
-    photos = GalleryImage.objects.filter(display=True)
-    # query photos 10 at a time
-    paginator = Paginator(photos, 10)
-    page_number = request.GET.get("page")  # get page number from GET request
-    page_obj = paginator.get_page(page_number)
-
-    context = {"page_obj": page_obj}
-
-    return render(request, "gallery.html", context)
-
 class GalleryView(generics.ListAPIView):
     queryset = GalleryImage.objects.all()
     serializer_class = GallerySerializer
     permission_classes = (AllowAny, )
 
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# @parser_classes([FormParser, MultiPartParser])
-# def image_upload_view(request):
-#     serializer = UploadImageSerializer(data=request.data)
-#     if serializer.is_valid(raise_exception=True):
-#         data = serializer.validated_data
+class ImageDetail(generics.DestroyAPIView):
+    queryset = GalleryImage.objects.all()
+    serializer_class = GallerySerializer
+    permission_classes = (IsAuthenticated, )
 
-#         image = data.get('image')
-#         filename = upload_image('gallery', image)
-#         user = auth.sign_in_with_email_and_password(email, password)
-#         image_url = get_image_url('gallery', filename, user)
-#         gallery_image = GalleryImage.objects.create(
-#             filename=filename,
-#             download_url=image_url
-#         )
 
-#         serializer = GallerySerializer(gallery_image)
+@api_view(['POST'])
+@permission_classes([AllowAny])
+@parser_classes([FormParser, MultiPartParser])
+def image_upload_view(request):
+    serializer = UploadImageSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        data = serializer.validated_data
 
-#         return Response(serializer.data, status=200)
-   
+        image = data.get('image')
+        img_data = upload_image('gallery', image)
+        filename = img_data['filename']
+        image_url = img_data['image_url']
+        gallery_image = GalleryImage.objects.create(
+            filename=filename,
+            download_url=image_url
+        )
+
+        serializer = GallerySerializer(gallery_image)
+
+        return Response(serializer.data, status=200)
+    
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
+def delete_image_view(request, image_id):
+    image = GalleryImage.objects.get(id=image_id)
+    path = 'gallery/{}'.format(image.filename)
+    delete_image(path)
+    image.delete()
+    return Response({'message': 'success'})
+    
 
 
 def package(request):

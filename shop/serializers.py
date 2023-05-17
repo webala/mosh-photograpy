@@ -11,12 +11,11 @@ class PackgesSerializer(serializers.Serializer):
      category = serializers.CharField(required=False)
      type = serializers.CharField()
 
-
-
 class PhoneNumberSerializer(serializers.Serializer):
      phoneNumber = serializers.CharField()
 
 class GallerySerializer(serializers.ModelSerializer):
+     id = serializers.IntegerField()
      class Meta:
           model = GalleryImage
           fields = "__all__"

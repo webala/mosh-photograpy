@@ -18,4 +18,8 @@ urlpatterns = [
     path('receipt/<transaction_id>', download_receipt, name='download-receipt'),
     path('payment', ProcessPayment.as_view(), name='process-payment'),
     path('payment/ipn', pesapal_ipn, name='payment-notification'),
+    path('transactions', TransactionListView.as_view(), name='transactions'),
+    path('transaction/<int:pk>', TransactionView.as_view(), name='transaction'),
+    path('clients', ClientListView.as_view(), name='clients'),
+    path('client/<int:pk>', ClientView.as_view(), name='client'),
 ]

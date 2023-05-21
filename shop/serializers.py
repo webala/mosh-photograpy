@@ -62,7 +62,7 @@ class BookedServiceSerializer(serializers.ModelSerializer):
           fields = "__all__"
 
 class ShootSerializer(serializers.ModelSerializer):
-     id = serializers.IntegerField()
+     id = serializers.IntegerField(required=False)
      booked_services = BookedServiceSerializer(many=True)
      client = ClientSerializer(required=False)
      class Meta:
@@ -100,3 +100,8 @@ class ShootSerializer(serializers.ModelSerializer):
 
 class PaymentSerializer(serializers.Serializer):
      shoot = ShootSerializer()
+
+class TransactionSerializer(serializers.ModelSerializer):
+     class Meta:
+          model = Transaction
+          fields = '__all__'

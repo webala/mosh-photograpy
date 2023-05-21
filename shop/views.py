@@ -18,7 +18,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import ShootSerializer, PhoneNumberSerializer, GallerySerializer, UploadImageSerializer, ServiceSerializer, CategorySerializer, PaymentSerializer
+from .serializers import ShootSerializer, ClientSerializer, GallerySerializer, UploadImageSerializer, ServiceSerializer, CategorySerializer, PaymentSerializer, TransactionSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 
 # Create your views here.
@@ -113,7 +113,6 @@ class ShootListCreateView(generics.ListCreateAPIView):
     queryset = Shoot.objects.all()
     permission_classes = [AllowAny]
     
-
 
 
 def await_confirmation(request, request_id):
@@ -230,3 +229,22 @@ def pesapal_ipn(request):
             shoot.save()
         return HttpResponse('OK')
     
+class ClientListView(generics.ListAPIView):
+    queryset = Client.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = ClientSerializer
+
+class ClientView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Client.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = ClientSerializer
+
+class TransactionListView(generics.ListAPIView):
+    queryset = Transaction.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = TransactionSerializer
+
+class TransactionView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Transaction.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = TransactionSerializer

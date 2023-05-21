@@ -259,6 +259,7 @@ def initiate_pesapal_transaction(description, id, amount=1.0):
         "amount": amount,
         "description": description,
         "notification_id": notification_id,
+        "callback_url": "http://localhost:3000",
         "billing_address": {
             "email_address": "john.doe@example.com",
             "phone_number": "0723xxxxxx",
